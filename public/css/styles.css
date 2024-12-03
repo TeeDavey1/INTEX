@@ -4,15 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* General reset
-body, html, ul, li, a {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-} */
-
+/* **********************HEADER********************* */
 /* Header container */
 .main-header {
     display: flex;
@@ -44,10 +36,10 @@ body, html, ul, li, a {
 }
 
 .nav-links .loginButton {
-    background-color: rgb(49, 193, 255);
+    background-color: rgb(17, 112, 9);
 }
 .nav-links .loginButton:hover {
-    background-color: rgb(0, 98, 141);
+    background-color: rgb(14, 76, 9);
 }
 
 /* Navigation links */
@@ -75,4 +67,123 @@ body, html, ul, li, a {
 
 .nav-links a:hover {
     background-color: #5e5e5e; /* Light gray color when hovered */
+}  
+
+
+/* ****************MAIN IMG*************** */
+.headerImg {
+    position: relative;
+    width: 100%;  /* Desired cropped width */
+    height: 500px; /* Desired cropped height */
+    overflow: hidden; /* Hide overflowing parts of the image */
+    
+}
+
+.headerImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire container */
+}
+
+.blackTint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+}
+
+.headerImgHeader {
+    position: absolute;
+    top: 35%;
+    left: 20px;
+    transform: translateY(-50%); /* Adjusts vertical centering so the header is truly centered */
+    color: white;
+    padding: 10px;     /* Optional: Add padding for better readability */
+
+}
+
+
+/* *******************SPONSORS PAGE*************** */
+.sponsor-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adds spacing between images */
+    justify-content: center; /* Centers the images */
+    align-items: flex-end; /* Aligns all images to the bottom */
+}
+
+.sponsor-logos img {
+    width: 150px; /* Set the width for all images */
+    height: 100px; /* Ensures a fixed height for consistency */
+    object-fit: contain; /* Fits the image within the box without cropping */
+    border: 1px solid #ddd; /* Optional: Add a border for styling */
+    border-radius: 5px; /* Optional: Round the corners */
+    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+}
+.sponsor-logos img:hover {
+    transform: scale(1.1); /* Slightly enlarges the image on hover */
+}
+
+/* About  */
+.content-container {
+    max-width: 800px; /* Limits the content width for better readability */
+    margin: 50px auto; /* Centers the content with space at the top */
+    padding: 20px;
+    background: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Intro text styling */
+.intro-text {
+    font-size: 1.2em;
+    background-color: #333; /* Dark background for emphasis */
+    color: #fff; /* White text for contrast */
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Jen's Story Title */
+.story-title {
+    font-size: 2em;
+    color: #d9534f; /* Red shade to draw attention */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Image styling */
+.image-container {
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    margin-bottom: 20px;
+}
+
+.jen-image {
+    max-width: 100%;
+    height: auto; /* Ensures the image maintains its aspect ratio */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Story text styling */
+.story-text {
+    text-align: justify; /* Align text for a cleaner look */
+    font-size: 1em;
+    color: #333; /* Dark text for readability */
+    margin-bottom: 20px;
+    line-height: 1.8; /* Improves readability */
+}
+
+.story-text b {
+    color: #d9534f; /* Make the "YOU" stand out */
+}
+
+/* Adding emphasis to important parts */
+.story-text em {
+    color: #5bc0de; /* Light blue color for emphasis */
+    font-weight: bold;
 }  
