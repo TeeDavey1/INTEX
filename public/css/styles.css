@@ -213,3 +213,61 @@ main{
     color: #5bc0de; /* Light blue color for emphasis */
     font-weight: bold;
 }
+
+/* Reset and basic styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+  }
+  
+  header {
+    text-align: center;
+    background: #0056b3;
+    color: #fff;
+    padding: 2rem 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Help options styling */
+  .help-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 1rem;
+  }
+  
+  .help-link {
+    display: block;
+    width: 90%; /* Takes most of the page width */
+    max-width: 400px; /* Ensures it doesn't grow too large on wider screens */
+    padding: 1.5rem;
+    text-align: center;
+    background: rgb(17, 112, 9); /* Light-opacity forest green */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .help-link:hover {
+    background: rgba(34, 139, 34, 1); /* Fully opaque forest green on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
