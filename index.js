@@ -36,6 +36,10 @@ app.get('/login-page', (req, res) => {
     res.render('pages/login-page', {title : 'Our Sponsors'})
 })
 
+app.get('/requestEvent', (req, res) => {
+    res.render('pages/requestEvent', {title : 'Request Event'})
+})
+
 
 // Shows server is listening on start up
 app.listen(port, () => console.log("Listening..."));
