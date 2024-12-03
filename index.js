@@ -16,19 +16,6 @@ app.use(express.urlencoded({extended: true})); // Makes it so the server can get
 
 app.use(express.static('public')); // Enabling public folder for css
 
-// Connect the knex library
-const knex = require("knex") ({
-    client : "pg",
-    connection : {
-        host : process.env.RDS_HOSTNAME || "localhost",
-        user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "POS921pos@",
-        database : process.env.RDS_DB_NAME || "disneycharacters",
-        port : process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
-    }
-})
-
 app.get('/', (req, res) => {
     res.render('landingPage', {title: 'Turtle Shelter Project'});
 });
