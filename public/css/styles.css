@@ -153,6 +153,7 @@ main{
     overflow-wrap: normal;
 }
 
+/* *********HOME PAGE******** */
 
 /* About  */
 .content-container {
@@ -163,6 +164,11 @@ main{
     border-radius: 10px; /* Rounded corners */
     /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); Subtle shadow for depth */
     overflow: hidden; /* Ensure proper wrapping around floating elements */
+}
+
+.turtle-shelter-explanation{
+    justify-self: center;
+    text-align: center;
 }
 
 /* Intro text styling */
