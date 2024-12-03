@@ -4,6 +4,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+main{
+    justify-self: center;
+    width: 80%;
+}
 /* **********************HEADER********************* */
 /* Header container */
 .main-header {
@@ -109,9 +113,22 @@
 .sponsor-logos {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Adds spacing between images */
-    justify-content: center; /* Centers the images */
-    align-items: flex-end; /* Aligns all images to the bottom */
+    gap: 20px; /* Adds more spacing between sponsor items for better readability */
+    justify-content: center; /* Centers the items */
+    align-items: flex-start; /* Aligns all images and text to the top */
+    text-align: center; /* Centers text under the images */
+}
+
+.sponsor-item {
+    display: flex;
+    flex-direction: column; /* Arrange image and text vertically */
+    align-items: center; /* Center image and text horizontally */
+    text-decoration: none; /* Removes underline on the entire container */
+}
+
+.sponsor-item a {
+    text-decoration: none; /* Removes underline from the links */
+    color: inherit; /* Keep the text color as defined in the p tag */
 }
 
 .sponsor-logos img {
@@ -121,23 +138,36 @@
     border: 1px solid #ddd; /* Optional: Add a border for styling */
     border-radius: 5px; /* Optional: Round the corners */
     transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+    margin-bottom: 5px; /* Add space between the image and the sponsor name */
 }
+
 .sponsor-logos img:hover {
     transform: scale(1.1); /* Slightly enlarges the image on hover */
 }
 
+.sponsor-item p {
+    font-size: 1em; /* Font size for the sponsor name */
+    color: #333; /* Dark color for better readability */
+    margin: 0; /* Remove default margin */
+    width: 160px;
+    overflow-wrap: normal;
+}
+
+
 /* About  */
 .content-container {
-    max-width: 800px; /* Limits the content width for better readability */
+ /* Limits the content width for better readability */
     margin: 50px auto; /* Centers the content with space at the top */
     padding: 20px;
     background: #f9f9f9; /* Light background for contrast */
     border-radius: 10px; /* Rounded corners */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); Subtle shadow for depth */
+    overflow: hidden; /* Ensure proper wrapping around floating elements */
 }
 
 /* Intro text styling */
 .intro-text {
+    justify-self: center;
     font-size: 1.2em;
     background-color: #333; /* Dark background for emphasis */
     color: #fff; /* White text for contrast */
@@ -150,20 +180,21 @@
 /* Jen's Story Title */
 .story-title {
     font-size: 2em;
-    color: #d9534f; /* Red shade to draw attention */
+    color: #333; /* Red shade to draw attention */
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Image styling */
 .image-container {
-    display: flex;
-    justify-content: center; /* Center the image horizontally */
+    float: left; /* Align image to the left */
+    margin-right: 20px; /* Add space between the image and the text */
     margin-bottom: 20px;
+    width: 300px; /* Set a width for the container */
 }
 
 .jen-image {
-    max-width: 100%;
+    width: 100%; /* Set the width to fill the container */
     height: auto; /* Ensures the image maintains its aspect ratio */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -174,16 +205,11 @@
     text-align: justify; /* Align text for a cleaner look */
     font-size: 1em;
     color: #333; /* Dark text for readability */
-    margin-bottom: 20px;
     line-height: 1.8; /* Improves readability */
-}
-
-.story-text b {
-    color: #d9534f; /* Make the "YOU" stand out */
 }
 
 /* Adding emphasis to important parts */
 .story-text em {
     color: #5bc0de; /* Light blue color for emphasis */
     font-weight: bold;
-}  
+}
