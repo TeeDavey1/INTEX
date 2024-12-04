@@ -83,21 +83,6 @@ app.get('/maintainEmployees', async (req, res) => {
     }
 });
 
-app.get('/addEmployees', (req, res) => {
-    res.render('internalPages/addEmployee', { title: 'Add Employee' });
-});
-
-app.get('/editEmployee/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const employee = await knex('employees').where('empid', id).first();
-        res.render('internalPages/editEmployee', { title: 'Edit Employee', employee });
-    } catch (error) {
-        console.error('Error fetching employee:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 app.get('/viewEmployee/:id', async (req, res) => {
     const employeeId = req.params.id;
 
@@ -118,33 +103,11 @@ app.get('/viewEmployee/:id', async (req, res) => {
     }
 });
 
-app.post('/editEmployee/:id', async (req, res) => {
-    const { id } = req.params;
-    const updatedData = req.body; // Add validation here
-    try {
-        await knex('employees').where('empid', id).update(updatedData);
-        res.redirect('/maintainEmployees');
-    } catch (error) {
-        console.error('Error updating employee:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-app.post('/deleteEmployee/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        await knex('employees').where('empid', id).del();
-        res.redirect('/maintainEmployees');
-    } catch (error) {
-        console.error('Error deleting employee:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 app.get('/addEmployees', (req, res) => {
     res.render('internalPages/addEmployee', { title: 'Add Employee' });
 });
 
+// Route to add a new employee
 app.post('/addEmployee', async (req, res) => {
     try {
         await knex('employees').insert(req.body); // Ensure data validation here
@@ -166,11 +129,16 @@ app.get('/editEmployee/:id', async (req, res) => {
     }
 });
 
+// Route to update an employee's information
 app.post('/editEmployee/:id', async (req, res) => {
     const { id } = req.params;
+    const updatedData = req.body; // Add validation here
     try {
-        await knex('employees').where('empid', id).update(req.body); // Ensure data validation here
-        res.redirect('/maintainEmployees');
+        // Update the employee data in the database
+        await knex('employees').where('empid', id).update(updatedData);
+        
+        // Redirect to the employee view or maintainEmployees page
+        res.redirect(`/viewEmployee/${id}`);
     } catch (error) {
         console.error('Error updating employee:', error);
         res.status(500).send('Internal Server Error');
