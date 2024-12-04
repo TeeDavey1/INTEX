@@ -111,13 +111,13 @@
                 <td><%= row.volfirst %></td>
                 <td><%= row.vollast %></td>
                 <td class="action-buttons">
-                  <a href="/viewVolunteer/<%= row.empid %>">
+                  <a href="/viewVolunteer/<%= row.volid %>">
                     <button>View</button>
                   </a>
-                  <a href="/editVolunteer/<%= row.empid %>">
+                  <a href="/editVolunteer/<%= row.volid %>">
                     <button>Edit</button>
                   </a>
-                  <form action="/deleteVolunteer/<%= row.empid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+                  <form action="/deleteVolunteer/<%= row.volid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
                     <button type="submit">Delete</button>
                   </form>                
                 </td>
@@ -133,7 +133,7 @@
 
       <div style="text-align: center;">
         <form action="/addVolunteer" method="GET">
-          <button type="submit">Add Employee</button>
+          <button type="submit">Add Volunteer</button>
         </form>
       </div>
     </div>

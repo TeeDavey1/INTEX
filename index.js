@@ -59,6 +59,14 @@ app.get('/beVolunteer', (req, res) => {
     res.render('pages/beVolunteer', {title : 'Be a Volunteer'})
 })
 
+app.get('/logout', (req, res) => {
+    res.render('landingPage', {title: 'Turtle Shelter Project'})
+})
+
+app.get('/adminStats', (req,res) => {
+    res.render('internalPages/adminStats', {title: 'Admin Stats'})
+})
+
 // maintain employees section
 app.get('/maintainEmployees', async (req, res) => {
     try {
@@ -85,12 +93,24 @@ app.get('/maintainVolunteers', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+// maintain events section
+app.get('/maintainEvents', async (req, res) => {
+    try {
+        // Fetch all event data
+        const Events = await knex('events').select('*'); // Adjust table name if necessary
+        
+        // Render the EJS page and pass the Events data
+        res.render('internalPages/maintainEvents', { title: 'Maintain Event Records', Events });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 
 // view employee
 app.get('/viewEmployee/:id', async (req, res) => {
     const employeeId = req.params.id;
-
     try {
         // Fetch the employee's details from the database
         const employee = await knex('employees')

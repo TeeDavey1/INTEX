@@ -57,7 +57,7 @@ transition: color 0.3s;
 text-decoration: none; /* Removes the underline */
 background-color: #333; /* Main header background color, adjust as needed */
 color: #fff; /* Button text color */
-padding: 10px 20px; /* Padding for button-like appearance */
+padding: 10px 10px; /* Padding for button-like appearance */
 border: none; /* Removes any default border */
 border-radius: 8px; /* Lightly rounded corners */
 transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -477,6 +477,7 @@ footer {
   height: auto;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 /* Left Quote Styling */
@@ -488,12 +489,15 @@ footer {
   align-items: center;
   text-align: center;
   width: 50%;
+  border-radius: 5px;
 }
 
 .quote-left {
   background-color: #228B22; /* Forest Green */
   color: #fff;
   border-right: 2px solid #fff; /* Division between quotes */
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .quote-left p {
@@ -510,7 +514,9 @@ footer {
 /* Right Quote Styling */
 .quote-right {
   background-color: #f4f4f4;
-  color: #228B22;
+  color: #333;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .quote-right p {
