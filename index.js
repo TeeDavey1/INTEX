@@ -44,6 +44,5 @@ app.get('/login-page', (req, res) => {
     res.render('pages/login-page', {title : 'Our Sponsors'})
 })
 
-
 // Shows server is listening on start up
 app.listen(port, () => console.log("Listening..."));
