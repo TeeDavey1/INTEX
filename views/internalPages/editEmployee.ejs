@@ -106,97 +106,113 @@
     <h1>Edit Employee</h1>
   </header>
 
-  <div class="container">
-    <h2>Update Employee Details for <%= employee.empfirst %> <%= employee.emplast %></h2>
+  <form action="/editEmployee/<%= employee.empid %>" method="POST" onsubmit="return confirmSave(event)">
 
-    <!-- Personal Information and Address Sections Side by Side -->
-    <div class="row">
-      <div class="column">
-        <div class="section">
-          <h3>Personal Information</h3>
-          <label for="empfirst">First Name:</label>
-          <input type="text" id="empfirst" name="empfirst" value="<%= employee.empfirst %>" required>
+    <div class="container">
+        <h2>Update Employee Details for <%= employee.empfirst %> <%= employee.emplast %></h2>
 
-          <label for="emplast">Last Name:</label>
-          <input type="text" id="emplast" name="emplast" value="<%= employee.emplast %>" required>
+        <!-- Personal Information and Address Sections Side by Side -->
+        <div class="row">
+        <div class="column">
+            <div class="section">
+            <h3>Personal Information</h3>
+            <label for="empfirst">First Name:</label>
+            <input type="text" id="empfirst" name="empfirst" value="<%= employee.empfirst %>" required>
 
-          <label for="empphone">Phone:</label>
-          <input type="text" id="empphone" name="empphone" value="<%= employee.empphone %>" required>
+            <label for="emplast">Last Name:</label>
+            <input type="text" id="emplast" name="emplast" value="<%= employee.emplast %>" required>
 
-          <label for="empemail">Email:</label>
-          <input type="email" id="empemail" name="empemail" value="<%= employee.empemail %>" required>
+            <label for="empphone">Phone:</label>
+            <input type="text" id="empphone" name="empphone" value="<%= employee.empphone %>" required>
 
-          <label for="empbirthday">Birthday:</label>
-          <input type="date" id="empbirthday" name="empbirthday" value="<%= new Date(employee.empbirthday).toISOString().split('T')[0] %>" required>
+            <label for="empemail">Email:</label>
+            <input type="email" id="empemail" name="empemail" value="<%= employee.empemail %>" required>
 
-          <label for="empgender">Gender:</label>
-          <input type="text" id="empgender" name="empgender" value="<%= employee.empgender %>" required>
+            <label for="empbirthday">Birthday:</label>
+            <input type="date" id="empbirthday" name="empbirthday" value="<%= new Date(employee.empbirthday).toISOString().split('T')[0] %>" required>
 
-          <label for="empshirtsize">Shirt Size:</label>
-          <input type="text" id="empshirtsize" name="empshirtsize" value="<%= employee.empshirtsize %>" required>
+            <label for="empgender">Gender:</label>
+            <input type="text" id="empgender" name="empgender" value="<%= employee.empgender %>" required>
 
-          <label for="empusername">Username:</label>
-          <input type="text" id="empusername" name="empusername" value="<%= employee.empusername %>" required>
+            <label for="empshirtsize">Shirt Size:</label>
+            <input type="text" id="empshirtsize" name="empshirtsize" value="<%= employee.empshirtsize %>" required>
+
+            <label for="empusername">Username:</label>
+            <input type="text" id="empusername" name="empusername" value="<%= employee.empusername %>" required>
+            </div>
         </div>
-      </div>
 
-      <div class="column">
-        <div class="section">
-          <h3>Address</h3>
-          <label for="empstreetaddress">Street Address:</label>
-          <input type="text" id="empstreetaddress" name="empstreetaddress" value="<%= employee.empstreetaddress %>" required>
+        <div class="column">
+            <div class="section">
+            <h3>Address</h3>
+            <label for="empstreetaddress">Street Address:</label>
+            <input type="text" id="empstreetaddress" name="empstreetaddress" value="<%= employee.empstreetaddress %>" required>
 
-          <label for="empcity">City:</label>
-          <input type="text" id="empcity" name="empcity" value="<%= employee.empcity %>" required>
+            <label for="empcity">City:</label>
+            <input type="text" id="empcity" name="empcity" value="<%= employee.empcity %>" required>
 
-          <label for="empstate">State:</label>
-          <input type="text" id="empstate" name="empstate" value="<%= employee.empstate %>" required>
+            <label for="empstate">State:</label>
+            <input type="text" id="empstate" name="empstate" value="<%= employee.empstate %>" required>
 
-          <label for="empzipcode">Zipcode:</label>
-          <input type="text" id="empzipcode" name="empzipcode" value="<%= employee.empzipcode %>" required>
+            <label for="empzipcode">Zipcode:</label>
+            <input type="text" id="empzipcode" name="empzipcode" value="<%= employee.empzipcode %>" required>
+            </div>
         </div>
-      </div>
+        </div>
+
+        <!-- Job Information Section Below -->
+        <div class="section">
+        <h3>Job Information</h3>
+        <label for="empjobtitle">Job Title:</label>
+        <input type="text" id="empjobtitle" name="empjobtitle" value="<%= employee.empjobtitle %>" required>
+
+        <label for="empsalary">Salary:</label>
+        <input type="text" id="empsalary" name="empsalary" value="<%= employee.empsalary %>" required>
+
+        <label for="empstartdate">Start Date:</label>
+        <input type="date" id="empstartdate" name="empstartdate" value="<%= new Date(employee.empstartdate).toISOString().split('T')[0] %>" required>
+
+        <label for="empstatus">Status:</label>
+        <input type="text" id="empstatus" name="empstatus" value="<%= employee.empstatus %>" required>
+
+        <label for="empsewinglevel">Sewing Level:</label>
+        <input type="text" id="empsewinglevel" name="empsewinglevel" value="<%= employee.empsewinglevel %>" required>
+        </div>
+
+        <div class="action-buttons">
+        <button type="submit">Save Changes</button>
+        <a href="javascript:void(0)" onclick="goBack()">
+            <button type="button">Cancel</button>
+        </a>
+        </div>
     </div>
+  </form>
 
-    <!-- Job Information Section Below -->
-    <div class="section">
-      <h3>Job Information</h3>
-      <label for="empjobtitle">Job Title:</label>
-      <input type="text" id="empjobtitle" name="empjobtitle" value="<%= employee.empjobtitle %>" required>
-
-      <label for="empsalary">Salary:</label>
-      <input type="text" id="empsalary" name="empsalary" value="<%= employee.empsalary %>" required>
-
-      <label for="empstartdate">Start Date:</label>
-      <input type="date" id="empstartdate" name="empstartdate" value="<%= new Date(employee.empstartdate).toISOString().split('T')[0] %>" required>
-
-      <label for="empstatus">Status:</label>
-      <input type="text" id="empstatus" name="empstatus" value="<%= employee.empstatus %>" required>
-
-      <label for="empsewinglevel">Sewing Level:</label>
-      <input type="text" id="empsewinglevel" name="empsewinglevel" value="<%= employee.empsewinglevel %>" required>
-    </div>
-
-    <div class="action-buttons">
-      <button type="submit" onclick="return confirmSave(event)">Save Changes</button>
-      <a href="/maintainEmployees">
-        <button type="button">Cancel</button>
-      </a>
-    </div>
-
-  </div>
-
-  <script>
-    function confirmSave(event) {
-      // Display confirmation prompt
-      if (!confirm("Are you sure you want to save changes?")) {
-        event.preventDefault(); // Prevent form submission if user cancels
-        return false;
-      }
-      // If confirmed, return true and submit the form
-      window.history.back(); // Go back to the previous page
-    }
-  </script>
+  
 
 </body>
+<script>
+    function confirmSave(event) {
+        // Display confirmation prompt
+        if (!confirm("Are you sure you want to save changes?")) {
+        event.preventDefault(); // Prevent form submission if user cancels
+        return false;
+        }
+
+        // Store the previous page URL
+        const previousPage = document.referrer;
+
+        // Submit the form after confirmation
+        setTimeout(function() {
+        // After form submission, navigate back to the previous page
+        window.location.href = previousPage;
+        }, 100);
+
+        return true; // Allow form submission to proceed
+    }
+    function goBack() {
+    window.history.back(); // Go back to the previous page
+    }
+
+</script>
 </html>

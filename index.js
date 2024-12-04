@@ -103,7 +103,7 @@ app.get('/viewEmployee/:id', async (req, res) => {
     }
 });
 
-app.get('/addEmployees', (req, res) => {
+app.get('/addEmployee', (req, res) => {
     res.render('internalPages/addEmployee', { title: 'Add Employee' });
 });
 
