@@ -111,19 +111,68 @@
             margin-top: 20px;
         }
 
+        /* Ensure labels inside the sewing section match the rest of the page */
         .sewing-section label {
-            font-weight: normal;
+            font-weight: bold; /* Match the bold font weight used elsewhere */
+            font-size: 0.9rem;  /* Ensure the font size matches the rest of the labels */
+            /* color: #555;        Match the color of labels elsewhere */
         }
+        /* Intro Container Styles */
+        .intro-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .intro-container h1 {
+            font-size: 2.5rem;
+            color: #2c3e50; /* Dark color for the heading */
+            margin-bottom: 10px;
+        }
+
+        .intro-container p {
+            font-size: 1rem;
+            color: #555; /* Slightly lighter color for the paragraph text */
+            margin-top: 0;
+        }
+
+        /* Adjusting the layout for sewing section */
+        .sewing-section .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .sewing-section .form-group {
+            flex: 1 1 45%; /* Ensure each input takes up half the row */
+        }
+
+        .sewing-section input,
+        .sewing-section select {
+            font-family: Arial, sans-serif; /* Consistent font */
+            font-size: 0.9rem;             /* Match the font size */
+            padding: 8px;                  /* Consistent padding */
+            border: 1px solid #ccc;       /* Border style */
+            border-radius: 5px;           /* Consistent border radius */
+            margin-top: 5px;               /* Margin to separate from the label */
+        }
+
+
     </style>
 </head>
 <body>
+    <!-- New Intro Block -->
+<div class="intro-container">
+    <h1>Schedule an Event</h1>
+    <p>
+        Turtle Shelter Project vests are the perfect service project for groups of all sizes and types. 
+        From individuals or families to hundreds of participants at corporate events, everyone can make a difference! 
+        Fill out the form below so we can help you plan an event tailored to your group.
+    </p>
+</div>
+
     <form id="requestEventForm">
-        <h1>Schedule an Event</h1>
-        <p>
-            Turtle Shelter Project vests are the perfect service project for groups of all sizes and types. 
-            From individuals or families to hundreds of participants at corporate events, everyone can make a difference! 
-            Fill out the form below so we can help you plan an event tailored to your group.
-        </p>
 
         <!-- Contact Info Section -->
         <h2>Contact Info</h2>
@@ -189,10 +238,12 @@
                 <input type="text" id="date-possible" name="EventPossibleDate" placeholder="e.g., Any weekend in March">
             </div>
         </div>
+        <!-- Service Type Dropdown -->
         <div class="form-row">
             <div class="form-group full-width">
                 <label for="service-type">Service Type</label>
                 <select id="service-type" name="service_type">
+                    <option value="" disabled selected>Select Service Type</option> <!-- Empty placeholder option -->
                     <option value="Sewing">Sewing</option>
                     <option value="NonSewing">Non-Sewing</option>
                     <option value="Both">Both</option>
@@ -202,15 +253,29 @@
         
         <!-- Sewing-Specific Fields -->
         <div id="sewing-section" class="sewing-section">
-            <label for="basicSewing">Basic Sewing Skills</label>
-            <input type="number" id="basicSewing" name="BasicSewing" min="0">
-            <label for="advancedSewing">Advanced Sewing Skills</label>
-            <input type="number" id="advancedSewing" name="AdvancedSewing" min="0">
-            <label for="sewingMachines">Number of Sewing Machines</label>
-            <input type="number" id="sewingMachines" name="SewingMachines" min="0">
-            <label for="sergers">Number of Sergers</label>
-            <input type="number" id="sergers" name="Sergers" min="0">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="basicSewing">Basic Sewing Skills</label>
+                    <input type="number" id="basicSewing" name="BasicSewing" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="advancedSewing">Advanced Sewing Skills</label>
+                    <input type="number" id="advancedSewing" name="AdvancedSewing" min="0">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sewingMachines">Number of Sewing Machines</label>
+                    <input type="number" id="sewingMachines" name="SewingMachines" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="sergers">Number of Sergers</label>
+                    <input type="number" id="sergers" name="Sergers" min="0">
+                </div>
+            </div>
         </div>
+
 
         <!-- Location Section -->
         <h2>Event Location</h2>
@@ -237,10 +302,28 @@
 
         <!-- Additional Details Section -->
         <h2>Additional Details</h2>
+
+        <!-- Story Dropdown -->
         <div class="form-row">
             <div class="form-group full-width">
                 <label for="story">Would you like the founder (Jen) to share her story at the event?</label>
-                <input type="checkbox" id="story" name="willingToDonate">
+                <select id="story" name="Story">
+                    <option value="" disabled selected>Select Option</option> <!-- Empty placeholder option -->
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Willing to Donate Dropdown -->
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="willingToDonate">Willing to Donate? (Yes/No):</label>
+                <select id="willingToDonate" name="willingToDonate">
+                    <option value="" disabled selected>Select Option</option> <!-- Empty placeholder option -->
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
             </div>
         </div>
 
