@@ -32,8 +32,8 @@ app.get('/sponsors', (req, res) => {
     res.render('pages/sponsors', {title : 'Our Sponsors'})
 })
 
-app.get('/login-page', (req, res) => {
-    res.render('pages/login-page', {title : 'Our Sponsors'})
+app.get('/login', (req, res) => {
+    res.render('pages/login', {title : 'Our Sponsors'})
 })
 
 app.get('/requestEvent', (req, res) => {

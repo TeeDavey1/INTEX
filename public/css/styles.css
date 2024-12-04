@@ -39,11 +39,65 @@ main{
     border-radius: 50%;
 }
 
-.nav-links .loginButton {
-    background-color: rgb(17, 112, 9);
+/* Styles for the Login Page */
+/* body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+} */
+
+.login-container {
+  justify-self: center;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
-.nav-links .loginButton:hover {
-    background-color: rgb(14, 76, 9);
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
 /* Navigation links */
@@ -284,6 +338,7 @@ footer {
     color: #fff;
     padding: 1rem;
     text-align: center;
+    margin-top: 80px;
   }
   
   .footer-content {
@@ -302,7 +357,7 @@ footer {
   }
   
   .footer-contact a {
-    color: #ffcc00; /* Bright link color for contrast */
+    color: #008cff; /* Bright link color for contrast */
     text-decoration: none;
   }
   
@@ -332,3 +387,19 @@ footer {
     filter: invert(80%) brightness(1.2);
   }
   
+  .footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .social-link {
+    color: #fff;
+    font-size: 2rem; /* Adjust the icon size */
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .social-link:hover {
+    color: #ffcc00; /* Highlight color on hover */
+    transform: scale(1.2);
+  }
