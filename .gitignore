@@ -4,4 +4,8 @@ node_modules/
 # Zip files
 *.zip
 
+# Python File
 zzTest.py
+
+#Environment File
+.env
