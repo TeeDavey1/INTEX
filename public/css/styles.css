@@ -138,6 +138,15 @@ button[type="submit"]:hover {
     background-color: #5e5e5e; /* Light gray color when hovered */
 }  
 
+/* Targeting the specific login button within nav-links */
+.nav-links a.loginButton {
+  background-color: #228B22; /* Green background color */
+  color: white; /* White text color */
+}
+
+.nav-links a.loginButton:hover {
+  background-color: #45a049; /* Lighter green when hovered */
+}
 
 /* ****************MAIN IMG*************** */
 .headerImg {
