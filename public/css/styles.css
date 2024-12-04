@@ -386,3 +386,20 @@ footer {
     filter: invert(80%) brightness(1.2);
   }
   
+  .footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .social-link {
+    color: #fff;
+    font-size: 2rem; /* Adjust the icon size */
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .social-link:hover {
+    color: #ffcc00; /* Highlight color on hover */
+    transform: scale(1.2);
+  }
+  
