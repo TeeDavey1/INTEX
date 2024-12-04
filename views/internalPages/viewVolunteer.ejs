@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Employee</title>
+  <title>View Volunteers</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -122,59 +122,59 @@
 <body>
 
   <header>
-    <h1>Employee Details</h1>
+    <h1>Volunteer Details</h1>
   </header>
 
   <div class="container">
-    <h2><%= employee.empfirst %> <%= employee.emplast %></h2>
+    <h2><%= volunteer.volfirst %> <%= volunteer.vollast %></h2>
 
     <!-- Personal Information and Address Sections Side by Side -->
     <div class="row">
       <div class="column">
         <div class="section">
           <h3>Personal Information</h3>
-          <div class="info"><span>Employee ID:</span> <%= employee.empid %></div>
-          <div class="info"><span>Phone:</span> <%= employee.empphone %></div>
-          <div class="info"><span>Email:</span> <%= employee.empemail %></div>
-          <div class="info"><span>Birthday:</span> <%= new Date(employee.empbirthday).toLocaleDateString() %></div>
-          <div class="info"><span>Gender:</span> <%= employee.empgender %></div>
-          <div class="info"><span>Shirt Size:</span> <%= employee.empshirtsize %></div>
-          <div class="info"><span>Username:</span> <%= employee.empusername %></div>
+          <div class="info"><span>Volunteer ID:</span> <%= volunteer.volid %></div>
+          <div class="info"><span>Phone:</span> <%= volunteer.volphone %></div>
+          <div class="info"><span>Email:</span> <%= volunteer.volemail %></div>
+          <div class="info"><span>Birthday:</span> <%= new Date(volunteer.volbirthday).toLocaleDateString() %></div>
+          <div class="info"><span>Gender:</span> <%= volunteer.volgender %></div>
+          <div class="info"><span>Shirt Size:</span> <%= volunteer.volshirtsize %></div>
+          <div class="info"><span>Username:</span> <%= volunteer.volusername %></div>
         </div>
       </div>
       <div class="column">
         <div class="section">
           <h3>Address</h3>
-          <div class="info"><span>Street Address:</span> <%= employee.empstreetaddress %></div>
-          <div class="info"><span>City:</span> <%= employee.empcity %></div>
-          <div class="info"><span>State:</span> <%= employee.empstate %></div>
-          <div class="info"><span>Zipcode:</span> <%= employee.empzipcode %></div>
+          <div class="info"><span>Street Address:</span> <%= volunteer.volstreetaddress %></div>
+          <div class="info"><span>City:</span> <%= volunteer.volcity %></div>
+          <div class="info"><span>State:</span> <%= volunteer.volstate %></div>
+          <div class="info"><span>Zipcode:</span> <%= volunteer.volzipcode %></div>
         </div>
       </div>
     </div>
 
     <!-- Job Information Section Below -->
     <div class="section">
-      <h3>Job Information</h3>
-      <div class="info"><span>Job Title:</span> <%= employee.empjobtitle %></div>
-      <div class="info"><span>Salary:</span> $<%= employee.empsalary %></div>
-      <div class="info"><span>Start Date:</span> <%= new Date(employee.empstartdate).toLocaleDateString() %></div>
-      <div class="info"><span>Status:</span> <%= employee.empstatus %></div>
-      <div class="info"><span>Sewing Level:</span> <%= employee.empsewinglevel %></div>
+      <h3>Volunteer Information</h3>
+      <div class="info"><span>Willing to lead:</span> <%= volunteer.lead %></div>
+      <div class="info"><span>Preferred Hours per Month:</span> $<%= volunteer.volNumHoursPerMonth %></div>
+      <div class="info"><span>Start Date:</span> <%= new Date(volunteer.volstartdate).toLocaleDateString() %></div>
+      <div class="info"><span>Status:</span> <%= volunteer.volstatus %></div>
+      <div class="info"><span>Sewing Level:</span> <%= volunteer.volsewinglevel %></div>
     </div>
 
     <div class="action-buttons">
-        <a href="/editEmployee/<%= employee.empid %>">
+        <a href="/editVolunteer/<%= volunteer.volid %>">
           <button>Edit</button>
         </a>
-        <form action="/deleteEmployee/<%= employee.empid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+        <!-- <form action="/deleteEmployee/" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
           <button type="submit">Delete</button>
-        </form>
+        </form> -->
     </div>
 
     <!-- Back Button -->
     <div class="back-btn">
-      <a href="/maintainEmployees"><button>Back to Employee List</button></a>
+      <a href="/maintainVolunteers"><button>Back to Volunteer List</button></a>
     </div>
 
   </div>

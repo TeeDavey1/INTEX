@@ -84,58 +84,60 @@
       text-decoration: none;
     }
   </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <%- include('../partials/adminHeader') %>
+  <main>
+    <header>
+      <h1>Employee Records</h1>
+    </header>
 
-  <header>
-    <h1>Employee Records</h1>
-  </header>
-
-  <div class="container">
-    <table>
-      <thead>
-        <tr>
-          <th>Employee ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if (Employees && Employees.length > 0) { %>
-          <% Employees.forEach(row => { %>
-            <tr>
-              <td><%= row.empid %></td>
-              <td><%= row.empfirst %></td>
-              <td><%= row.emplast %></td>
-              <td class="action-buttons">
-                <a href="/viewEmployee/<%= row.empid %>">
-                  <button>View</button>
-                </a>
-                <a href="/editEmployee/<%= row.empid %>">
-                  <button>Edit</button>
-                </a>
-                <form action="/deleteEmployee/<%= row.empid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
-                  <button type="submit">Delete</button>
-                </form>                
-              </td>
-            </tr>
-          <% }) %>
-        <% } else { %>
+    <div class="container">
+      <table>
+        <thead>
           <tr>
-            <td colspan="4" class="no-data">No employees found</td>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
           </tr>
-        <% } %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% if (Employees && Employees.length > 0) { %>
+            <% Employees.forEach(row => { %>
+              <tr>
+                <td><%= row.empid %></td>
+                <td><%= row.empfirst %></td>
+                <td><%= row.emplast %></td>
+                <td class="action-buttons">
+                  <a href="/viewEmployee/<%= row.empid %>">
+                    <button>View</button>
+                  </a>
+                  <a href="/editEmployee/<%= row.empid %>">
+                    <button>Edit</button>
+                  </a>
+                  <form action="/deleteEmployee/<%= row.empid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+                    <button type="submit">Delete</button>
+                  </form>                
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="no-data">No employees found</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
 
-    <div style="text-align: center;">
-      <form action="/addEmployee" method="GET">
-        <button type="submit">Add Employee</button>
-      </form>
+      <div style="text-align: center;">
+        <form action="/addEmployee" method="GET">
+          <button type="submit">Add Employee</button>
+        </form>
+      </div>
     </div>
-  </div>
-
+  </main>
 </body>
 <script>
   function confirmDelete(event) {

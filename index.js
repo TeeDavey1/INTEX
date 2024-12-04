@@ -1,17 +1,6 @@
 let express = require("express");
 let app = express();
 let path = require("path");
-// const knex = require('knex')({
-//     client: 'pg',
-//     connection: {
-//         host: process.env.RDS_HOSTNAME || 'localhost',  // 'awseb-e-wkpcibnp9x-stack-awsebrdsdatabase-xknynwspgdvf.c3kig2yiipwf.us-east-1.rds.amazonaws.com',
-//         user: process.env.RDS_USERNAME || 'ebroot',
-//         password: process.env.RDS_PASSWORD || 'denseTeam3-1',
-//         database: process.env.RDS_DB_NAME || 'ebdb',
-//         port: process.env.RDS_PORT || 5432,
-//         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
-//     },
-// });
 
 const knex = require('knex')({
     client: 'pg',
@@ -25,7 +14,7 @@ const knex = require('knex')({
     },
 });
 
-
+const jwt = require('jsonwebtoken');
 
 let security = false;
 
@@ -70,6 +59,7 @@ app.get('/beVolunteer', (req, res) => {
     res.render('pages/beVolunteer', {title : 'Be a Volunteer'})
 })
 
+// maintain employees section
 app.get('/maintainEmployees', async (req, res) => {
     try {
         // Fetch all employee data
@@ -82,7 +72,22 @@ app.get('/maintainEmployees', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+// maintain volunteer section
+app.get('/maintainVolunteers', async (req, res) => {
+    try {
+        // Fetch all employee data
+        const volunteers = await knex('volunteers').select('*'); // Adjust table name if necessary
+        
+        // Render the EJS page and pass the Employees data
+        res.render('internalPages/maintainVolunteers', { title: 'Maintain Volunteer Records', volunteers });
+    } catch (error) {
+        console.error('Error fetching volunteers:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
+
+// view employee
 app.get('/viewEmployee/:id', async (req, res) => {
     const employeeId = req.params.id;
 
@@ -99,6 +104,27 @@ app.get('/viewEmployee/:id', async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching employee details:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// view volunteer
+app.get('/viewVolunteer/:id', async (req, res) => {
+    const volunteerId = req.params.id;
+
+    try {
+        // Fetch the employee's details from the database
+        const volunteer = await knex('volunteers')
+            .where({ volid: volunteerId })
+            .first(); // Fetch a single employee
+        
+        if (volunteer) {
+            res.render('internalPages/viewVolunteer', { title: 'View Volunteer', volunteer });
+        } else {
+            res.status(404).send('Volunteer not found');
+        }
+    } catch (error) {
+        console.error('Error fetching volunteer details:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -157,20 +183,34 @@ app.post('/deleteEmployee/:id', async (req, res) => {
     }
 });
 
+// maintain volunteers section
+app.get('/maintainVolunteers', async (req, res) => {
+    try {
+        // Fetch all employee data
+        const Employees = await knex('volunteers').select('*'); // Adjust table name if necessary
+        
+        // Render the EJS page and pass the Volunteers data
+        res.render('internalPages/maintainVolunteers', { title: 'Maintain Volunteer Records', Employees });
+    } catch (error) {
+        console.error('Error fetching volunteers:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Login route - Handle login request
-app.post('/login', (req, res) => {
+app.post('/admin-login-submit', (req, res) => {
     const { username, password } = req.body;
 
-    // Query to find the user in the database
-    knex('users').where({ username }).first()
-        .then(user => {
-            if (!user) {
+    // Query to find the employee in the database
+    knex('employees').where({ empusername: username }).first()
+        .then(employee => {
+            if (!employee) {
                 return res.status(401).send('Invalid username or password');
             }
 
             // Compare passwords directly (encryption to be added later)
-            if (password === user.password) {
-                return res.send('Login successful');
+            if (password === employee.emppassword) {
+                return res.render('internalPages/adminLanding');
             } else {
                 return res.status(401).send('Invalid username or password');
             }
@@ -180,6 +220,31 @@ app.post('/login', (req, res) => {
             return res.status(500).send('Internal Server Error');
         });
 });
+
+// Login Page
+app.post('/login-submit', (req, res) => {
+    const { username, password } = req.body;
+
+    // Query to find the employee in the database
+    knex('volunteers').where({ volusername: username }).first()
+        .then(volunteer => {
+            if (!volunteer) {
+                return res.status(401).send('Invalid username or password');
+            }
+
+            // Compare passwords directly (encryption to be added later)
+            if (password === volunteer.volpassword) {
+                return res.redirect('/');
+            } else {
+                return res.status(401).send('Invalid username or password');
+            }
+        })
+        .catch(err => {
+            console.error('Error executing query:', err);
+            return res.status(500).send('Internal Server Error');
+        });
+});
+
 
 // Handle event request submissions
 app.post('/submit-event', (req, res) => {

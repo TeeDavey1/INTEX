@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <title><%= title%></title>
 </head>
     <body>
@@ -13,7 +14,7 @@
         <!-- Page-specific content goes here -->
             <div class="login-container">
                 <h2>Admin Login</h2>
-                <form action="/admin-login" method="POST">
+                <form action="/admin-login-submit" method="POST">
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <input type="text" id="username" name="username" required>

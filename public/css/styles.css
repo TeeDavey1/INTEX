@@ -11,34 +11,73 @@ main{
 /* **********************HEADER********************* */
 /* Header container */
 .main-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #333; /* Dark background */
-    color: white; /* White text for contrast */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  display: flex;
+  align-items: center; /* Centers items vertically */
+  justify-content: space-between;
+  padding: 0px 20px;
+  background-color: #333; /* Dark background */
+  color: white; /* White text for contrast */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 /* Logo container */
 .logo {
-    display: flex;
-    flex: 1;
+  display: flex;
+  align-items: center; /* Centers logo vertically */
+  /* justify-content: center; */
+  flex: 1;
 }
 
 .logo h1 {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    padding: 10px 20px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding: 10px 20px;
 }
 
 .logo-image {
-    max-height: 75px; /* Adjust logo size */
-    width: auto;
-    border-radius: 50%;
+  max-height: 50px; /* Adjust logo size */
+  width: auto;
+  border-radius: 50%;
+  /* padding-top: 5px; */
 }
 
+/* Navigation links */
+.nav-links {
+display: flex; /* Makes the links display horizontally */
+gap: 20px; /* Spacing between links */
+
+}
+
+.nav-links a {
+color: white;
+font-size: 16px;
+font-weight: bold;
+transition: color 0.3s;
+text-decoration: none; /* Removes the underline */
+background-color: #333; /* Main header background color, adjust as needed */
+color: #fff; /* Button text color */
+padding: 10px 20px; /* Padding for button-like appearance */
+border: none; /* Removes any default border */
+border-radius: 8px; /* Lightly rounded corners */
+transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+display: inline-block; /* Ensures proper button-like behavior */
+margin: 0px 0px;
+}
+
+.nav-links a:hover {
+background-color: #5e5e5e; /* Light gray color when hovered */
+}  
+
+/* Targeting the specific login button within nav-links */
+.nav-links a.loginButton {
+background-color: #228B22; /* Green background color */
+color: white; /* White text color */
+}
+
+.nav-links a.loginButton:hover {
+background-color: #45a049; /* Lighter green when hovered */
+}
 /* Styles for the Login Page */
 /* body {
   font-family: Arial, sans-serif;
@@ -109,43 +148,6 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #146714;
-}
-
-/* Navigation links */
-.nav-links {
-    display: flex; /* Makes the links display horizontally */
-    gap: 20px; /* Spacing between links */
-
-}
-
-.nav-links a {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    transition: color 0.3s;
-    text-decoration: none; /* Removes the underline */
-    background-color: #333; /* Main header background color, adjust as needed */
-    color: #fff; /* Button text color */
-    padding: 10px 20px; /* Padding for button-like appearance */
-    border: none; /* Removes any default border */
-    border-radius: 8px; /* Lightly rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-    display: inline-block; /* Ensures proper button-like behavior */
-    margin: 0px 0px;
-}
-
-.nav-links a:hover {
-    background-color: #5e5e5e; /* Light gray color when hovered */
-}  
-
-/* Targeting the specific login button within nav-links */
-.nav-links a.loginButton {
-  background-color: #228B22; /* Green background color */
-  color: white; /* White text color */
-}
-
-.nav-links a.loginButton:hover {
-  background-color: #45a049; /* Lighter green when hovered */
 }
 
 /* ****************MAIN IMG*************** */
