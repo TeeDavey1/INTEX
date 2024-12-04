@@ -26,11 +26,10 @@
         }
 
         /* Form Heading */
-        h2 {
-            font-size: 2rem;
+        .pageTitle {
+            font-size: 3rem;
             color: #228B22;
-            margin-bottom: 20px;
-            text-align: center;
+            text-align: left;
         }
 
         /* Form Layout */
@@ -85,6 +84,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            justify-content: center; /* Horizontally center the content */
         }
 
         .form-group {
@@ -97,28 +97,28 @@
 
         /* Checkbox Styling */
         .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: inline-flex; /* Ensures elements are inline and only take up necessary space */
+            align-items: center; /* Vertically aligns the checkbox and label */
+            justify-content: center; /* Horizontally centers the content */
         }
 
-        .checkbox-group label {
-            font-size: 1rem;
-            font-weight: normal;
+        .checkbox-group input[type="checkbox"] {
+            margin: 0 8px 0 0; /* Adds space only to the right of the checkbox */
+            width: auto; /* Prevents the checkbox from stretching */
+            height: auto; /* Ensures default checkbox height */
         }
 
         /* Intro Container Styling */
         .intro-container {
             background-color: #f9f9f9;
             border-radius: 8px;
-            padding: 10px;
+            padding: 20px;
             max-width: 800px;
-            margin: 10px auto;
-            text-align: center;
+            margin: 20px auto;
         }
 
         .intro-container h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #228B22;
             margin-bottom: 10px;
         }
@@ -133,8 +133,12 @@
 <body>
     <%- include('../partials/header') %>
     <div class="intro-container">
-    <h2>Volunteer Sign-Up Form</h2>
-    <p>Sign up to be a volunteer today!</p>
+    <h1 class="pageTitle">Volunteer Sign-Up Form</h1>
+    <p>Join our mission to make a difference! 
+        Sign up as a volunteer today and become part of a team dedicated 
+        to saving lives and alleviating suffering. Whether you have a 
+        little time or a lot, your efforts will make a meaningful impact 
+        in your community and beyond. Together, we can create change!</p>
 </div>
     <div class="form-container">
 
@@ -170,6 +174,24 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected hidden></option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="address"> Street Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+
+                <div class="form-group">
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" required>
                 </div>
@@ -185,11 +207,6 @@
                     <label for="zipcode">Zip Code:</label>
                     <input type="text" id="zipcode" name="zipcode" required>
                 </div>
-
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="newsletter" name="newsletter">
-                    <label for="newsletter">Sign up for newsletter emails</label>
-                </div>
             </div>
 
             <!-- Volunteer Information Section -->
@@ -202,19 +219,10 @@
                 <div class="form-group">
                     <label for="sewing_level">Sewing Level:</label>
                     <select id="sewing_level" name="sewing_level" required>
+                        <option value="" disabled selected hidden></option>
                         <option value="none">None</option>
                         <option value="basic">Basic</option>
                         <option value="advanced">Advanced</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender" required>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="other">Other</option>
-                        <option value="prefer_not_to_say">Prefer not to say</option>
                     </select>
                 </div>
             </div>
@@ -224,6 +232,7 @@
                 <div class="form-group">
                     <label for="shirt_size">Shirt Size:</label>
                     <select id="shirt_size" name="shirt_size" required>
+                        <option value="" disabled selected hidden></option>
                         <option value="xs">XS</option>
                         <option value="s">S</option>
                         <option value="m">M</option>
@@ -235,14 +244,25 @@
                     </select>
                 </div>
 
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="lead_event" name="lead_event">
+                <div class="form-group">
                     <label for="lead_event">Willing to lead an event?</label>
+                    <select id="lead_event" name="lead_event">
+                        <option value="" disabled selected hidden></option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to newsletter emails</label>
                 </div>
             </div>
 
             <!-- Form Submit -->
-            <button type="submit">Submit</button>
+            <button type="submit">Submit Form</button>
         </form>
     </div>
 
