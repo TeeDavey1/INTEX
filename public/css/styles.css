@@ -358,7 +358,7 @@ footer {
   }
   
   .footer-contact a {
-    color: #ffcc00; /* Bright link color for contrast */
+    color: #008cff; /* Bright link color for contrast */
     text-decoration: none;
   }
   
@@ -404,4 +404,3 @@ footer {
     color: #ffcc00; /* Highlight color on hover */
     transform: scale(1.2);
   }
-  
