@@ -3,284 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request an Event</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
+    <title>Volunteer Sign-Up Form</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
+       /* Reset some basic styles */
+body, h1, label, input, select, button {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-        form {
-            background: #fff;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 800px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+/* Styling the body */
+body {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
 
-        h1 {
-            text-align: left;
-            color: #2c3e50;
-        }
+/* Main container */
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: left; /* Aligns text to the left for readability */
+}
 
-        h2 {
-            font-size: 1.2rem;
-            color: #2c3e50;
-            margin: 20px 0 10px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-            text-align: left;
-        }
+/* Form Title */
+h1 {
+    color: #333;
+    text-align: center; /* Centers the form title */
+    margin-bottom: 20px;
+    font-size: 24px;
+}
 
-        p {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 20px;
-        }
+/* Input and select elements */
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Increased gap between input boxes */
-            margin-bottom: 20px;
-        }
+input[type="checkbox"] {
+    margin-right: 10px; /* Adds spacing between checkbox and label */
+}
 
-        .form-group {
-            flex: 1 1 30%;
-            padding: 5px;
-        }
+/* Labels */
+label {
+    font-size: 16px;
+    color: #555;
+    display: inline-block; /* Allows checkboxes to align properly */
+    margin-bottom: 5px;
+}
 
-        label {
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
+/* Styling for the submit button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
+button:hover {
+    background-color: #45a049;
+}
 
-        input::placeholder {
-            color: #aaa;
-        }
+/* Spacing for form elements */
+.form-container > form > div {
+    margin-bottom: 15px; /* Adds consistent spacing between form elements */
+}
 
-        textarea {
-            height: 80px;
-        }
+/* Checkbox and radio alignment fix */
+.form-container input[type="checkbox"], .form-container input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-        .full-width {
-            flex: 1 1 100%;
-        }
-
-        .total {
-            font-size: 0.9rem;
-            color: #555;
-            text-align: right;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #2c3e50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #34495e;
-        }
-
-        /* Sewing-Specific Styles */
-        .sewing-section {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .sewing-section label {
-            font-weight: normal;
-        }
     </style>
 </head>
 <body>
-    <form id="requestEventForm">
-        <h1>Schedule an Event</h1>
-        <p>
-            Turtle Shelter Project vests are the perfect service project for groups of all sizes and types. 
-            From individuals or families to hundreds of participants at corporate events, everyone can make a difference! 
-            Fill out the form below so we can help you plan an event tailored to your group.
-        </p>
+    <div class="form-container">
+        <h1>Volunteer Sign-Up Form</h1>
+        <form action="submit_form.php" method="POST">
+            <div>
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
 
-        <!-- Contact Info Section -->
-        <h2>Contact Info</h2>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="ContactFirstName" placeholder="e.g., John" required>
+            <div>
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required>
             </div>
-            <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="ContactLastName" placeholder="e.g., Doe" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="ContactPhone" placeholder="e.g., 555-123-4567" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="ContactEmail" placeholder="e.g., john.doe@example.com" required>
-            </div>
-        </div>
 
-        <!-- Organization Section -->
-        <h2>Organization</h2>
-        <div class="form-row">
-            <div class="form-group full-width">
-                <label for="organization">Organization Name</label>
-                <input type="text" id="organization" name="OrganizationName" placeholder="e.g., Acme Inc." required>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
             </div>
-        </div>
 
-        <!-- Participants Section -->
-        <h2>Participants</h2>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="child">Children</label>
-                <input type="number" id="child" name="Child" placeholder="e.g., 5" value="0" min="0" required>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
             </div>
-            <div class="form-group">
-                <label for="teen">Teens</label>
-                <input type="number" id="teen" name="Teen" placeholder="e.g., 3" value="0" min="0" required>
-            </div>
-            <div class="form-group">
-                <label for="adult">Adults</label>
-                <input type="number" id="adult" name="Adult" placeholder="e.g., 2" value="0" min="0" required>
-            </div>
-        </div>
-        <div class="form-group full-width">
-            <span id="totalParticipants" class="total">Total Participants: 0</span>
-        </div>
 
-        <!-- Event Details Section -->
-        <h2>Event Details</h2>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="date-preferred">Preferred Date</label>
-                <input type="date" id="date-preferred" name="EventPreferredDate" required>
+            <div>
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" name="birthday" required>
             </div>
-            <div class="form-group">
-                <label for="date-possible">Possible Date(s)</label>
-                <input type="text" id="date-possible" name="EventPossibleDate" placeholder="e.g., Any weekend in March">
+
+            <div>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group full-width">
-                <label for="service-type">Service Type</label>
-                <select id="service-type" name="service_type">
-                    <option value="Sewing">Sewing</option>
-                    <option value="NonSewing">Non-Sewing</option>
-                    <option value="Both">Both</option>
+
+            <div>
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" required>
+            </div>
+
+            <div>
+                <label for="zipcode">Zip Code:</label>
+                <input type="text" id="zipcode" name="zipcode" required>
+            </div>
+
+            <div>
+                <label for="newsletter">Sign up for newsletter emails:</label>
+                <input type="checkbox" id="newsletter" name="newsletter">
+            </div>
+
+            <div>
+                <label for="hours_per_month">Hours per month (Whole numbers only):</label>
+                <input type="number" id="hours_per_month" name="hours_per_month" min="0" step="1" required>
+            </div>
+
+            <div>
+                <label for="sewing_level">Sewing Level:</label>
+                <select id="sewing_level" name="sewing_level" required>
+                    <option value="none">None</option>
+                    <option value="basic">Basic</option>
+                    <option value="advanced">Advanced</option>
                 </select>
             </div>
-        </div>
-        
-        <!-- Sewing-Specific Fields -->
-        <div id="sewing-section" class="sewing-section">
-            <label for="basicSewing">Basic Sewing Skills</label>
-            <input type="number" id="basicSewing" name="BasicSewing" min="0">
-            <label for="advancedSewing">Advanced Sewing Skills</label>
-            <input type="number" id="advancedSewing" name="AdvancedSewing" min="0">
-            <label for="sewingMachines">Number of Sewing Machines</label>
-            <input type="number" id="sewingMachines" name="SewingMachines" min="0">
-            <label for="sergers">Number of Sergers</label>
-            <input type="number" id="sergers" name="Sergers" min="0">
-        </div>
 
-        <!-- Location Section -->
-        <h2>Event Location</h2>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="address">Street Address</label>
-                <input type="text" id="address" name="StreetAddress" placeholder="e.g., 123 Main St" required>
+            <div>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                    <option value="prefer_not_to_say">Prefer not to say</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" name="City" placeholder="e.g., Springfield" required>
+
+            <div>
+                <label for="shirt_size">Shirt Size:</label>
+                <select id="shirt_size" name="shirt_size" required>
+                    <option value="xs">XS</option>
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                    <option value="2xl">2XL</option>
+                    <option value="3xl">3XL</option>
+                    <option value="4xl">4XL</option>
+                </select>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="state">State</label>
-                <input type="text" id="state" name="State" placeholder="e.g., UT" required>
+
+            <div>
+                <label for="lead_event">Willing to lead an event?</label>
+                <input type="checkbox" id="lead_event" name="lead_event">
             </div>
-            <div class="form-group">
-                <label for="zip">Zipcode</label>
-                <input type="text" id="zip" name="Zipcode" placeholder="e.g., 84037" required>
-            </div>
-        </div>
 
-        <!-- Additional Details Section -->
-        <h2>Additional Details</h2>
-        <div class="form-row">
-            <div class="form-group full-width">
-                <label for="story">Would you like the founder (Jen) to share her story at the event?</label>
-                <input type="checkbox" id="story" name="willingToDonate">
-            </div>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit">Submit Request</button>
-    </form>
-
-    <script>
-        // JavaScript to toggle the sewing section visibility
-        const serviceType = document.getElementById('service-type');
-        const sewingSection = document.getElementById('sewing-section');
-
-        serviceType.addEventListener('change', () => {
-            if (serviceType.value === 'Sewing' || serviceType.value === 'Both') {
-                sewingSection.style.display = 'block';
-            } else {
-                sewingSection.style.display = 'none';
-            }
-        });
-
-        // Update total participants count
-        const childInput = document.getElementById('child');
-        const teenInput = document.getElementById('teen');
-        const adultInput = document.getElementById('adult');
-        const totalParticipantsDiv = document.getElementById('totalParticipants');
-
-        function updateTotalParticipants() {
-            const total =
-                (parseInt(childInput.value) || 0) +
-                (parseInt(teenInput.value) || 0) +
-                (parseInt(adultInput.value) || 0);
-
-            totalParticipantsDiv.textContent = `Total Participants: ${total}`;
-        }
-
-        [childInput, teenInput, adultInput].forEach(input => {
-            input.addEventListener('input', updateTotalParticipants);
-        });
-
-        updateTotalParticipants(); // Initial update
-    </script>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
