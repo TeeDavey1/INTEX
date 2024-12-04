@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
+        /* General Page Styling */
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
@@ -14,6 +15,7 @@
             padding: 0;
         }
 
+        /* Form Container */
         .form-container {
             background: #fff;
             padding: 20px;
@@ -23,33 +25,28 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2 {
-            color: #228B22;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
+        /* Form Heading */
         h1 {
             font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.4rem;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
-
-        p {
-            font-size: 1rem;
-            color: #555;
+            color: #228B22;
             margin-bottom: 20px;
+            text-align: center;
         }
 
+        /* Form Layout */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Labels and Inputs */
         label {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             margin-bottom: 5px;
             display: block;
+            color: #555;
         }
 
         input, select, textarea {
@@ -57,124 +54,119 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            height: 100px;
+            font-size: 1rem;
         }
 
         input::placeholder {
             color: #aaa;
         }
 
+        textarea {
+            height: 80px;
+        }
+
+        /* Submit Button */
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e7a1e;
+        }
+
+        /* Form Row and Grouping */
         .form-row {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            margin-bottom: 20px;
         }
 
         .form-group {
-            flex: 1 1 48%; /* Adjusted for a cleaner layout */
+            flex: 1 1 calc(33.33% - 20px);
         }
 
-        .full-width {
+        .form-group.full-width {
             flex: 1 1 100%;
         }
 
-        .total {
-            font-size: 0.9rem;
-            color: #555;
-            text-align: right;
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 12px;
+        .checkbox-group label {
             font-size: 1rem;
-            color: #fff;
-            background-color: #228B22;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
+            font-weight: normal;
         }
 
-        button:hover {
-            background-color: #1a661a;
-        }
-
-        /* Adjustments for sewing-specific inputs */
-        .sewing-section {
-            margin-top: 20px;
-        }
-
-        .sewing-section input,
-        .sewing-section select {
-            font-family: Arial, sans-serif;
-            font-size: 0.9rem;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        /* Intro section styles */
+        /* Intro Container Styling */
         .intro-container {
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 20px;
             max-width: 800px;
             margin: 20px auto;
+            text-align: center;
         }
 
         .intro-container h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
+            color: #228B22;
             margin-bottom: 10px;
         }
 
         .intro-container p {
             font-size: 1rem;
             color: #555;
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
     <%- include('../partials/header') %>
+
     <div class="form-container">
         <h1>Volunteer Sign-Up Form</h1>
+
         <form action="submit_form.php" method="POST">
+            <!-- Personal Information Section -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="first_name">First Name:</label>
                     <input type="text" id="first_name" name="first_name" required>
                 </div>
+
                 <div class="form-group">
                     <label for="last_name">Last Name:</label>
                     <input type="text" id="last_name" name="last_name" required>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="form-row">
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
                     <label for="birthday">Birthday:</label>
                     <input type="date" id="birthday" name="birthday" required>
                 </div>
+
                 <div class="form-group">
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" required>
@@ -186,22 +178,72 @@
                     <label for="state">State:</label>
                     <input type="text" id="state" name="state" required>
                 </div>
+
                 <div class="form-group">
                     <label for="zipcode">Zip Code:</label>
                     <input type="text" id="zipcode" name="zipcode" required>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group full-width">
-                    <label for="newsletter">Sign up for newsletter emails:</label>
+                <div class="form-group checkbox-group">
                     <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Sign up for newsletter emails</label>
                 </div>
             </div>
 
+            <!-- Volunteer Information Section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="hours_per_month">Hours per month:</label>
+                    <input type="number" id="hours_per_month" name="hours_per_month" min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sewing_level">Sewing Level:</label>
+                    <select id="sewing_level" name="sewing_level" required>
+                        <option value="none">None</option>
+                        <option value="basic">Basic</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Additional Preferences Section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="shirt_size">Shirt Size:</label>
+                    <select id="shirt_size" name="shirt_size" required>
+                        <option value="xs">XS</option>
+                        <option value="s">S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                        <option value="xl">XL</option>
+                        <option value="2xl">2XL</option>
+                        <option value="3xl">3XL</option>
+                        <option value="4xl">4XL</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="lead_event" name="lead_event">
+                    <label for="lead_event">Willing to lead an event?</label>
+                </div>
+            </div>
+
+            <!-- Form Submit -->
             <button type="submit">Submit</button>
         </form>
     </div>
+
     <%- include('../partials/footer') %>
 </body>
 </html>
