@@ -24,6 +24,14 @@ app.get('/about', (req, res) => {
     res.render('pages/about', {title : 'About'})
 })
 
+app.get('/requestEvent', (req, res) => {
+    res.render('pages/requestEvent', {title : 'Request Event'})
+})
+
+app.get('/beVolunteer', (req, res) => {
+    res.render('pages/beVolunteer', {title : 'Be a Volunteer'})
+})
+
 app.get('/how-you-can-help', (req, res) => {
     res.render('pages/how-you-can-help', {title : 'How You Can Help'})
 })
