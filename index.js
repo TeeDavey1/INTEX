@@ -53,7 +53,7 @@ app.get('/beVolunteer', (req, res) => {
 })
 
 app.get('/maintainEmployees', (req, res) => {
-    res.render('pages/maintainEmployees', {title : 'Maintain Employee Records'})
+    res.render('internalPages/maintainEmployees', {title : 'Maintain Employee Records'})
 })
 
 // Login route - Handle login request
