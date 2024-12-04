@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Employee Records</title>
+  <title>Maintain Employees</title>
   <style>
     table {
-      width: 100%;
+      width: 80%;
       margin: 20px auto;
       border-collapse: collapse;
+      font-size: 14px;
     }
     th, td {
       border: 1px solid #ddd;
@@ -14,89 +15,49 @@
       text-align: center;
     }
     th {
-      background-color: #f4f4f4;
+      background-color: #f2f2f2;
+      font-weight: bold;
     }
     button {
-      padding: 6px 12px;
+      padding: 5px 10px;
       margin: 2px;
+      font-size: 12px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1 style="text-align: center;">Employee Records</h1>
+  <h1 style="text-align: center;">Maintain Employees</h1>
+
   <table>
     <thead>
       <tr>
         <th>Employee ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Start Date</th>
-        <th>Salary</th>
-        <th>Birthday</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zip Code</th>
-        <th>Sewing Level</th>
-        <th>Gender</th>
-        <th>Shirt Size</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Permission</th>
-        <th>Job Title</th>
-        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <% if (Employees && Employees.length > 0) { %>
-        <% Employees.forEach(emp => { %>
+        <% Employees.forEach(employee => { %>
           <tr>
-            <td><%= emp.empid %></td>
-            <td><%= emp.empfirst %></td>
-            <td><%= emp.emplast %></td>
-            <td><%= emp.empphone %></td>
-            <td><%= emp.empemail %></td>
-            <td><%= emp.empstartdate %></td>
-            <td><%= emp.empsalary %></td>
-            <td><%= emp.empbirthday %></td>
-            <td><%= emp.empstreetaddress %></td>
-            <td><%= emp.empcity %></td>
-            <td><%= emp.empstate %></td>
-            <td><%= emp.empzipcode %></td>
-            <td><%= emp.empsewinglevel %></td>
-            <td><%= emp.empgender %></td>
-            <td><%= emp.empshirtsize %></td>
-            <td><%= emp.empusername %></td>
-            <td><%= emp.emppassword %></td>
-            <td><%= emp.emppermission %></td>
-            <td><%= emp.empjobtitle %></td>
-            <td><%= emp.empstatus %></td>
+            <td><%= employee.empid %></td>
+            <td><%= employee.empfirst %></td>
+            <td><%= employee.emplast %></td>
             <td>
-              <form action="/editEmployee/<%= emp.empid %>" method="GET" style="display: inline;">
-                <button type="submit">Edit</button>
-              </form>
-              <form action="/deleteEmployee/<%= emp.empid %>" method="POST" style="display: inline;">
-                <button type="submit">Delete</button>
+              <form action="/viewEmployee/<%= employee.empid %>" method="GET" style="display: inline;">
+                <button type="submit">View</button>
               </form>
             </td>
           </tr>
         <% }) %>
       <% } else { %>
         <tr>
-          <td colspan="21">No employees found</td>
+          <td colspan="4">No employees found</td>
         </tr>
       <% } %>
     </tbody>
   </table>
-  <form action="/addEmployees" method="GET" style="text-align: center; margin-top: 20px;">
-    <button type="submit">Add Employee</button>
-  </form>
-  <form action="/" method="GET" style="text-align: center; margin-top: 10px;">
-    <button type="submit">Home</button>
-  </form>
 </body>
 </html>
