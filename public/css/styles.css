@@ -155,11 +155,12 @@ button[type="submit"]:hover {
 
 .headerImgHeader {
     position: absolute;
-    top: 35%;
+    top: 50%;
     left: 20px;
     transform: translateY(-50%); /* Adjusts vertical centering so the header is truly centered */
     color: white;
     padding: 10px;     /* Optional: Add padding for better readability */
+    font-size: 65px;
 
 }
 
@@ -224,6 +225,12 @@ button[type="submit"]:hover {
 .turtle-shelter-explanation{
     justify-self: center;
     text-align: center;
+    font-size: 1.4em;
+}
+
+.turtle-shelter{
+  justify-self: center;
+  text-align: center;
 }
 
 /* Intro text styling */
