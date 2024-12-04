@@ -60,11 +60,11 @@ app.get('/beVolunteer', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
-    res.render('landingPage', {title: 'Turtle Shelter Project'})
+    res.redirect('/');
 })
 
-app.get('/adminStats', (req,res) => {
-    res.render('internalPages/adminStats', {title: 'Admin Stats'})
+app.get('/adminLanding', (req, res) => {
+    res.render('internalPages/adminLanding', {title: 'Admin Home'})
 })
 
 // maintain employees section
@@ -103,6 +103,21 @@ app.get('/maintainEvents', async (req, res) => {
         res.render('internalPages/maintainEvents', { title: 'Maintain Event Records', Events });
     } catch (error) {
         console.error('Error fetching events:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// maintain contacts
+app.get('/maintainContact', async (req, res) => {
+    try {
+        // Query to fetch all contact records from the eventcontact table using knex
+        const Contacts = await knex('eventcontact').select('*')
+            .orderBy('contactlast', 'contactfirst');
+
+        // Render the maintainContact EJS template with the fetched contacts
+        res.render('internalPages/maintainContact', { title: 'Maintain Event Contacts', Contacts });
+    } catch (error) {
+        console.error('Error fetching contacts:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -149,6 +164,31 @@ app.get('/viewVolunteer/:id', async (req, res) => {
     }
 });
 
+// GET route to display the Add Contact form
+app.get('/addContact', (req, res) => {
+    res.render('internalPages/addContact', { title: 'Add Contact', contact: {} });
+});
+
+// POST route to handle form submission and add contact to the database
+app.post('/addContact', async (req, res) => {
+    const { contactFirstName, contactLastName, contactPhone, contactEmail } = req.body;
+
+    // Insert contact data into PostgreSQL using Knex
+    try {
+        await knex('contacts').insert({
+            contactFirstName,
+            contactLastName,
+            contactPhone,
+            contactEmail
+        });
+        res.send('Contact added successfully!');
+    } catch (err) {
+        console.error('Error inserting contact into database:', err);
+        res.send('Error adding contact.');
+    }
+});
+
+
 app.get('/addEmployee', (req, res) => {
     // This will pass an empty employee object to the page
     res.render('internalPages/addEmployee', { title: 'Add Employee', employee: {} });
@@ -165,6 +205,95 @@ app.post('/addEmployee', async (req, res) => {
     }
 });
 
+// Route to render the Add Event form
+app.get('/addEvent', (req, res) => {
+    res.render('internalPages/addEvent');
+});
+
+// Route to handle Add Event form submission
+app.post('/addEvent', async (req, res) => {
+    try {
+        const {
+            contactid,
+            daterequestsent,
+            timerequestsent,
+            eventprefdate,
+            eventpossdate,
+            participants,
+            child,
+            teen,
+            adult,
+            servicetype,
+            basicsewing,
+            advsewing,
+            sergers,
+            streetaddress,
+            city,
+            state,
+            zipcode,
+            sizeofarea,
+            preftime,
+            prefduration,
+            organizationname,
+            story,
+            willingToDonate,
+            eventstatus,
+            actualdate,
+            actualduration,
+            actualeventtime,
+            actualparticipants,
+        } = req.body;
+
+        // Construct the SQL query
+        let query = `
+            INSERT INTO events (
+                contactid, daterequestsent, timerequestsent, eventprefdate, eventpossdate,
+                participants, child, teen, adult, servicetype, basicsewing, advsewing, sergers,
+                streetaddress, city, state, zipcode, sizeofarea, preftime, prefduration,
+                organizationname, story, willingToDonate, eventstatus
+            `;
+        
+        // Include actual fields only if the status is approved
+        if (eventstatus === 'approved') {
+            query += `, actualdate, actualduration, actualeventtime, actualparticipants`;
+        }
+
+        query += `) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
+            $21, $22, $23, $24
+        `;
+
+        // Include actual fields only if the status is approved
+        if (eventstatus === 'approved') {
+            query += `, $25, $26, $27, $28`;
+        }
+
+        query += `)`;
+
+        // Prepare the values array
+        const values = [
+            contactid, daterequestsent, timerequestsent, eventprefdate, eventpossdate,
+            participants, child, teen, adult, servicetype, basicsewing, advsewing, sergers,
+            streetaddress, city, state, zipcode, sizeofarea, preftime, prefduration,
+            organizationname, story, willingToDonate, eventstatus
+        ];
+
+        // Add actual fields only if the status is approved
+        if (eventstatus === 'approved') {
+            values.push(actualdate, actualduration, actualeventtime, actualparticipants);
+        }
+
+        // Execute the query
+        await pool.query(query, values);
+
+        // Redirect or display success message
+        res.redirect('/events'); // Redirect to a list of events or any other desired page
+    } catch (error) {
+        console.error('Error adding event:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.get('/editEmployee/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -176,18 +305,45 @@ app.get('/editEmployee/:id', async (req, res) => {
     }
 });
 
+app.get('/editVolunteer/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const volunteer = await knex('volunteers').where('volid', id).first();
+        res.render('internalPages/editVolunteer', { title: 'Edit Volunteer', volunteer });
+    } catch (error) {
+        console.error('Error fetching volunteer:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 // Route to update an employee's information
-app.post('/editEmployee/:id', async (req, res) => {
+// app.post('/editEmployee/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const updatedData = req.body; // Add validation here
+//     try {
+//         // Update the employee data in the database
+//         await knex('employees').where('empid', id).update(updatedData);
+        
+//         // Redirect to the employee view or maintainEmployees page
+//         res.redirect(`/viewEmployee/${id}`);
+//     } catch (error) {
+//         console.error('Error updating employee:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+app.post('/editVolunteer/:id', async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body; // Add validation here
     try {
         // Update the employee data in the database
-        await knex('employees').where('empid', id).update(updatedData);
+        await knex('volunteers').where('volid', id).update(updatedData);
         
         // Redirect to the employee view or maintainEmployees page
-        res.redirect(`/viewEmployee/${id}`);
+        res.redirect(`/viewVolunteer/${id}`);
     } catch (error) {
-        console.error('Error updating employee:', error);
+        console.error('Error updating volunteer:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -230,7 +386,7 @@ app.post('/admin-login-submit', (req, res) => {
 
             // Compare passwords directly (encryption to be added later)
             if (password === employee.emppassword) {
-                return res.render('internalPages/adminLanding');
+                return res.redirect('adminLanding');
             } else {
                 return res.status(401).send('Invalid username or password');
             }

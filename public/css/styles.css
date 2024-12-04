@@ -45,7 +45,7 @@ main{
 /* Navigation links */
 .nav-links {
 display: flex; /* Makes the links display horizontally */
-gap: 20px; /* Spacing between links */
+gap: 15px; /* Spacing between links */
 
 }
 
@@ -134,7 +134,7 @@ background-color: #45a049; /* Lighter green when hovered */
   box-sizing: border-box;
 }
 
-button[type="submit"] {
+.login-button {
   width: 100%;
   padding: 10px;
   background-color: #228B22;
@@ -146,7 +146,7 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
+.login-button :hover {
   background-color: #146714;
 }
 
@@ -314,11 +314,11 @@ body {
   
   header {
     text-align: center;
-    background: #0056b3;
-    color: #fff;
+    background: #f9f9f9;
+    color: rgb(15, 15, 15);
     padding: 2rem 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
   
   header h1 {
     margin: 0;
@@ -491,6 +491,7 @@ footer {
   width: 50%;
   border-radius: 5px;
 }
+
 
 .quote-left {
   background-color: #228B22; /* Forest Green */

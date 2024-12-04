@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .pageTitle {
+            font-size: 3rem;
+            color: #228B22;
+            text-align: left;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        textarea {
+            height: 80px;
+        }
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #1e7a1e;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-group {
+            flex: 1 1 calc(50% - 20px);
+        }
+        .form-group.full-width {
+            flex: 1 1 100%;
+        }
+        #actualData {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleActualData() {
+            const eventStatus = document.getElementById('eventstatus').value;
+            const actualDataSection = document.getElementById('actualData');
+            actualDataSection.style.display = eventStatus === 'approved' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="pageTitle">Add New Event</h1>
+        <form action="/addEvent" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contactid">Contact ID:</label>
+                    <input type="number" id="contactid" name="contactid" required>
+                </div>
+                <div class="form-group">
+                    <label for="daterequestsent">Date Request Sent:</label>
+                    <input type="date" id="daterequestsent" name="daterequestsent" required>
+                </div>
+                <div class="form-group">
+                    <label for="timerequestsent">Time Request Sent:</label>
+                    <input type="time" id="timerequestsent" name="timerequestsent" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventprefdate">Preferred Date:</label>
+                    <input type="date" id="eventprefdate" name="eventprefdate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="participants">Participants:</label>
+                    <input type="number" id="participants" name="participants" required>
+                </div>
+                <div class="form-group">
+                    <label for="servicetype">Service Type:</label>
+                    <select id="servicetype" name="servicetype" required>
+                        <option value="" disabled selected>Select Service Type</option>
+                        <option value="both">Both</option>
+                        <option value="sewing">Sewing</option>
+                        <option value="nonsewing">Non-Sewing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventstatus">Event Status:</label>
+                    <select id="eventstatus" name="eventstatus" onchange="toggleActualData()" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="declined">Declined</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="actualData">
+                <h3>Actual Event Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="actualdate">Actual Date:</label>
+                        <input type="date" id="actualdate" name="actualdate">
+                    </div>
+                    <div class="form-group">
+                        <label for="actualeventtime">Actual Event Time:</label>
+                        <input type="time" id="actualeventtime" name="actualeventtime">
+                    </div>
+                    <div class="form-group">
+                        <label for="actualparticipants">Actual Participants:</label>
+                        <input type="number" id="actualparticipants" name="actualparticipants">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Volunteer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    .section h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .info {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #555;
+    }
+    .info span {
+      font-weight: bold;
+      color: #333;
+    }
+    .row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .column {
+      flex: 1;
+      min-width: 200px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    }
+    button {
+      background-color: #228B22;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #1e7e1e;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .back-btn {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Edit Volunteer</h1>
+  </header>
+
+  <form action="/editVolunteer/<%= volunteer.volid %>" method="POST" onsubmit="return confirmSave(event)">
+
+    <div class="container">
+        <h2>Update Volunteer Details for <%= volunteer.volfirst %> <%= volunteer.vollast %></h2>
+
+        <!-- Personal Information and Address Sections Side by Side -->
+        <div class="row">
+        <div class="column">
+            <div class="section">
+            <h3>Personal Information</h3>
+
+            <label for="volfirst">First Name:</label>
+            <input type="text" id="volfirst" name="volfirst" value="<%= volunteer.volfirst %>" required>
+            
+            <label for="vollast">Last Name:</label>
+            <input type="text" id="vollast" name="vollast" value="<%= volunteer.vollast %>" required>
+            
+            <label for="volphone">Phone:</label>
+            <input type="text" id="volphone" name="volphone" value="<%= volunteer.volphone %>" required>
+            
+            <label for="volemail">Email:</label>
+            <input type="email" id="volemail" name="volemail" value="<%= volunteer.volemail %>" required>
+            
+            <label for="volgender">Gender:</label>
+            <input type="text" id="volgender" name="volgender" value="<%= volunteer.volgender %>" required>
+            
+            <label for="volbirthday">Birthday:</label>
+            <input type="date" id="volbirthday" name="volbirthday" value="<%= new Date(volunteer.volbirthday).toISOString().split('T')[0] %>" required>
+        
+            <label for="volshirtsize">Shirt Size:</label>
+            <input type="text" id="volshirtsize" name="volshirtsize" value="<%= volunteer.volshirtsize %>" required>
+
+            <label for="volusername">Username:</label>
+            <input type="text" id="volusername" name="volusername" value="<%= volunteer.volusername %>" required>
+        </div>
+        </div>
+
+        <div class="column">
+            <div class="section">
+            <h3>Address</h3>
+            <label for="volstreetaddress">Street Address:</label>
+            <input type="text" id="volstreetaddress" name="volstreetaddress" value="<%= volunteer.volstreetaddress %>" required>
+
+            <label for="volcity">City:</label>
+            <input type="text" id="volcity" name="volcity" value="<%= volunteer.volcity %>" required>
+
+            <label for="volstate">State:</label>
+            <input type="text" id="volstate" name="volstate" value="<%= volunteer.volstate %>" required>
+
+            <label for="volzipcode">Zipcode:</label>
+            <input type="text" id="volzipcode" name="volzipcode" value="<%= volunteer.volzipcode %>" required>
+            </div>
+        </div>
+        </div>
+
+        <!-- Job Information Section Below -->
+        <div class="section">
+        <h3>Job Information</h3>
+        <label for="lead">Willing to Lead:</label>
+        <input type="checkbox" id="lead" name="lead" <%= volunteer.lead ? "checked" : "" %>>
+
+
+        <label for="volnumhourspermonth">Preferred Hours per Month:</label>
+        <input type="text" id="volnumhourspermonth" name="volnumhourspermonth" value="<%= volunteer.volnumhourspermonth %>" required>
+
+        <label for="volstartdate">Start Date:</label>
+        <input type="date" id="volstartdate" name="volstartdate" value="<%= new Date(volunteer.volstartdate).toISOString().split('T')[0] %>" required>
+
+        <label for="volstatus">Status:</label>
+        <select id="volstatus" name="volstatus" class="dropselect" required>
+            <option value="" disabled>Select Status</option>
+            <option value="active" <%= volunteer.volstatus === "active" ? "selected" : "" %>>Active</option>
+            <option value="inactive" <%= volunteer.volstatus === "inactive" ? "selected" : "" %>>Inactive</option>
+        </select>
+
+        
+
+        <label for="volsewinglevel">Sewing Level:</label>
+        <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>
+            <option value="" disabled>Select Sewing Level</option>
+            <option value="none" <%= volunteer.volsewinglevel === "none" ? "selected" : "" %>>None</option>
+            <option value="beginner" <%= volunteer.volsewinglevel === "beginner" ? "selected" : "" %>>beginner</option>
+            <option value="intermediate" <%= volunteer.volsewinglevel === "intermediate" ? "selected" : "" %>>intermediate</option>
+            <option value="advanced" <%= volunteer.volsewinglevel === "advanced" ? "selected" : "" %>>advanced</option>
+        </select>
+        </div>
+
+        <div class="action-buttons">
+        <button type="submit">Save Changes</button>
+        <a href="javascript:void(0)" onclick="goBack()">
+            <button type="button">Cancel</button>
+        </a>
+        </div>
+    </div>
+  </form>
+
+  
+
+</body>
+<script>
+    function confirmSave(event) {
+        // Display confirmation prompt
+        if (!confirm("Are you sure you want to save changes?")) {
+        event.preventDefault(); // Prevent form submission if user cancels
+        return false;
+        }
+
+        // Store the previous page URL
+        const previousPage = document.referrer;
+
+        // Submit the form after confirmation
+        setTimeout(function() {
+        // After form submission, navigate back to the previous page
+        window.location.href = previousPage;
+        }, 100);
+
+        return true; // Allow form submission to proceed
+    }
+    function goBack() {
+    window.history.back(); // Go back to the previous page
+    }
+
+</script>
+</html>
