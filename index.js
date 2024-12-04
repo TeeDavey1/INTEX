@@ -6,8 +6,8 @@ const knex = require('knex')({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'your_db_password',
-        database: process.env.RDS_DB_NAME || 'your_db_name',
+        password: process.env.RDS_PASSWORD || 'denseTeam3-1',
+        database: process.env.RDS_DB_NAME || 'intex',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
     },
@@ -52,9 +52,18 @@ app.get('/beVolunteer', (req, res) => {
     res.render('pages/beVolunteer', {title : 'Be a Volunteer'})
 })
 
-app.get('/maintainEmployees', (req, res) => {
-    res.render('internalPages/maintainEmployees', {title : 'Maintain Employee Records'})
-})
+app.get('/maintainEmployees', async (req, res) => {
+    try {
+        // Fetch employees data from the database
+        const Employees = await knex('employees').select('*'); // Adjust table name to your schema
+
+        // Render the EJS page and pass the Employees data
+        res.render('internalPages/maintainEmployees', { title: 'Maintain Employee Records', Employees });
+    } catch (error) {
+        console.error('Error fetching employees:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Login route - Handle login request
 app.post('/login', (req, res) => {
@@ -79,6 +88,79 @@ app.post('/login', (req, res) => {
             return res.status(500).send('Internal Server Error');
         });
 });
+
+// Handle event request submissions
+app.post('/submit-event', (req, res) => {
+    const {
+        DateRequestSent, 
+        TimeRequestSent, 
+        EventPreferredDate, 
+        EventPossibleDate,
+        Participants, 
+        Child, 
+        Teen, 
+        Adult, 
+        service_type, 
+        BasicSewing, 
+        AdvancedSewing, 
+        SewingMachines, 
+        Sergers, 
+        StreetAddress, 
+        City, 
+        State, 
+        Zipcode, 
+        SizeOfArea,
+        PreferredTime, 
+        PreferredDuration, 
+        ContactFirstName, 
+        ContactLastName, 
+        ContactPhone, 
+        ContactEmail, 
+        OrganizationName, 
+        Story, 
+        willingToDonate
+    } = req.body;
+
+    // Insert the data into your database
+    knex('events') // Replace 'events' with your actual table name
+        .insert({
+            date_request_sent: DateRequestSent,
+            time_request_sent: TimeRequestSent,
+            event_preferred_date: EventPreferredDate,
+            event_possible_date: EventPossibleDate,
+            participants: Participants,
+            child: Child,
+            teen: Teen,
+            adult: Adult,
+            service_type,
+            basic_sewing: BasicSewing,
+            advanced_sewing: AdvancedSewing,
+            sewing_machines: SewingMachines,
+            sergers: Sergers,
+            street_address: StreetAddress,
+            city: City,
+            state: State,
+            zipcode: Zipcode,
+            size_of_area: SizeOfArea,
+            preferred_time: PreferredTime,
+            preferred_duration: PreferredDuration,
+            contact_first_name: ContactFirstName,
+            contact_last_name: ContactLastName,
+            contact_phone: ContactPhone,
+            contact_email: ContactEmail,
+            organization_name: OrganizationName,
+            story: Story,
+            willing_to_donate: willingToDonate === 'true' // Convert to boolean
+        })
+        .then(() => {
+            res.status(200).send('Event request submitted successfully');
+        })
+        .catch(err => {
+            console.error('Error inserting data:', err);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
 
 // Shows server is listening on start up
 app.listen(port, () => console.log("Listening..."));
