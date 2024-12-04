@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request an Event</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -162,6 +162,7 @@
     </style>
 </head>
 <body>
+    <%- include('../partials/header') %>
     <!-- New Intro Block -->
 <div class="intro-container">
     <h1>Schedule an Event</h1>
@@ -330,40 +331,40 @@
         <!-- Submit Button -->
         <button type="submit">Submit Request</button>
     </form>
-
-    <script>
-        // JavaScript to toggle the sewing section visibility
-        const serviceType = document.getElementById('service-type');
-        const sewingSection = document.getElementById('sewing-section');
-
-        serviceType.addEventListener('change', () => {
-            if (serviceType.value === 'Sewing' || serviceType.value === 'Both') {
-                sewingSection.style.display = 'block';
-            } else {
-                sewingSection.style.display = 'none';
-            }
-        });
-
-        // Update total participants count
-        const childInput = document.getElementById('child');
-        const teenInput = document.getElementById('teen');
-        const adultInput = document.getElementById('adult');
-        const totalParticipantsDiv = document.getElementById('totalParticipants');
-
-        function updateTotalParticipants() {
-            const total =
-                (parseInt(childInput.value) || 0) +
-                (parseInt(teenInput.value) || 0) +
-                (parseInt(adultInput.value) || 0);
-
-            totalParticipantsDiv.textContent = `Total Participants: ${total}`;
-        }
-
-        [childInput, teenInput, adultInput].forEach(input => {
-            input.addEventListener('input', updateTotalParticipants);
-        });
-
-        updateTotalParticipants(); // Initial update
-    </script>
+    <%- include('../partials/footer') %>
 </body>
+<script>
+    // JavaScript to toggle the sewing section visibility
+    const serviceType = document.getElementById('service-type');
+    const sewingSection = document.getElementById('sewing-section');
+
+    serviceType.addEventListener('change', () => {
+        if (serviceType.value === 'Sewing' || serviceType.value === 'Both') {
+            sewingSection.style.display = 'block';
+        } else {
+            sewingSection.style.display = 'none';
+        }
+    });
+
+    // Update total participants count
+    const childInput = document.getElementById('child');
+    const teenInput = document.getElementById('teen');
+    const adultInput = document.getElementById('adult');
+    const totalParticipantsDiv = document.getElementById('totalParticipants');
+
+    function updateTotalParticipants() {
+        const total =
+            (parseInt(childInput.value) || 0) +
+            (parseInt(teenInput.value) || 0) +
+            (parseInt(adultInput.value) || 0);
+
+        totalParticipantsDiv.textContent = `Total Participants: ${total}`;
+    }
+
+    [childInput, teenInput, adultInput].forEach(input => {
+        input.addEventListener('input', updateTotalParticipants);
+    });
+
+    updateTotalParticipants(); // Initial update
+</script>
 </html>

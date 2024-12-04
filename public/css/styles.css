@@ -358,7 +358,7 @@ footer {
   }
   
   .footer-contact a {
-    color: #008cff; /* Bright link color for contrast */
+    color: #228B22; /* Bright link color for contrast */
     text-decoration: none;
   }
   
@@ -401,7 +401,7 @@ footer {
   }
   
   .social-link:hover {
-    color: #ffcc00; /* Highlight color on hover */
+    color: #228B22; /* Highlight color on hover */
     transform: scale(1.2);
   }
   /* Statistics Section Styling */
@@ -427,7 +427,7 @@ footer {
   .stat-number {
     font-size: 3rem;
     font-weight: bold;
-    color: #0056b3;
+    color: #228B22;
   }
   
   .stat-label {
