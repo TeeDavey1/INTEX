@@ -404,3 +404,40 @@ footer {
     color: #ffcc00; /* Highlight color on hover */
     transform: scale(1.2);
   }
+  /* Statistics Section Styling */
+#statistics {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 4rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  
+  .stat {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #0056b3;
+  }
+  
+  .stat-label {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  /* Fade-in Effect for Statistics */
+  #statistics.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
