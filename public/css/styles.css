@@ -138,6 +138,15 @@ button[type="submit"]:hover {
     background-color: #5e5e5e; /* Light gray color when hovered */
 }  
 
+/* Targeting the specific login button within nav-links */
+.nav-links a.loginButton {
+  background-color: #228B22; /* Green background color */
+  color: white; /* White text color */
+}
+
+.nav-links a.loginButton:hover {
+  background-color: #45a049; /* Lighter green when hovered */
+}
 
 /* ****************MAIN IMG*************** */
 .headerImg {
@@ -457,4 +466,64 @@ footer {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
+/* Container for Quotes */
+.quote-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Quote Styling */
+.quote-left, .quote-right {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+}
+
+.quote-left {
+  background-color: #228B22; /* Forest Green */
+  color: #fff;
+  border-right: 2px solid #fff; /* Division between quotes */
+}
+
+.quote-left p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.highlight-number {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #f6f5f4; /* Gold color for emphasis */
+}
+
+/* Right Quote Styling */
+.quote-right {
+  background-color: #f4f4f4;
+  color: #228B22;
+}
+
+.quote-right p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-container {
+    flex-direction: column;
+  }
+
+  .quote-left, .quote-right {
+    border-right: none;
+    border-bottom: 2px solid #fff;
+  }
+}

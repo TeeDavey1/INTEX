@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Employee</title>
+</head>
+<body>
+  <h1 style="text-align: center;">Delete Employee</h1>
+  <p style="text-align: center;">Are you sure you want to delete employee: <%= employee.empfirst %> <%= employee.emplast %>?</p>
+  <form action="/deleteEmployee/<%= employee.empid %>" method="POST" style="text-align: center;">
+    <button type="submit">Yes, Delete</button>
+    <a href="/maintainEmployees"><button type="button">Cancel</button></a>
+  </form>
+</body>
+</html>

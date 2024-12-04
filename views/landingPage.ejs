@@ -8,43 +8,57 @@
     <title><%= title%></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
-    <body>
-        <%- include('partials/header') %>
-        <div class="headerImg">
-            <img src="images/TSP Home.jpg" alt="">
-            <div class="blackTint"></div>
-            <h1 class="headerImgHeader">Turtle Shelter Project</h1>
-        </div>
-        <section id="statistics">
-            <div class="stat">
-              <h2 class="stat-number" data-value="908">0</h2>
-              <p class="stat-label">Vests Distributed in November of this Year</p>
-            </div>
-            <div class="stat">
-              <h2 class="stat-number" data-value="5900">0</h2>
-              <p class="stat-label">Total Vests Delivered</p>
-            </div>
-            <div class="stat">
-              <h2 class="stat-number" data-value="10000">0</h2>
-              <p class="stat-label">People Served</p>
-            </div>
-          </section>
-        <main>
-            <div class="intro">
-                <h1 class="intro-text">
-                    What is a turtle shelter vest? A high tech but simple solution to help save lives -
-                    a portable "shelter" you can carry with you, just like a turtle...
-                    and <b>YOU</b> can help!
-                </h1><br>
-                <p class="turtle-shelter-explanation">
-                    One winter when Jen was homeless, <b>7</b> of her friends froze to death.</p>
-                    <p class="turtle-shelter">Jen is no longer homeless and has figured out a solution:
-                    The Turtle Shelter is a high tech, low-cost foam vest to keep a person warm 10 degrees below zero. Help <b>SAVE</b> lives and alleviate suffering.
-                    <b>YOU</b> can request vests for your community - and you can make vests and invite your friends, business colleagues, church congregation or club too! 
-                </p>
-            </div>
-        </main>
-        <%- include('partials/footer') %>
+<body>
+  <%- include('partials/header') %>
+
+  <div class="headerImg">
+    <img src="images/TSP Home.jpg" alt="">
+    <div class="blackTint"></div>
+    <h1 class="headerImgHeader">Turtle Shelter Project</h1>
+</div>
+
+  <section id="statistics">
+      <div class="stat">
+          <h2 class="stat-number" data-value="908">0</h2>
+          <p class="stat-label">Vests Distributed in November of this Year</p>
+      </div>
+      <div class="stat">
+          <h2 class="stat-number" data-value="5900">0</h2>
+          <p class="stat-label">Total Vests Delivered</p>
+      </div>
+      <div class="stat">
+          <h2 class="stat-number" data-value="12843">0</h2>
+          <p class="stat-label">People Served</p>
+      </div>
+  </section>
+
+  <main>
+      <div class="intro">
+          <h1 class="intro-text">
+              What is a turtle shelter vest? A high tech but simple solution to help save lives - a portable "shelter" you can carry with you, just like a turtle...
+              and <b>YOU</b> can help!
+          </h1>
+      </div>
+
+      <div class="quote-container">
+          <div class="quote-left">
+              <p>
+                  One winter when Jen was homeless, 
+                  <span class="highlight-number">7</span><br> of her friends froze to death.
+              </p>
+          </div>
+          <div class="quote-right">
+              <p>
+                  Jen is no longer homeless and has figured out a solution: 
+                  <strong>The Turtle Shelter</strong> is a high-tech, low-cost foam vest to keep a person warm 
+                  10 degrees below zero. <strong>Help SAVE lives and alleviate suffering.</strong> <br>YOU can request vests for your 
+                  community - and you can make vests and invite your friends, business colleagues, 
+                  church congregation, or club too!
+              </p>
+          </div>
+      </div>
+  </main>
+  <%- include('partials/footer') %>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
