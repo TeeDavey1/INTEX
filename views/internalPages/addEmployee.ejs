@@ -1,48 +1,228 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Add Employee</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Heading */
+        .pageTitle {
+            font-size: 3rem;
+            color: #228B22;
+            text-align: left;
+        }
+
+        /* Form Layout */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Labels and Inputs */
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        /* Submit Button */
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e7a1e;
+        }
+
+        /* Form Row and Grouping */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Horizontally center the content */
+        }
+
+        .form-group {
+            flex: 1 1 calc(33.33% - 20px);
+        }
+
+        .form-group.full-width {
+            flex: 1 1 100%;
+        }
+
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: inline-flex; /* Ensures elements are inline and only take up necessary space */
+            align-items: center; /* Vertically aligns the checkbox and label */
+            justify-content: center; /* Horizontally centers the content */
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin: 0 8px 0 0; /* Adds space only to the right of the checkbox */
+            width: auto; /* Prevents the checkbox from stretching */
+            height: auto; /* Ensures default checkbox height */
+        }
+
+        /* Layout for Personal Info and Address */
+        .row {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .column {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .column:last-child {
+            margin-right: 0;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .info {
+            margin-bottom: 10px;
+        }
+
+        .info span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <h1 style="text-align: center;">Add New Employee</h1>
-  <form action="/addEmployee" method="POST" style="width: 50%; margin: auto;">
-    
-    <label for="empfirst">First Name:</label>
-    <input type="text" id="empfirst" name="empfirst" required><br><br>
 
-    <label for="emplast">Last Name:</label>
-    <input type="text" id="emplast" name="emplast" required><br><br>
+    <div class="form-container">
+        <h1 class="pageTitle">Add New Employee</h1>
 
-    <label for="empphone">Phone:</label>
-    <input type="text" id="empphone" name="empphone" required><br><br>
+        <form action="/addEmployee" method="POST">
+            <!-- Personal Information Section -->
+            <div class="section">
+                <h3>Personal Information</h3>
+                <label for="empid">Employee ID:</label>
+                <input type="text" id="empid" name="empid" value="<%= employee.empid || '' %>" placeholder="Employee ID" required>
 
-    <label for="empemail">Email:</label>
-    <input type="email" id="empemail" name="empemail" required><br><br>
+                <label for="empphone">Phone:</label>
+                <input type="text" id="empphone" name="empphone" value="<%= employee.empphone || '' %>" placeholder="Phone" required>
 
-    <!-- Add other fields as needed (based on the original employee data) -->
-    <label for="empaddress">Address:</label>
-    <input type="text" id="empaddress" name="empaddress"><br><br>
+                <label for="empemail">Email:</label>
+                <input type="email" id="empemail" name="empemail" value="<%= employee.empemail || '' %>" placeholder="Email" required>
 
-    <label for="empjobtitle">Job Title:</label>
-    <input type="text" id="empjobtitle" name="empjobtitle"><br><br>
+                <label for="empbirthday">Birthday:</label>
+                <input type="date" id="empbirthday" name="empbirthday" value="<%= employee.empbirthday || '' %>" required>
 
-    <label for="empdepartment">Department:</label>
-    <input type="text" id="empdepartment" name="empdepartment"><br><br>
+                <label for="empgender">Gender:</label>
+                <select id="empgender" name="empgender" required>
+                    <option value="male" <%= employee.empgender === 'male' ? 'selected' : '' %>>Male</option>
+                    <option value="female" <%= employee.empgender === 'female' ? 'selected' : '' %>>Female</option>
+                    <option value="other" <%= employee.empgender === 'other' ? 'selected' : '' %>>Other</option>
+                </select>
 
-    <label for="empstatus">Status:</label>
-    <select id="empstatus" name="empstatus" required>
-      <option value="active">Active</option>
-      <option value="inactive">Inactive</option>
-    </select><br><br>
+                <label for="empshirtsize">Shirt Size:</label>
+                <select id="empshirtsize" name="empshirtsize" required>
+                    <option value="S" <%= employee.empshirtsize === 'S' ? 'selected' : '' %>>S</option>
+                    <option value="M" <%= employee.empshirtsize === 'M' ? 'selected' : '' %>>M</option>
+                    <option value="L" <%= employee.empshirtsize === 'L' ? 'selected' : '' %>>L</option>
+                    <option value="XL" <%= employee.empshirtsize === 'XL' ? 'selected' : '' %>>XL</option>
+                </select>
 
-    <label for="empdateofhire">Date of Hire:</label>
-    <input type="date" id="empdateofhire" name="empdateofhire" required><br><br>
+                <label for="empusername">Username:</label>
+                <input type="text" id="empusername" name="empusername" value="<%= employee.empusername || '' %>" placeholder="Username" required>
+            </div>
 
-    <!-- Add other fields like supervisor, salary, etc., if necessary -->
+            <!-- Address Information Section -->
+            <div class="section">
+                <h3>Address</h3>
+                <label for="empstreetaddress">Street Address:</label>
+                <input type="text" id="empstreetaddress" name="empstreetaddress" value="<%= employee.empstreetaddress || '' %>" placeholder="Street Address" required>
 
-    <button type="submit">Add Employee</button>
-    <a href="/maintainEmployees"><button type="button">Cancel</button></a>
-  </form>
+                <label for="empcity">City:</label>
+                <input type="text" id="empcity" name="empcity" value="<%= employee.empcity || '' %>" placeholder="City" required>
+
+                <label for="empstate">State:</label>
+                <input type="text" id="empstate" name="empstate" value="<%= employee.empstate || '' %>" placeholder="State" required>
+
+                <label for="empzipcode">Zipcode:</label>
+                <input type="text" id="empzipcode" name="empzipcode" value="<%= employee.empzipcode || '' %>" placeholder="Zipcode" required>
+            </div>
+
+            <!-- Job Information Section -->
+            <div class="section">
+                <h3>Job Information</h3>
+                <label for="empjobtitle">Job Title:</label>
+                <input type="text" id="empjobtitle" name="empjobtitle" value="<%= employee.empjobtitle || '' %>" placeholder="Job Title" required>
+
+                <label for="empsalary">Salary:</label>
+                <input type="number" id="empsalary" name="empsalary" value="<%= employee.empsalary || '' %>" placeholder="Salary" required>
+
+                <label for="empstartdate">Start Date:</label>
+                <input type="date" id="empstartdate" name="empstartdate" value="<%= employee.empstartdate || '' %>" required>
+
+                <label for="empstatus">Status:</label>
+                <select id="empstatus" name="empstatus" required>
+                    <option value="active" <%= employee.empstatus === 'active' ? 'selected' : '' %>>Active</option>
+                    <option value="inactive" <%= employee.empstatus === 'inactive' ? 'selected' : '' %>>Inactive</option>
+                </select>
+
+                <label for="empsewinglevel">Sewing Level:</label>
+                <select id="empsewinglevel" name="empsewinglevel" required>
+                    <option value="beginner" <%= employee.empsewinglevel === 'beginner' ? 'selected' : '' %>>Beginner</option>
+                    <option value="intermediate" <%= employee.empsewinglevel === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+                    <option value="advanced" <%= employee.empsewinglevel === 'advanced' ? 'selected' : '' %>>Advanced</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Employee</button>
+        </form>
+    </div>
 
 </body>
 </html>
