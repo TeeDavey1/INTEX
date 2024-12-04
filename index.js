@@ -44,6 +44,10 @@ app.get('/login', (req, res) => {
     res.render('pages/login', {title : 'Login'})
 })
 
+app.get('/admin-login', (req, res) => {
+    res.render('internalPages/admin-login', {title: 'Admin Login'})
+})
+
 app.get('/requestEvent', (req, res) => {
     res.render('pages/requestEvent', {title : 'Request Event'})
 })
