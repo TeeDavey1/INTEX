@@ -1,5 +1,5 @@
 let express = require("express");
-// test
+// testing
 let app = express();
 
 let path = require("path");
@@ -34,6 +34,10 @@ app.get('/sponsors', (req, res) => {
 
 app.get('/login-page', (req, res) => {
     res.render('pages/login-page', {title : 'Our Sponsors'})
+})
+
+app.get('/requestEvent', (req, res) => {
+    res.render('pages/requestEvent', {title : 'Request Event'})
 })
 
 
