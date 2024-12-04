@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Sign-Up Form</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
        /* Reset some basic styles */
 body, h1, label, input, select, button {
@@ -67,7 +69,7 @@ label {
 
 /* Styling for the submit button */
 button {
-    background-color: #4CAF50;
+    background-color: #228B22;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -97,6 +99,7 @@ button:hover {
     </style>
 </head>
 <body>
+    <%- include('../partials/header') %>
     <div class="form-container">
         <h1>Volunteer Sign-Up Form</h1>
         <form action="submit_form.php" method="POST">
@@ -191,5 +194,6 @@ button:hover {
             <button type="submit">Submit</button>
         </form>
     </div>
+    <%- include('../partials/footer') %>
 </body>
 </html>
