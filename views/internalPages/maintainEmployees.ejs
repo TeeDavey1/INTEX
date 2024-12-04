@@ -4,79 +4,99 @@
   <title>Employee Records</title>
   <style>
     table {
-      width: 80%;
+      width: 100%;
       margin: 20px auto;
       border-collapse: collapse;
-      font-size: 10px; /* Reduce the font size of the table */
     }
     th, td {
       border: 1px solid #ddd;
-      padding: 5px; /* Reduce the padding to decrease row height */
+      padding: 8px;
       text-align: center;
-      line-height: 1.2; /* Adjust line height for smaller rows */
     }
     th {
-      background-color: #F2F2F2;
-      font-weight: bold;
+      background-color: #f4f4f4;
     }
     button {
-      padding: 4px 8px; /* Adjust button size */
+      padding: 6px 12px;
       margin: 2px;
-      font-size: 12px; /* Adjust button font size */
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-
   <h1 style="text-align: center;">Employee Records</h1>
-
-<tbody>
-  <% if (Employees && Employees.length > 0) { %>
-    <% Employees.forEach(row => { %>
-      <tr>
-        <td><%= row.id %></td>
-        <td><%= row.name %></td>
-        <td><%= row.position %></td>
-        <!-- Add other fields as needed -->
-      </tr>
-    <% }) %>
-  <% } else { %>
-    <tr>
-      <td colspan="3">No employees found</td>
-    </tr>
-  <% } %>
-</tbody>
   <table>
     <thead>
       <tr>
         <th>Employee ID</th>
-        <th>Employee First Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Start Date</th>
+        <th>Salary</th>
+        <th>Birthday</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+        <th>Sewing Level</th>
+        <th>Gender</th>
+        <th>Shirt Size</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Permission</th>
+        <th>Job Title</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-        <% if (Employees && Employees.length > 0) { %>
-          <% Employees.forEach(row => { %>
-            <tr>
-              <td><%= row.id %></td>
-              <td><%= row.name %></td>
-              <td><%= row.position %></td>
-              <!-- Add other fields as needed -->
-            </tr>
-          <% }) %>
-        <% } else { %>
+      <% if (Employees && Employees.length > 0) { %>
+        <% Employees.forEach(emp => { %>
           <tr>
-            <td colspan="3">No employees found</td>
+            <td><%= emp.empid %></td>
+            <td><%= emp.empfirst %></td>
+            <td><%= emp.emplast %></td>
+            <td><%= emp.empphone %></td>
+            <td><%= emp.empemail %></td>
+            <td><%= emp.empstartdate %></td>
+            <td><%= emp.empsalary %></td>
+            <td><%= emp.empbirthday %></td>
+            <td><%= emp.empstreetaddress %></td>
+            <td><%= emp.empcity %></td>
+            <td><%= emp.empstate %></td>
+            <td><%= emp.empzipcode %></td>
+            <td><%= emp.empsewinglevel %></td>
+            <td><%= emp.empgender %></td>
+            <td><%= emp.empshirtsize %></td>
+            <td><%= emp.empusername %></td>
+            <td><%= emp.emppassword %></td>
+            <td><%= emp.emppermission %></td>
+            <td><%= emp.empjobtitle %></td>
+            <td><%= emp.empstatus %></td>
+            <td>
+              <form action="/editEmployee/<%= emp.empid %>" method="GET" style="display: inline;">
+                <button type="submit">Edit</button>
+              </form>
+              <form action="/deleteEmployee/<%= emp.empid %>" method="POST" style="display: inline;">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
           </tr>
-        <% } %>
-      </tbody>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="21">No employees found</td>
+        </tr>
+      <% } %>
+    </tbody>
   </table>
-  <form action="/addEmployees" method="GET" style="display: flex; justify-content: center; margin: 20px 0;">
+  <form action="/addEmployees" method="GET" style="text-align: center; margin-top: 20px;">
     <button type="submit">Add Employee</button>
   </form>
-  <form action="/" method="GET" style="display: flex; justify-content: center; margin: 20px 0;">
+  <form action="/" method="GET" style="text-align: center; margin-top: 10px;">
     <button type="submit">Home</button>
   </form>
-
 </body>
 </html>

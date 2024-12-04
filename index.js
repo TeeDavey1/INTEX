@@ -1,17 +1,30 @@
 let express = require("express");
 let app = express();
 let path = require("path");
+// const knex = require('knex')({
+//     client: 'pg',
+//     connection: {
+//         host: process.env.RDS_HOSTNAME || 'localhost',  // 'awseb-e-wkpcibnp9x-stack-awsebrdsdatabase-xknynwspgdvf.c3kig2yiipwf.us-east-1.rds.amazonaws.com',
+//         user: process.env.RDS_USERNAME || 'ebroot',
+//         password: process.env.RDS_PASSWORD || 'denseTeam3-1',
+//         database: process.env.RDS_DB_NAME || 'ebdb',
+//         port: process.env.RDS_PORT || 5432,
+//         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
+//     },
+// });
+
 const knex = require('knex')({
     client: 'pg',
     connection: {
-        host: process.env.RDS_HOSTNAME || 'localhost',
-        user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'denseTeam3-1',
-        database: process.env.RDS_DB_NAME || 'intex',
-        port: process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
+        host: 'awseb-e-wkpcibnp9x-stack-awsebrdsdatabase-xknynwspgdvf.c3kig2yiipwf.us-east-1.rds.amazonaws.com',
+        user: 'ebroot',
+        password: 'denseTeam3-1',
+        database: 'ebdb',
+        port: 5432,
+        ssl: { rejectUnauthorized: false } // Enables SSL for secure connection
     },
 });
+
 
 let security = false;
 
@@ -58,13 +71,98 @@ app.get('/beVolunteer', (req, res) => {
 
 app.get('/maintainEmployees', async (req, res) => {
     try {
-        // Fetch employees data from the database
-        const Employees = await knex('employees').select('*'); // Adjust table name to your schema
+        // Fetch all employee data
+        const Employees = await knex('employees').select('*'); // Adjust table name if necessary
 
         // Render the EJS page and pass the Employees data
         res.render('internalPages/maintainEmployees', { title: 'Maintain Employee Records', Employees });
     } catch (error) {
         console.error('Error fetching employees:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/addEmployees', (req, res) => {
+    res.render('internalPages/addEmployee', { title: 'Add Employee' });
+});
+
+app.get('/editEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const employee = await knex('employees').where('empid', id).first();
+        res.render('internalPages/editEmployee', { title: 'Edit Employee', employee });
+    } catch (error) {
+        console.error('Error fetching employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/editEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body; // Add validation here
+    try {
+        await knex('employees').where('empid', id).update(updatedData);
+        res.redirect('/maintainEmployees');
+    } catch (error) {
+        console.error('Error updating employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/deleteEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await knex('employees').where('empid', id).del();
+        res.redirect('/maintainEmployees');
+    } catch (error) {
+        console.error('Error deleting employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/addEmployees', (req, res) => {
+    res.render('internalPages/addEmployee', { title: 'Add Employee' });
+});
+
+app.post('/addEmployee', async (req, res) => {
+    try {
+        await knex('employees').insert(req.body); // Ensure data validation here
+        res.redirect('/maintainEmployees');
+    } catch (error) {
+        console.error('Error adding employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/editEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const employee = await knex('employees').where('empid', id).first();
+        res.render('internalPages/editEmployee', { title: 'Edit Employee', employee });
+    } catch (error) {
+        console.error('Error fetching employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/editEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await knex('employees').where('empid', id).update(req.body); // Ensure data validation here
+        res.redirect('/maintainEmployees');
+    } catch (error) {
+        console.error('Error updating employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/deleteEmployee/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await knex('employees').where('empid', id).del();
+        res.redirect('/maintainEmployees');
+    } catch (error) {
+        console.error('Error deleting employee:', error);
         res.status(500).send('Internal Server Error');
     }
 });

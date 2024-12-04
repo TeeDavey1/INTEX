@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Employee</title>
+</head>
+<body>
+  <h1 style="text-align: center;">Add New Employee</h1>
+  <form action="/addEmployee" method="POST" style="width: 50%; margin: auto;">
+    <label for="empfirst">First Name:</label>
+    <input type="text" id="empfirst" name="empfirst" required><br><br>
+
+    <label for="emplast">Last Name:</label>
+    <input type="text" id="emplast" name="emplast" required><br><br>
+
+    <label for="empphone">Phone:</label>
+    <input type="text" id="empphone" name="empphone" required><br><br>
+
+    <label for="empemail">Email:</label>
+    <input type="email" id="empemail" name="empemail" required><br><br>
+
+    <!-- Add other fields as needed -->
+
+    <button type="submit">Add Employee</button>
+    <a href="/maintainEmployees"><button type="button">Cancel</button></a>
+  </form>
+</body>
+</html>
