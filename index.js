@@ -104,7 +104,8 @@ app.get('/viewEmployee/:id', async (req, res) => {
 });
 
 app.get('/addEmployee', (req, res) => {
-    res.render('internalPages/addEmployee', { title: 'Add Employee' });
+    // This will pass an empty employee object to the page
+    res.render('internalPages/addEmployee', { title: 'Add Employee', employee: {} });
 });
 
 // Route to add a new employee
