@@ -66,6 +66,16 @@ main{
   color: #333;
 }
 
+.other-links{
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+}
+
+.other-links a{
+  transform: translateY(-30%); /* Adjusts vertical centering so the header is truly centered */
+}
+
 .form-group {
   margin-bottom: 15px;
 }
