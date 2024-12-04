@@ -15,6 +15,20 @@
             <div class="blackTint"></div>
             <h1 class="headerImgHeader">Turtle Shelter Project</h1>
         </div>
+        <section id="statistics">
+            <div class="stat">
+              <h2 class="stat-number" data-value="908">0</h2>
+              <p class="stat-label">Vests Distributed in November of this Year</p>
+            </div>
+            <div class="stat">
+              <h2 class="stat-number" data-value="5900">0</h2>
+              <p class="stat-label">Total Vests Delivered</p>
+            </div>
+            <div class="stat">
+              <h2 class="stat-number" data-value="10000">0</h2>
+              <p class="stat-label">People Served</p>
+            </div>
+          </section>
         <main>
             <div class="intro">
                 <p class="intro-text">
@@ -32,4 +46,45 @@
         </main>
         <%- include('partials/footer') %>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const statsSection = document.getElementById("statistics");
+  const statNumbers = document.querySelectorAll(".stat-number");
+
+  // Function to animate number counting
+  function animateNumbers() {
+    statNumbers.forEach((num) => {
+      const targetValue = +num.getAttribute("data-value");
+      let currentValue = 0;
+      const increment = Math.ceil(targetValue / 50); // Adjust speed by changing the divisor
+
+      const updateNumber = () => {
+        currentValue += increment;
+        if (currentValue > targetValue) currentValue = targetValue;
+        num.textContent = currentValue;
+        if (currentValue < targetValue) {
+          requestAnimationFrame(updateNumber);
+        }
+      };
+
+      updateNumber();
+    });
+  }
+
+  // Observe when statistics section is in view
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          statsSection.classList.add("visible");
+          animateNumbers();
+        }
+      });
+    },
+    { threshold: 0.5 } // Trigger when 50% of the section is visible
+  );
+
+  observer.observe(statsSection);
+});
+</script>
 </html>
