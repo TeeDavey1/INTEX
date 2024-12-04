@@ -48,6 +48,10 @@ app.get('/requestEvent', (req, res) => {
     res.render('pages/requestEvent', {title : 'Request Event'})
 })
 
+app.get('/beVolunteer', (req, res) => {
+    res.render('pages/beVolunteer', {title : 'Be a Volunteer'})
+})
+
 // Login route - Handle login request
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
