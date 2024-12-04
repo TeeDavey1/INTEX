@@ -26,6 +26,7 @@ const knex = require('knex')({
 });
 
 
+
 let security = false;
 
 const port = process.env.PORT || 5500;
@@ -73,7 +74,7 @@ app.get('/maintainEmployees', async (req, res) => {
     try {
         // Fetch all employee data
         const Employees = await knex('employees').select('*'); // Adjust table name if necessary
-
+        
         // Render the EJS page and pass the Employees data
         res.render('internalPages/maintainEmployees', { title: 'Maintain Employee Records', Employees });
     } catch (error) {
@@ -93,6 +94,26 @@ app.get('/editEmployee/:id', async (req, res) => {
         res.render('internalPages/editEmployee', { title: 'Edit Employee', employee });
     } catch (error) {
         console.error('Error fetching employee:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/viewEmployee/:id', async (req, res) => {
+    const employeeId = req.params.id;
+
+    try {
+        // Fetch the employee's details from the database
+        const employee = await knex('employees')
+            .where({ empid: employeeId })
+            .first(); // Fetch a single employee
+        
+        if (employee) {
+            res.render('internalPages/viewEmployee', { title: 'View Employee', employee });
+        } else {
+            res.status(404).send('Employee not found');
+        }
+    } catch (error) {
+        console.error('Error fetching employee details:', error);
         res.status(500).send('Internal Server Error');
     }
 });
