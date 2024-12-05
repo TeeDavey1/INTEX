@@ -233,27 +233,58 @@ app.get('/viewVolunteer/:id', ensureAdmin, async (req, res) => {
     }
 });
 
-// view event
+// Route to view an event's information
 app.get('/viewEvent/:eventid', ensureAdmin, async (req, res) => {
-    const eventid = req.params.eventid;
+    const { eventid } = req.params;
+
     try {
-        // Fetch the event's details from the database
-        const eventDetails = await knex('events')
+        // Fetch event details from the events table
+        const event = await knex('events')
             .leftJoin('eventcontact', 'events.contactid', 'eventcontact.contactid')
             .select('*')
             .where('events.eventid', eventid)
-            .first();        
-            if (!eventDetails) {
-                return res.status(404).send('Event not found');
-            }
-    
-            // Render the event details page and pass event details
-            res.render('internalPages/viewEvent', { title: 'Event Details', event: eventDetails });
-        } catch (error) {
-            console.error('Error fetching event details:', error);
-            res.status(500).send('Internal Server Error');
+            .first();
+
+        if (!event) {
+            return res.status(404).send('Event not found');
         }
-    });
+
+        // Fetch volunteers associated with the event
+        const volunteers = await knex('volunteerevents')
+            .leftJoin('volunteers', 'volunteerevents.volid', 'volunteers.volid')
+            .select('volunteers.volid', 'volunteers.volfirst', 'volunteers.vollast')
+            .where('volunteerevents.eventid', eventid);
+
+        // Render the event details page and pass event details
+        res.render('internalPages/viewEvent', { title: 'Event Details', event, volunteers });
+    } catch (error) {
+        console.error('Error fetching event details:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+// view event
+// app.get('/viewEvent/:eventid', ensureAdmin, async (req, res) => {
+//     const eventid = req.params.eventid;
+//     try {
+//         // Fetch the event's details from the database
+//         const eventDetails = await knex('events')
+//             .leftJoin('eventcontact', 'events.contactid', 'eventcontact.contactid')
+//             .select('*')
+//             .where('events.eventid', eventid)
+//             .first();        
+//             if (!eventDetails) {
+//                 return res.status(404).send('Event not found');
+//             }
+    
+//             // Render the event details page and pass event details
+//             res.render('internalPages/viewEvent', { title: 'Event Details', event: eventDetails });
+//         } catch (error) {
+//             console.error('Error fetching event details:', error);
+//             res.status(500).send('Internal Server Error');
+//         }
+//     });
     
 app.get('/pages/beVolunteer', (req, res) => {
     res.render('pages/beVolunteer'); 
@@ -319,7 +350,7 @@ app.post('/deleteVolunteer/:id', (req, res) => {
 //         });
 // });
 
-app.post('/pages/beVolunteer', (req, res) => {
+app.post('/beVolunteer', (req, res) => {
     // Extract form values from req.body
     const {
         volfirst, vollast, volphone, volemail, newsletter, volgender, volbirthday,
@@ -331,25 +362,25 @@ app.post('/pages/beVolunteer', (req, res) => {
     // Insert the new record into the database
     knex('volunteers')
         .insert({
-            volfirst,
-            vollast,
-            volphone,
-            volemail,
+            volfirst: volfirst,
+            vollast: vollast,
+            volphone: volphone,
+            volemail: volemail,
             newsletter: newsletter === 'on',
-            volgender,
-            volbirthday,
-            volshirtsize,
-            volstreetaddress,
-            volcity,
-            volstate,
-            volzipcode,
+            volgender: volgender,
+            volbirthday: volbirthday,
+            volshirtsize: volshirtsize,
+            volstreetaddress: volstreetaddress,
+            volcity: volcity,
+            volstate: volstate,
+            volzipcode: volzipcode,
             lead: lead === 'on', // Checkbox returns "on" if checked
-            volnumhourspermonth,
-            volstartdate,
-            volstatus,
-            volsewinglevel,
-            voldiscovery,
-            volavailabilitynotes
+            volnumhourspermonth: volnumhourspermonth,
+            volstartdate: volstartdate,
+            volstatus: volstatus,
+            volsewinglevel: volsewinglevel,
+            voldiscovery: voldiscovery,
+            volavailabilitynotes: volavailabilitynotes
         })
         .then(() => {
             res.redirect('/'); // Redirect after adding
@@ -372,7 +403,7 @@ app.post('/addVolunteer', ensureAdmin, async (req, res) => {
         res.redirect('/maintainVolunteers');
     } catch (error) {
         console.error('Error adding volunteer:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Errors');
     }
 });
 
@@ -523,25 +554,86 @@ app.post('/editEvent/:eventid', ensureAdmin, async (req, res) => {
     console.log('Updated data:', updatedData); // Log the updated data for debugging
 
     try {
-        // Update the event data in the database
-        await knex('events').where('eventid', eventid).update(updatedData);
+        // Update the event data in the events table
+        const validEventColumns = [
+            'daterequestsent', 'timerequestsent', 'eventprefdate', 'eventpossdate', 'preftime', 'prefduration', 'servicetype',
+            'streetaddress', 'city', 'state', 'zipcode', 'basicsewing',
+            'advsewing', 'sewingmachines', 'sergers', 'participants', 'child', 'teen',
+            'adult', 'sizeofarea', 'organizationname', 'story', 'willingtodonate',
+            'eventstatus', 'actualdate', 'actualduration', 'actualeventtime', 'actualparticipants'
+        ];
 
-        // Insert volunteer-event relationships into volunteerevents table
+        const eventUpdateData = Object.keys(updatedData)
+            .filter(key => validEventColumns.includes(key))
+            .reduce((obj, key) => {
+                // Handle empty strings for date and time fields
+                if (updatedData[key] === '') {
+                    obj[key] = null;
+                } else {
+                    obj[key] = updatedData[key];
+                }
+                return obj;
+            }, {});
+
+        // Ensure eventid is an integer
+        const parsedEventId = parseInt(eventid);
+        if (isNaN(parsedEventId)) {
+            throw new Error('Invalid event ID');
+        }
+
+        // Update event information in the events table
+        await knex('events').where({ eventid: parsedEventId }).update(eventUpdateData);
+
+        // Update the contact information in the eventcontact table
+        if (updatedData.contactfirst && updatedData.contactlast && updatedData.contactphone && updatedData.contactemail) {
+            const contactUpdateData = {
+                contactfirst: updatedData.contactfirst,
+                contactlast: updatedData.contactlast,
+                contactphone: updatedData.contactphone,
+                contactemail: updatedData.contactemail
+            };
+
+            if (!updatedData.contactid) {
+                // Fetch the contact ID associated with the event
+                const contact = await knex('events').select('contactid').where({ eventid: parsedEventId }).first();
+                if (!contact) {
+                    throw new Error('Contact ID is missing and could not be retrieved');
+                }
+                updatedData.contactid = contact.contactid;
+            }
+
+            await knex('eventcontact').where({ contactid: updatedData.contactid }).update(contactUpdateData);
+        }
+
+        // Update the volunteer-event relationships in volunteerevents table
         if (updatedData.volunteers && Array.isArray(updatedData.volunteers)) {
-            const volunteerEntries = updatedData.volunteers.map(volid => ({
-                volid: parseInt(volid),
-                eventid: parseInt(eventid)
-            }));
+            // Remove existing volunteer-event relationships for the event
+            await knex('volunteerevents').where({ eventid: parsedEventId }).del();
+
+            // Insert new volunteer-event relationships
+            const volunteerEntries = updatedData.volunteers.map(volid => {
+                const parsedVolId = parseInt(volid);
+                if (isNaN(parsedVolId)) {
+                    throw new Error('Invalid volunteer ID');
+                }
+                return {
+                    volid: parsedVolId,
+                    eventid: parsedEventId
+                };
+            });
             await knex('volunteerevents').insert(volunteerEntries);
         }
 
-        // Redirect to the event view or maintainEvents page
+        // Redirect to the event view page
         res.redirect(`/viewEvent/${eventid}`);
     } catch (error) {
         console.error('Error updating event:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+
 
 
 // // Route to update an event's information 
@@ -761,48 +853,55 @@ app.post('/login-submit', (req, res) => {
 app.post('/addEvent', ensureAdmin, async (req, res) => {
     try {
         // Extract contact and event data from form
-        const { contactfirst, contactlast, contactemail, contactphone, daterequestsent, timerequestsent, eventprefdate, eventpossdate, participants, child, teen, adult, servicetype, basicsewing, advsewing, sewingmachines, sergers, streetaddress, city, state, zipcode, sizeofarea, preftime, prefduration, organizationname, story, willingtodonate, eventstatus, actualdate, actualduration, actualeventtime, actualparticipants } = req.body;
+        const {
+            contactfirst, contactlast, contactemail, contactphone, daterequestsent, timerequestsent,
+            eventprefdate, eventpossdate, participants, child, teen, adult, servicetype, basicsewing,
+            advsewing, sewingmachines, sergers, streetaddress, city, state, zipcode, sizeofarea,
+            preftime, prefduration, organizationname, story, willingtodonate, eventstatus,
+            actualdate, actualduration, actualeventtime, actualparticipants
+        } = req.body;
 
         // Insert contact information into eventcontact table and get the contact ID
-        const insertedContact = await knex('eventcontact').insert({
-            contactfirst: contactfirst,
-            contactlast: contactlast,
-            contactemail: contactemail,
-            contactphone: contactphone
-        }).returning('contactid');
-        const contactId = insertedContact[0].contactid;
+        const [insertedContact] = await knex('eventcontact').insert({
+            contactfirst,
+            contactlast,
+            contactemail,
+            contactphone
+        }).returning('*');
+
+        const contactId = insertedContact.contactid;
 
         // Insert event information into events table, including the contact ID
         await knex('events').insert({
             contactid: contactId,
-            daterequestsent: daterequestsent,
-            timerequestsent: timerequestsent,
-            eventprefdate: eventprefdate,
-            eventpossdate: eventpossdate,
-            participants: participants,
-            child: child,
-            teen: teen,
-            adult: adult,
-            servicetype: servicetype,
-            basicsewing: basicsewing,
-            advsewing: advsewing,
-            sewingmachines: sewingmachines,
-            sergers: sergers,
-            streetaddress: streetaddress,
-            city: city,
-            state: state,
-            zipcode: zipcode,
-            sizeofarea: sizeofarea,
-            preftime: preftime,
-            prefduration: prefduration,
-            organizationname: organizationname,
-            story: story,
-            willingtodonate: willingtodonate,
-            eventstatus: eventstatus,
-            actualdate: actualdate,
-            actualduration: actualduration,
-            actualeventtime: actualeventtime,
-            actualparticipants: actualparticipants,
+            daterequestsent: daterequestsent || null,
+            timerequestsent: timerequestsent || null,
+            eventprefdate: eventprefdate || null,
+            eventpossdate,
+            participants: parseInt(participants) || 0,
+            child: parseInt(child) || 0,
+            teen: parseInt(teen) || 0,
+            adult: parseInt(adult) || 0,
+            servicetype,
+            basicsewing: parseInt(basicsewing) || 0,
+            advsewing: parseInt(advsewing) || 0,
+            sewingmachines: parseInt(sewingmachines) || 0,
+            sergers: parseInt(sergers) || 0,
+            streetaddress,
+            city,
+            state,
+            zipcode,
+            sizeofarea,
+            preftime: preftime || null,
+            prefduration: parseFloat(prefduration) || null,
+            organizationname,
+            story,
+            willingtodonate: willingtodonate === 'yes',
+            eventstatus,
+            actualdate: actualdate || null,
+            actualduration: parseFloat(actualduration) || null,
+            actualeventtime: actualeventtime || null,
+            actualparticipants: parseInt(actualparticipants) || null,
         });
 
         res.redirect('/maintainEvents');
@@ -811,13 +910,6 @@ app.post('/addEvent', ensureAdmin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-  
-
-// Helper function to validate date format
-function isValidDate(date) {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;  // Check for YYYY-MM-DD format
-    return regex.test(date);
-}
 
 
 

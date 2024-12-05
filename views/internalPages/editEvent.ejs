@@ -88,9 +88,12 @@
       min-width: 200px;
     }
   </style>  
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body>
-
+  <%- include('../partials/adminHeader') %>
+  <main>
   <header>
     <h1>Edit Event</h1>
   </header>
@@ -112,10 +115,10 @@
               <input type="text" id="contactlast" name="contactlast" value="<%= event.contactlast %>" required>
 
               <label for="contactphone">Phone:</label>
-              <input type="text" id="contactphone" name="contactphone" value="<%= event.contactphone %>" required>
+              <input type="text" id="contactphone" name="contactphone" value="<%= event.contactphone %>">
 
               <label for="contactemail">Email:</label>
-              <input type="email" id="contactemail" name="contactemail" value="<%= event.contactemail %>" required>
+              <input type="email" id="contactemail" name="contactemail" value="<%= event.contactemail %>">
             </div>
           </div>
         </div>
@@ -129,26 +132,26 @@
               <input type="date" id="eventprefdate" name="eventprefdate" value="<%= event.eventprefdate %>" required>
 
               <label for="eventpossdate">Possible Date:</label>
-              <input type="text" id="eventpossdate" name="eventpossdate" value="<%= event.eventpossdate %>" required>
+              <input type="text" id="eventpossdate" name="eventpossdate" value="<%= event.eventpossdate %>">
 
               <label for="preftime">Preferred Time:</label>
-              <input type="time" id="preftime" name="preftime" value="<%= event.preftime %>" required>
+              <input type="time" id="preftime" name="preftime" value="<%= event.preftime %>">
 
               <label for="prefduration">Preferred Duration:</label>
-              <input type="number" id="prefduration" name="prefduration" value="<%= event.prefduration %>" required>
+              <input type="number" id="prefduration" name="prefduration" value="<%= event.prefduration %>">
 
               <label for="servicetype">Service Type:</label>
-              <select id="servicetype" name="servicetype" required>
+              <select id="servicetype" name="servicetype">
                 <option value="Sewing" <%= event.servicetype === "Sewing" ? "selected" : "" %>>Sewing</option>
                 <option value="Non-Sewing" <%= event.servicetype === "Non-Sewing" ? "selected" : "" %>>Non-Sewing</option>
                 <option value="Both" <%= event.servicetype === "Both" ? "selected" : "" %>>Both</option>
               </select>              
 
               <label for="daterequestsent">Date Request Sent:</label>
-              <input type="date" id="daterequestsent" name="daterequestsent" value="<%= event.daterequestsent && !isNaN(new Date(event.daterequestsent)) ? new Date(event.daterequestsent).toISOString().split('T')[0] : '' %>" required>
+              <input type="date" id="daterequestsent" name="daterequestsent" value="<%= event.daterequestsent %>">
 
               <label for="timerequestsent">Time Request Sent:</label>
-              <input type="time" id="timerequestsent" name="timerequestsent" value="<%= event.timerequestsent %>" required>
+              <input type="time" id="timerequestsent" name="timerequestsent" value="<%= event.timerequestsent %>">
             </div>
           </div>
         </div>
@@ -157,68 +160,73 @@
         <div class="section">
           <h3>Address</h3>
           <label for="streetaddress">Street Address:</label>
-          <input type="text" id="streetaddress" name="streetaddress" value="<%= event.streetaddress %>" required>
+          <input type="text" id="streetaddress" name="streetaddress" value="<%= event.streetaddress %>">
 
           <label for="city">City:</label>
-          <input type="text" id="city" name="city" value="<%= event.city %>" required>
+          <input type="text" id="city" name="city" value="<%= event.city %>">
 
           <label for="state">State:</label>
-          <input type="text" id="state" name="state" value="<%= event.state %>" required>
+          <select id="state" name="state">
+              <option value="" disabled>Select your state</option>
+              <% ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"].forEach(function(state) { %>
+                <option value="<%= state %>" <%= event.state === state ? "selected" : "" %>><%= state %></option>
+              <% }); %>
+          </select>
 
           <label for="zipcode">Zip Code:</label>
-          <input type="text" id="zipcode" name="zipcode" value="<%= event.zipcode %>" required>
+          <input type="text" id="zipcode" name="zipcode" value="<%= event.zipcode %>">
         </div>
 
         <!-- Sewing Requirements -->
         <div class="section">
           <h3>Sewing Requirements</h3>
           <label for="basicsewing">Basic Sewing:</label>
-          <input type="text" id="basicsewing" name="basicsewing" value="<%= event.basicsewing %>" required>
+          <input type="text" id="basicsewing" name="basicsewing" value="<%= event.basicsewing %>">
 
           <label for="advsewing">Advanced Sewing:</label>
-          <input type="text" id="advsewing" name="advsewing" value="<%= event.advsewing %>" required>
+          <input type="text" id="advsewing" name="advsewing" value="<%= event.advsewing %>">
 
           <label for="sewingmachines">Sewing Machines:</label>
-          <input type="text" id="sewingmachines" name="sewingmachines" value="<%= event.sewingmachines %>" required>
+          <input type="text" id="sewingmachines" name="sewingmachines" value="<%= event.sewingmachines %>">
 
           <label for="sergers">Sergers:</label>
-          <input type="text" id="sergers" name="sergers" value="<%= event.sergers %>" required>
+          <input type="text" id="sergers" name="sergers" value="<%= event.sergers %>">
         </div>
 
         <div class="section">
           <h3>Participant Information</h3>
           <label for="participants">Total Participants:</label>
-          <input type="number" id="participants" name="participants" value="<%= event.participants %>" required>
+          <input type="number" id="participants" name="participants" value="<%= event.participants %>">
         
           <label for="child">Child Participants:</label>
-          <input type="number" id="child" name="child" value="<%= event.child %>" required>
+          <input type="number" id="child" name="child" value="<%= event.child %>">
         
           <label for="teen">Teen Participants:</label>
-          <input type="number" id="teen" name="teen" value="<%= event.teen %>" required>
+          <input type="number" id="teen" name="teen" value="<%= event.teen %>">
         
           <label for="adult">Adult Participants:</label>
-          <input type="number" id="adult" name="adult" value="<%= event.adult %>" required>
+          <input type="number" id="adult" name="adult" value="<%= event.adult %>">
         </div>
 
         <div class="section">
           <h3>Event Area and Organization</h3>
           <label for="sizeofarea">Size of Area:</label>
-          <input type="text" id="sizeofarea" name="sizeofarea" value="<%= event.sizeofarea %>" required>
+          <input type="text" id="sizeofarea" name="sizeofarea" value="<%= event.sizeofarea %>">
         
           <label for="organizationname">Organization Name:</label>
-          <input type="text" id="organizationname" name="organizationname" value="<%= event.organizationname %>" required>
+          <input type="text" id="organizationname" name="organizationname" value="<%= event.organizationname %>">
         </div>
         
         <div class="section">
           <h3>Story and Donation</h3>
           <label for="story">Share Jen's Story:</label>
-          <select id="story" name="story" required>
+          <select id="story" name="story">
             <option value="Yes" <%= event.story === "Yes" ? "selected" : "" %>>Yes</option>
             <option value="No" <%= event.story === "No" ? "selected" : "" %>>No</option>
           </select>
         
           <label for="willingtodonate">Willing to Donate:</label>
-          <select id="willingtodonate" name="willingtodonate" required>
+          <select id="willingtodonate" name="willingtodonate">
             <option value="Yes" <%= event.willingtodonate === "Yes" ? "selected" : "" %>>Yes</option>
             <option value="No" <%= event.willingtodonate === "No" ? "selected" : "" %>>No</option>
           </select>
@@ -228,14 +236,14 @@
           <h3>Event Status and Actuals</h3>
           <label for="eventstatus">Event Status:</label>
           <select id="eventstatus" name="eventstatus" required>
-              <option value="" disabled selected>Select Status</option>
-              <option value="pending">Pending</option>
-              <option value="approved">Approved</option>
-              <option value="declined">Declined</option>
-              <option value="completed">Completed</option>
+              <option value="" disabled>Select Status</option>
+              <option value="pending" <%= event.eventstatus === "pending" ? "selected" : "" %>>Pending</option>
+              <option value="approved" <%= event.eventstatus === "approved" ? "selected" : "" %>>Approved</option>
+              <option value="declined" <%= event.eventstatus === "declined" ? "selected" : "" %>>Declined</option>
+              <option value="completed" <%= event.eventstatus === "completed" ? "selected" : "" %>>Completed</option>
           </select>
           <label for="actualdate">Actual Date:</label>
-          <input type="date" id="actualdate" name="actualdate" value="<%= event.actualdate && !isNaN(new Date(event.actualdate)) ? new Date(event.actualdate).toISOString().split('T')[0] : '' %>">
+          <input type="date" id="actualdate" name="actualdate" value="<%= event.actualdate %>">
         
           <label for="actualduration">Actual Duration:</label>
           <input type="text" id="actualduration" name="actualduration" value="<%= event.actualduration %>">
@@ -252,8 +260,9 @@
   <h3>Volunteers</h3>
   <label for="volunteer">Select Volunteers (ctrl + click):</label>
   <select id="volunteer" name="volunteers" multiple>
+    <% const assignedVolunteers = event.volunteers || []; %>
     <% volunteers.forEach(function(volunteer) { %>
-      <option value="<%= volunteer.volid %>"><%= volunteer.volfirst %> <%= volunteer.vollast %></option>
+      <option value="<%= volunteer.volid %>" <%= assignedVolunteers.includes(volunteer.volid) ? "selected" : "" %>><%= volunteer.volfirst %> <%= volunteer.vollast %></option>
     <% }); %>
   </select>
 </div>
@@ -263,7 +272,7 @@
         </div>
     </div>
   </form>
-
+  </main>
 </body>
 <script>
     function confirmSave(event) {

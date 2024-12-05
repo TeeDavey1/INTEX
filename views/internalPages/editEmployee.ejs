@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Employee</title>
+  <link rel="stylesheet" href="css/styles.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -101,7 +103,7 @@
   </style>
 </head>
 <body>
-
+  <%- include('../partials/adminHeader') %>
   <header>
     <h1>Edit Employee</h1>
   </header>
@@ -159,7 +161,60 @@
             <input type="text" id="empcity" name="empcity" value="<%= employee.empcity %>" required>
 
             <label for="empstate">State:</label>
-            <input type="text" id="empstate" name="empstate" value="<%= employee.empstate %>" required>
+            <select id="empstate" name="empstate" class="dropselect" required>
+                <option value="" disabled selected>Select State</option>
+                <option value="AL" <%= employee.empstate === 'AL' ? 'selected' : '' %>>Alabama</option>
+                <option value="AK" <%= employee.empstate === 'AK' ? 'selected' : '' %>>Alaska</option>
+                <option value="AZ" <%= employee.empstate === 'AZ' ? 'selected' : '' %>>Arizona</option>
+                <option value="AR" <%= employee.empstate === 'AR' ? 'selected' : '' %>>Arkansas</option>
+                <option value="CA" <%= employee.empstate === 'CA' ? 'selected' : '' %>>California</option>
+                <option value="CO" <%= employee.empstate === 'CO' ? 'selected' : '' %>>Colorado</option>
+                <option value="CT" <%= employee.empstate === 'CT' ? 'selected' : '' %>>Connecticut</option>
+                <option value="DE" <%= employee.empstate === 'DE' ? 'selected' : '' %>>Delaware</option>
+                <option value="FL" <%= employee.empstate === 'FL' ? 'selected' : '' %>>Florida</option>
+                <option value="GA" <%= employee.empstate === 'GA' ? 'selected' : '' %>>Georgia</option>
+                <option value="HI" <%= employee.empstate === 'HI' ? 'selected' : '' %>>Hawaii</option>
+                <option value="ID" <%= employee.empstate === 'ID' ? 'selected' : '' %>>Idaho</option>
+                <option value="IL" <%= employee.empstate === 'IL' ? 'selected' : '' %>>Illinois</option>
+                <option value="IN" <%= employee.empstate === 'IN' ? 'selected' : '' %>>Indiana</option>
+                <option value="IA" <%= employee.empstate === 'IA' ? 'selected' : '' %>>Iowa</option>
+                <option value="KS" <%= employee.empstate === 'KS' ? 'selected' : '' %>>Kansas</option>
+                <option value="KY" <%= employee.empstate === 'KY' ? 'selected' : '' %>>Kentucky</option>
+                <option value="LA" <%= employee.empstate === 'LA' ? 'selected' : '' %>>Louisiana</option>
+                <option value="ME" <%= employee.empstate === 'ME' ? 'selected' : '' %>>Maine</option>
+                <option value="MD" <%= employee.empstate === 'MD' ? 'selected' : '' %>>Maryland</option>
+                <option value="MA" <%= employee.empstate === 'MA' ? 'selected' : '' %>>Massachusetts</option>
+                <option value="MI" <%= employee.empstate === 'MI' ? 'selected' : '' %>>Michigan</option>
+                <option value="MN" <%= employee.empstate === 'MN' ? 'selected' : '' %>>Minnesota</option>
+                <option value="MS" <%= employee.empstate === 'MS' ? 'selected' : '' %>>Mississippi</option>
+                <option value="MO" <%= employee.empstate === 'MO' ? 'selected' : '' %>>Missouri</option>
+                <option value="MT" <%= employee.empstate === 'MT' ? 'selected' : '' %>>Montana</option>
+                <option value="NE" <%= employee.empstate === 'NE' ? 'selected' : '' %>>Nebraska</option>
+                <option value="NV" <%= employee.empstate === 'NV' ? 'selected' : '' %>>Nevada</option>
+                <option value="NH" <%= employee.empstate === 'NH' ? 'selected' : '' %>>New Hampshire</option>
+                <option value="NJ" <%= employee.empstate === 'NJ' ? 'selected' : '' %>>New Jersey</option>
+                <option value="NM" <%= employee.empstate === 'NM' ? 'selected' : '' %>>New Mexico</option>
+                <option value="NY" <%= employee.empstate === 'NY' ? 'selected' : '' %>>New York</option>
+                <option value="NC" <%= employee.empstate === 'NC' ? 'selected' : '' %>>North Carolina</option>
+                <option value="ND" <%= employee.empstate === 'ND' ? 'selected' : '' %>>North Dakota</option>
+                <option value="OH" <%= employee.empstate === 'OH' ? 'selected' : '' %>>Ohio</option>
+                <option value="OK" <%= employee.empstate === 'OK' ? 'selected' : '' %>>Oklahoma</option>
+                <option value="OR" <%= employee.empstate === 'OR' ? 'selected' : '' %>>Oregon</option>
+                <option value="PA" <%= employee.empstate === 'PA' ? 'selected' : '' %>>Pennsylvania</option>
+                <option value="RI" <%= employee.empstate === 'RI' ? 'selected' : '' %>>Rhode Island</option>
+                <option value="SC" <%= employee.empstate === 'SC' ? 'selected' : '' %>>South Carolina</option>
+                <option value="SD" <%= employee.empstate === 'SD' ? 'selected' : '' %>>South Dakota</option>
+                <option value="TN" <%= employee.empstate === 'TN' ? 'selected' : '' %>>Tennessee</option>
+                <option value="TX" <%= employee.empstate === 'TX' ? 'selected' : '' %>>Texas</option>
+                <option value="UT" <%= employee.empstate === 'UT' ? 'selected' : '' %>>Utah</option>
+                <option value="VT" <%= employee.empstate === 'VT' ? 'selected' : '' %>>Vermont</option>
+                <option value="VA" <%= employee.empstate === 'VA' ? 'selected' : '' %>>Virginia</option>
+                <option value="WA" <%= employee.empstate === 'WA' ? 'selected' : '' %>>Washington</option>
+                <option value="WV" <%= employee.empstate === 'WV' ? 'selected' : '' %>>West Virginia</option>
+                <option value="WI" <%= employee.empstate === 'WI' ? 'selected' : '' %>>Wisconsin</option>
+                <option value="WY" <%= employee.empstate === 'WY' ? 'selected' : '' %>>Wyoming</option>
+            </select>
+
 
             <label for="empzipcode">Zipcode:</label>
             <input type="text" id="empzipcode" name="empzipcode" value="<%= employee.empzipcode %>" required>

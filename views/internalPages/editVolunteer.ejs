@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Volunteer</title>
+  <link rel="stylesheet" href="css/styles.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -98,9 +100,13 @@
       margin: 20px auto;
       text-align: center;
     }
+    .spacer {
+    height: 10px;  /* Adjust the value to your preferred spacing */
+    }
   </style>
 </head>
 <body>
+  <%- include('../partials/adminHeader') %>
 
   <header>
     <h1>Edit Volunteer</h1>
@@ -128,6 +134,9 @@
             
             <label for="volemail">Email:</label>
             <input type="email" id="volemail" name="volemail" value="<%= volunteer.volemail %>" required>
+
+            <label for="newsletter">Sign up for the newsletter:</label>
+            <input type="checkbox" id="newsletter" name="newsletter" value="<%= volunteer.newsletter ? "checked" : "" %>">
             
             <label for="volgender">Gender:</label>
             <input type="text" id="volgender" name="volgender" value="<%= volunteer.volgender %>" required>
@@ -138,8 +147,8 @@
             <label for="volshirtsize">Shirt Size:</label>
             <input type="text" id="volshirtsize" name="volshirtsize" value="<%= volunteer.volshirtsize %>" required>
 
-            <label for="volusername">Username:</label>
-            <input type="text" id="volusername" name="volusername" value="<%= volunteer.volusername %>" required>
+          
+            
         </div>
         </div>
 
@@ -153,7 +162,60 @@
             <input type="text" id="volcity" name="volcity" value="<%= volunteer.volcity %>" required>
 
             <label for="volstate">State:</label>
-            <input type="text" id="volstate" name="volstate" value="<%= volunteer.volstate %>" required>
+<select id="volstate" name="volstate" required>
+    <option value="" disabled>Select your state</option>
+    <option value="AL" <%= volunteer.volstate === 'AL' ? 'selected' : '' %>>Alabama</option>
+    <option value="AK" <%= volunteer.volstate === 'AK' ? 'selected' : '' %>>Alaska</option>
+    <option value="AZ" <%= volunteer.volstate === 'AZ' ? 'selected' : '' %>>Arizona</option>
+    <option value="AR" <%= volunteer.volstate === 'AR' ? 'selected' : '' %>>Arkansas</option>
+    <option value="CA" <%= volunteer.volstate === 'CA' ? 'selected' : '' %>>California</option>
+    <option value="CO" <%= volunteer.volstate === 'CO' ? 'selected' : '' %>>Colorado</option>
+    <option value="CT" <%= volunteer.volstate === 'CT' ? 'selected' : '' %>>Connecticut</option>
+    <option value="DE" <%= volunteer.volstate === 'DE' ? 'selected' : '' %>>Delaware</option>
+    <option value="FL" <%= volunteer.volstate === 'FL' ? 'selected' : '' %>>Florida</option>
+    <option value="GA" <%= volunteer.volstate === 'GA' ? 'selected' : '' %>>Georgia</option>
+    <option value="HI" <%= volunteer.volstate === 'HI' ? 'selected' : '' %>>Hawaii</option>
+    <option value="ID" <%= volunteer.volstate === 'ID' ? 'selected' : '' %>>Idaho</option>
+    <option value="IL" <%= volunteer.volstate === 'IL' ? 'selected' : '' %>>Illinois</option>
+    <option value="IN" <%= volunteer.volstate === 'IN' ? 'selected' : '' %>>Indiana</option>
+    <option value="IA" <%= volunteer.volstate === 'IA' ? 'selected' : '' %>>Iowa</option>
+    <option value="KS" <%= volunteer.volstate === 'KS' ? 'selected' : '' %>>Kansas</option>
+    <option value="KY" <%= volunteer.volstate === 'KY' ? 'selected' : '' %>>Kentucky</option>
+    <option value="LA" <%= volunteer.volstate === 'LA' ? 'selected' : '' %>>Louisiana</option>
+    <option value="ME" <%= volunteer.volstate === 'ME' ? 'selected' : '' %>>Maine</option>
+    <option value="MD" <%= volunteer.volstate === 'MD' ? 'selected' : '' %>>Maryland</option>
+    <option value="MA" <%= volunteer.volstate === 'MA' ? 'selected' : '' %>>Massachusetts</option>
+    <option value="MI" <%= volunteer.volstate === 'MI' ? 'selected' : '' %>>Michigan</option>
+    <option value="MN" <%= volunteer.volstate === 'MN' ? 'selected' : '' %>>Minnesota</option>
+    <option value="MS" <%= volunteer.volstate === 'MS' ? 'selected' : '' %>>Mississippi</option>
+    <option value="MO" <%= volunteer.volstate === 'MO' ? 'selected' : '' %>>Missouri</option>
+    <option value="MT" <%= volunteer.volstate === 'MT' ? 'selected' : '' %>>Montana</option>
+    <option value="NE" <%= volunteer.volstate === 'NE' ? 'selected' : '' %>>Nebraska</option>
+    <option value="NV" <%= volunteer.volstate === 'NV' ? 'selected' : '' %>>Nevada</option>
+    <option value="NH" <%= volunteer.volstate === 'NH' ? 'selected' : '' %>>New Hampshire</option>
+    <option value="NJ" <%= volunteer.volstate === 'NJ' ? 'selected' : '' %>>New Jersey</option>
+    <option value="NM" <%= volunteer.volstate === 'NM' ? 'selected' : '' %>>New Mexico</option>
+    <option value="NY" <%= volunteer.volstate === 'NY' ? 'selected' : '' %>>New York</option>
+    <option value="NC" <%= volunteer.volstate === 'NC' ? 'selected' : '' %>>North Carolina</option>
+    <option value="ND" <%= volunteer.volstate === 'ND' ? 'selected' : '' %>>North Dakota</option>
+    <option value="OH" <%= volunteer.volstate === 'OH' ? 'selected' : '' %>>Ohio</option>
+    <option value="OK" <%= volunteer.volstate === 'OK' ? 'selected' : '' %>>Oklahoma</option>
+    <option value="OR" <%= volunteer.volstate === 'OR' ? 'selected' : '' %>>Oregon</option>
+    <option value="PA" <%= volunteer.volstate === 'PA' ? 'selected' : '' %>>Pennsylvania</option>
+    <option value="RI" <%= volunteer.volstate === 'RI' ? 'selected' : '' %>>Rhode Island</option>
+    <option value="SC" <%= volunteer.volstate === 'SC' ? 'selected' : '' %>>South Carolina</option>
+    <option value="SD" <%= volunteer.volstate === 'SD' ? 'selected' : '' %>>South Dakota</option>
+    <option value="TN" <%= volunteer.volstate === 'TN' ? 'selected' : '' %>>Tennessee</option>
+    <option value="TX" <%= volunteer.volstate === 'TX' ? 'selected' : '' %>>Texas</option>
+    <option value="UT" <%= volunteer.volstate === 'UT' ? 'selected' : '' %>>Utah</option>
+    <option value="VT" <%= volunteer.volstate === 'VT' ? 'selected' : '' %>>Vermont</option>
+    <option value="VA" <%= volunteer.volstate === 'VA' ? 'selected' : '' %>>Virginia</option>
+    <option value="WA" <%= volunteer.volstate === 'WA' ? 'selected' : '' %>>Washington</option>
+    <option value="WV" <%= volunteer.volstate === 'WV' ? 'selected' : '' %>>West Virginia</option>
+    <option value="WI" <%= volunteer.volstate === 'WI' ? 'selected' : '' %>>Wisconsin</option>
+    <option value="WY" <%= volunteer.volstate === 'WY' ? 'selected' : '' %>>Wyoming</option>
+</select>
+
 
             <label for="volzipcode">Zipcode:</label>
             <input type="text" id="volzipcode" name="volzipcode" value="<%= volunteer.volzipcode %>" required>
@@ -191,6 +253,22 @@
             <option value="intermediate" <%= volunteer.volsewinglevel === "intermediate" ? "selected" : "" %>>intermediate</option>
             <option value="advanced" <%= volunteer.volsewinglevel === "advanced" ? "selected" : "" %>>advanced</option>
         </select>
+
+        <label for="voldiscovery">Discovery?</label>
+        <select id="voldiscovery" name="voldiscovery" class="dropselect" required>
+            <option value="" disabled>Select Option</option>
+            <option value="Website" <%= volunteer.voldiscovery === 'Website' ? 'selected' : '' %>>Website</option>
+            <option value="Social Media" <%= volunteer.voldiscovery === 'Social Media' ? 'selected' : '' %>>Social Media</option>
+            <option value="Event" <%= volunteer.voldiscovery === 'Event' ? 'selected' : '' %>>Event</option>
+            <option value="Referral/Friend" <%= volunteer.voldiscovery === 'Referral/Friend' ? 'selected' : '' %>>Referral/Friend</option>
+            <option value="Other" <%= volunteer.voldiscovery === 'Other' ? 'selected' : '' %>>Other</option>
+        </select>       
+
+
+        <label for="volavailabilitynotes">Availability Notes</label>
+        <div class="spacer"></div>
+        <textarea id="volavailabilitynotes" name="volavailabilitynotes" rows="4" cols="50"><%= volunteer.volavailabilitynotes %></textarea>
+        
         </div>
 
         <div class="action-buttons">

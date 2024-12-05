@@ -141,7 +141,7 @@
         in your community and beyond. Together, we can create change!</p>
 </div>
     <div class="form-container">        
-        <form action="/pages/beVolunteer" method="POST">
+        <form id="volunteer-form" action="/beVolunteer" method="POST">
             <!-- Personal Information Section -->
             <div class="form-row">
                 <div class="form-group">
@@ -353,4 +353,16 @@
 
     <%- include('../partials/footer') %>
 </body>
+<script>
+     document.getElementById('volunteer-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent immediate form submission
+    if (this.checkValidity()) {
+        alert('Thank you! Your form has been submitted successfully.');
+        window.location.href = '/how-you-can-help';
+    } else {
+        alert('Please complete all required fields before submitting.');
+    }
+});
+
+</script>
 </html>

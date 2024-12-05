@@ -1,259 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Event</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #333;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      font-weight: 600;
-    }
-    .container {
-      width: 80%;
-      margin: 20px auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #333;
-      font-size: 2rem;
-    }
-    .section {
-      margin: 20px 0;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-    .section h3 {
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .info {
-      margin: 8px 0;
-      font-size: 16px;
-      color: #555;
-    }
-    .info span {
-      font-weight: bold;
-      color: #333;
-    }
-    .row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .column {
-      flex: 1;
-      min-width: 200px;
-    }
-    button {
-      background-color: #228B22;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      cursor: pointer;
-      font-size: 14px;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #1e7e1e;
-    }
-    .back-btn {
-      display: block;
-      width: 200px;
-      margin: 20px auto;
-      text-align: center;
-    }
-    .action-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px; /* Space between buttons */
-      margin-top: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
 
-    .action-buttons a, .action-buttons form {
-      display: inline-block;
-    }
-
-    button {
-      background-color: #228B22;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      cursor: pointer;
-      font-size: 14px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #1e7e1e;
-    }
-
-    .back-btn {
-      display: block;
-      width: 200px;
-      margin: 20px auto;
-      text-align: center;
-    }
-
-  </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1rem;
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #228B22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #1e7e1e;
+        }
+    </style>
 </head>
 <body>
+  <%- include('../partials/adminHeader') %>
+  <main>
+        <header>
+            <h1>Event Details for <%= event.contactfirst %> <%= event.contactlast %></h1>
+        </header>
 
-  <header>
-    <h1>Event Details</h1>
-  </header>
-
-  <div class="container">
-    <h2>Event ID: <%= event.eventid %> - <%= event.contactfirst %> <%= event.contactlast %></h2>
-
-    <!-- Contact Information and Participation Details -->
-    <div class="row">
-        <div class="column">
-            <div class="section">
-                <h3>Contact Information</h3>
-                <div class="info"><span>Phone:</span> <%= event.contactphone %></div>
-                <div class="info"><span>Email:</span> <%= event.contactemail %></div>
-            </div>
+        <div class="container">
+            <h2>Event Information</h2>
+            <p><strong>Preferred Date:</strong> <%= event.eventprefdate %></p>
+            <p><strong>Possible Date:</strong> <%= event.eventpossdate %></p>
+            <p><strong>Preferred Time:</strong> <%= event.preftime %></p>
+            <p><strong>Preferred Duration:</strong> <%= event.prefduration %> hours</p>
+            <p><strong>Service Type:</strong> <%= event.servicetype %></p>
+            <p><strong>Address:</strong> <%= event.streetaddress %>, <%= event.city %>, <%= event.state %>, <%= event.zipcode %></p>
+            <p><strong>Basic Sewing:</strong> <%= event.basicsewing %></p>
+            <p><strong>Advanced Sewing:</strong> <%= event.advsewing %></p>
+            <p><strong>Sewing Machines:</strong> <%= event.sewingmachines %></p>
+            <p><strong>Sergers:</strong> <%= event.sergers %></p>
+            <p><strong>Participants:</strong> <%= event.participants %></p>
+            <p><strong>Child Participants:</strong> <%= event.child %></p>
+            <p><strong>Story Shared:</strong> <%= event.story %></p>
+            <p><strong>Willing to Donate:</strong> <%= event.willingtodonate %></p>
+            <p><strong>Event Status:</strong> <%= event.eventstatus %></p>
+            <p><strong>Actual Date:</strong> <%= event.actualdate %></p>
+            <p><strong>Actual Duration:</strong> <%= event.actualduration %></p>
+            <p><strong>Actual Event Time:</strong> <%= event.actualeventtime %></p>
+            <p><strong>Actual Participants:</strong> <%= event.actualparticipants %></p>
         </div>
-        <div class="column">
-            <div class="section">
-                <h3>Participant Details</h3>
-                <div class="info"><span>Total Participants:</span> <%= event.participants %></div>
-                <div class="info"><span>Child Participants:</span> <%= event.child %></div>
-                <div class="info"><span>Teen Participants:</span> <%= event.teen %></div>
-                <div class="info"><span>Adult Participants:</span> <%= event.adult %></div>
-            </div>
+
+        <div class="container">
+            <h2>Volunteers</h2>
+            <% if (volunteers.length > 0) { %>
+                <ul>
+                    <% volunteers.forEach(function(volunteer) { %>
+                        <li><%= volunteer.volfirst %> <%= volunteer.vollast %></li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No volunteers are associated with this event.</p>
+            <% } %>
         </div>
-    </div>
 
-    <!-- Request Information and Event Preferences -->
-    <div class="row">
-        <div class="column">
-            <div class="section">
-                <h3>Request Information</h3>
-                <div class="info">
-                  <span>Date Request Sent:</span>
-                  <script>
-                    const dateRequestSent = new Date('<%= event.daterequestsent %>');
-                    document.write(dateRequestSent.toISOString().split('T')[0]);
-                  </script>
-                </div>
-                <div class="info"><span>Time Request Sent:</span> <%= event.timerequestsent %></div>
-                <div class="info">
-                  <span>Event Preferred Date:</span>
-                  <script>
-                    const eventPrefDate = new Date('<%= event.eventprefdate %>');
-                    document.write(eventPrefDate.toISOString().split('T')[0]);
-                  </script>
-                </div>
-                <div class="info"><span>Event Possible Date:</span> <%= event.eventpossdate %></div>
-            </div>
+        <div class="action-buttons">
+            <button onclick="window.location.href='/editEvent/<%= event.eventid %>'">Edit Event</button>
+            <button onclick="window.history.back()">Back</button>
         </div>
-        <div class="column">
-            <div class="section">
-                <h3>Event Preferences</h3>
-                <div class="info"><span>Preferred Time:</span> <%= event.preftime %></div>
-                <div class="info"><span>Preferred Duration:</span> <%= event.prefduration %></div>
-                <div class="info"><span>Service Type:</span> <%= event.servicetype %></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sewing Requirements -->
-    <div class="section">
-        <h3>Sewing Requirements</h3>
-        <div class="info"><span>Basic Sewing:</span> <%= event.basicsewing %></div>
-        <div class="info"><span>Advanced Sewing:</span> <%= event.advsewing %></div>
-        <div class="info"><span>Sewing Machines:</span> <%= event.sewingmachines %></div>
-        <div class="info"><span>Sergers:</span> <%= event.sergers %></div>
-    </div>
-
-    <!-- Address Information -->
-    <div class="row">
-        <div class="column">
-            <div class="section">
-                <h3>Address</h3>
-                <div class="info"><span>Street Address:</span> <%= event.streetaddress %></div>
-                <div class="info"><span>City:</span> <%= event.city %></div>
-                <div class="info"><span>State:</span> <%= event.state %></div>
-                <div class="info"><span>Zip Code:</span> <%= event.zipcode %></div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="section">
-                <h3>Event Location</h3>
-                <div class="info"><span>Size of Area:</span> <%= event.sizeofarea %></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Organization and Story -->
-    <div class="section">
-        <h3>Organization Details</h3>
-        <div class="info"><span>Organization Name:</span> <%= event.organizationname %></div>
-        <div class="info"><span>Story:</span> <%= event.story %></div>
-        <div class="info"><span>Willing to Donate:</span> <%= event.willingtodonate %></div>
-    </div>
-
-    <!-- Event Status -->
-    <div class="section">
-        <h3>Event Status</h3>
-        <div class="info"><span>Status:</span> <%= event.eventstatus %></div>
-        <div class="info">
-          <span>Actual Date:</span>
-          <script>
-            const actualDate = new Date('<%= event.actualdate %>');
-            document.write(actualDate.toISOString().split('T')[0]);
-          </script>
-        </div>
-        <div class="info"><span>Actual Duration:</span> <%= event.actualduration %></div>
-        <div class="info"><span>Actual Event Time:</span> <%= event.actualeventtime %></div>
-        <div class="info"><span>Actual Participants:</span> <%= event.actualparticipants %></div>
-    </div>
-
-    <div class="action-buttons">
-        <a href="/editEvent/<%= event.eventid %>">
-            <button>Edit</button>
-        </a>
-        <form action="/deleteEvent/<%= event.eventid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
-            <button type="submit">Delete</button>
-        </form>
-    </div>
-
-    <!-- Back Button -->
-    <div class="back-btn">
-        <a href="/maintainEvents"><button>Back to Event List</button></a>
-    </div>
-  </div>
+    </main>
 </body>
-<script>
-    function confirmDelete(event) {
-      if (!confirm("Are you sure you want to delete this event? This action cannot be undone.")) {
-        event.preventDefault(); // Prevent form submission if user cancels
-      }
-    }
-
-</script>  
 </html>
