@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <title><%= title%></title>
+    <style>
+    main h1{
+        justify-self: center;
+        font-size: 36px;
+        font-family: "Merriweather", serif;
+    }
+    </style>
 </head>
     <body>
         <%- include('../partials/header') %>
         <main class="help-options">
             <h1>How You Can Help</h1>
-            <a href="/requestEvent" class="help-link">Request Event</a>
+            <a href="/requestEvent" class="help-link">Host Event</a>
             <a href="/beVolunteer" class="help-link">Volunteer</a>
             <a href="https://turtleshelterproject.org/donate" class="help-link">Make a Donation</a>
             <a href="https://turtleshelterproject.org/partnerssponsors" class="help-link">Become a Sponsor</a>

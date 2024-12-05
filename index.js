@@ -612,6 +612,14 @@ app.post('/submit-event', async (req, res) => {
     const timerequestsent = currentDate.toTimeString().split(' ')[0]; // Format: HH:MM:SS
 
     try {
+        const contact = await knex('eventcontact').insert({
+            contactfirst: ContactFirstName,
+            contactlast: ContactLastName,
+            contactphone: ContactPhone,
+            contactemail: ContactEmail
+        }).returning('contactid');
+        const contactid = contact[0].contactid;
+
         await knex('events').insert({
             daterequestsent,
             timerequestsent,
@@ -637,16 +645,15 @@ app.post('/submit-event', async (req, res) => {
             story: Story,
             willingtodonate: willingToDonate === 'yes',
             eventstatus: 'Pending', // Default status for a new event request
-            contactid: 1 // Placeholder contact ID; replace with the correct logic to associate contacts
+            contactid
         });
 
-        return res.send('Thank You');
+        res.redirect('/'); // Redirect to a thank you page after successful submission
     } catch (error) {
         console.error('Error inserting event:', error);
         res.status(500).send('Internal Server Error');
     }
 });
-
 
 // Login Page
 app.post('/login-submit', (req, res) => {

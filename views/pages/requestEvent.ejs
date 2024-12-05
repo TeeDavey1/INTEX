@@ -362,5 +362,22 @@
     });
 
     updateTotalParticipants(); // Initial update
+
+    document.getElementById('event-form').addEventListener('submit', function(event) {
+        // If the form passes the default validation
+        if (this.checkValidity()) {
+            event.preventDefault(); // Prevents immediate submission to handle post-submit actions
+
+            // Display the thank-you message
+            thankYou();
+
+            // Submit the form programmatically after the thank-you alert is closed
+            this.submit();
+        }
+    });
+
+    function thankYou() {
+        alert('Thank you!\nEvent submitted successfully.');
+    }
 </script>
 </html>
