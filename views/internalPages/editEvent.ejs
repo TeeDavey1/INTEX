@@ -38,36 +38,27 @@
     }
     .section {
       margin: 20px 0;
-      padding: 10px;
+      padding: 15px;
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #f9f9f9;
+      box-sizing: border-box; /* Ensures padding is included in width */
     }
     .section h3 {
       font-size: 1.5rem;
       color: #333;
       margin-bottom: 10px;
     }
-    .info {
-      margin: 8px 0;
-      font-size: 16px;
-      color: #555;
-    }
-    .row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .column {
-      flex: 1;
-      min-width: 200px;
-    }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 8px;
       margin: 5px 0;
       border-radius: 5px;
       border: 1px solid #ccc;
+      box-sizing: border-box; /* Ensures padding does not cause overflow */
+    }
+    textarea {
+      resize: vertical; /* Allows vertical resizing but restricts horizontal */
     }
     button {
       background-color: #228B22;
@@ -87,7 +78,16 @@
       gap: 15px;
       margin-top: 20px;
     }
-  </style>
+    .row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .column {
+      flex: 1;
+      min-width: 200px;
+    }
+  </style>  
 </head>
 <body>
 
@@ -129,16 +129,20 @@
               <input type="date" id="eventprefdate" name="eventprefdate" value="<%= event.eventprefdate %>" required>
 
               <label for="eventpossdate">Possible Date:</label>
-              <input type="date" id="eventpossdate" name="eventpossdate" value="<%= event.eventpossdate %>" required>
+              <input type="text" id="eventpossdate" name="eventpossdate" value="<%= event.eventpossdate %>" required>
 
               <label for="preftime">Preferred Time:</label>
-              <input type="text" id="preftime" name="preftime" value="<%= event.preftime %>" required>
+              <input type="time" id="preftime" name="preftime" value="<%= event.preftime %>" required>
 
               <label for="prefduration">Preferred Duration:</label>
-              <input type="text" id="prefduration" name="prefduration" value="<%= event.prefduration %>" required>
+              <input type="number" id="prefduration" name="prefduration" value="<%= event.prefduration %>" required>
 
               <label for="servicetype">Service Type:</label>
-              <input type="text" id="servicetype" name="servicetype" value="<%= event.servicetype %>" required>
+              <select id="servicetype" name="servicetype" required>
+                <option value="Sewing" <%= event.servicetype === "Sewing" ? "selected" : "" %>>Sewing</option>
+                <option value="Non-Sewing" <%= event.servicetype === "Non-Sewing" ? "selected" : "" %>>Non-Sewing</option>
+                <option value="Both" <%= event.servicetype === "Both" ? "selected" : "" %>>Both</option>
+              </select>              
 
               <label for="daterequestsent">Date Request Sent:</label>
               <input type="date" id="daterequestsent" name="daterequestsent" value="<%= event.daterequestsent && !isNaN(new Date(event.daterequestsent)) ? new Date(event.daterequestsent).toISOString().split('T')[0] : '' %>" required>
@@ -207,8 +211,11 @@
         
         <div class="section">
           <h3>Story and Donation</h3>
-          <label for="story">Story:</label>
-          <textarea id="story" name="story" rows="4" required><%= event.story %></textarea>
+          <label for="story">Share Jen's Story:</label>
+          <select id="story" name="story" required>
+            <option value="Yes" <%= event.story === "Yes" ? "selected" : "" %>>Yes</option>
+            <option value="No" <%= event.story === "No" ? "selected" : "" %>>No</option>
+          </select>
         
           <label for="willingtodonate">Willing to Donate:</label>
           <select id="willingtodonate" name="willingtodonate" required>
@@ -220,8 +227,13 @@
         <div class="section">
           <h3>Event Status and Actuals</h3>
           <label for="eventstatus">Event Status:</label>
-          <input type="text" id="eventstatus" name="eventstatus" value="<%= event.eventstatus %>" required>
-        
+          <select id="eventstatus" name="eventstatus" required>
+              <option value="" disabled selected>Select Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="declined">Declined</option>
+              <option value="completed">Completed</option>
+          </select>
           <label for="actualdate">Actual Date:</label>
           <input type="date" id="actualdate" name="actualdate" value="<%= event.actualdate && !isNaN(new Date(event.actualdate)) ? new Date(event.actualdate).toISOString().split('T')[0] : '' %>">
         
@@ -235,7 +247,16 @@
           <input type="number" id="actualparticipants" name="actualparticipants" value="<%= event.actualparticipants %>">
         </div>
 
-        <!-- Action Buttons -->
+        
+<div class="section">
+  <h3>Volunteers</h3>
+  <label for="volunteer">Select Volunteers (ctrl + click):</label>
+  <select id="volunteer" name="volunteers" multiple>
+    <% volunteers.forEach(function(volunteer) { %>
+      <option value="<%= volunteer.volid %>"><%= volunteer.volfirst %> <%= volunteer.vollast %></option>
+    <% }); %>
+  </select>
+</div>
         <div class="action-buttons">
           <button type="submit">Save Changes</button>
           <button type="button" onclick="goBack()">Cancel</button>

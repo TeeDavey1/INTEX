@@ -1,12 +1,9 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Volunteer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Sign-Up Form</title>
+    <title>Add Volunteer</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
@@ -17,31 +14,32 @@
             margin: 0;
             padding: 0;
         }
-
+    
         /* Form Container */
         .form-container {
             background: #fff;
-            padding: 20px;
+            padding: 40px; /* Increased padding for edges */
             margin: 20px auto;
             max-width: 800px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+    
         /* Form Heading */
         .pageTitle {
             font-size: 3rem;
             color: #228B22;
             text-align: left;
+            margin-bottom: 20px;
         }
-
+    
         /* Form Layout */
         form {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-
+    
         /* Labels and Inputs */
         label {
             font-size: 1rem;
@@ -50,167 +48,287 @@
             display: block;
             color: #555;
         }
-
+    
         input, select, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 15px; /* Added space between input and next label */
         }
-
+    
         input::placeholder {
             color: #aaa;
         }
-
+    
         textarea {
             height: 80px;
         }
-
+    
+        /* Submit Button */
         /* Submit Button */
         button {
-            padding: 10px;
+            padding: 1%;
             font-size: 1rem;
             background-color: #228B22;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            max-width: 200px;
+            width: 100%; /* Ensures consistent size */
+            margin: 0 auto; /* Centers the button horizontally */
+            display: block; /* Ensures the margin auto works */
         }
 
+    
         button:hover {
             background-color: #1e7a1e;
         }
-
+    
         /* Form Row and Grouping */
         .form-row {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            justify-content: center; /* Horizontally center the content */
         }
-
+    
         .form-group {
-            flex: 1 1 calc(33.33% - 20px);
+            flex: 1 1 calc(50% - 20px);
+            min-width: calc(50% - 20px);
+            box-sizing: border-box;
         }
-
+    
         .form-group.full-width {
             flex: 1 1 100%;
         }
+    
+        /* Styling for Checkbox
+        .checkbox-row {
+            display: inline;
+            /* flex-wrap: nowrap; */
+        
 
-        /* Checkbox Styling */
+        /* Styling for Checkbox */
         .checkbox-group {
-            display: inline-flex; /* Ensures elements are inline and only take up necessary space */
-            align-items: center; /* Vertically aligns the checkbox and label */
-            justify-content: center; /* Horizontally centers the content */
+            display: flex;          /* Align elements horizontally */
+            align-items: center;    /* Vertically align the checkbox and label */
+            gap: 10px;              /* Space between checkbox and label */
+            margin-top: 20px;       /* Add space above the checkbox group */
+            padding: 10px 0;        /* Add spacing around checkbox */
+            flex-wrap: nowrap;
+        }
+
+        .checkbox-group label {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #555;
         }
 
         .checkbox-group input[type="checkbox"] {
-            margin: 0 8px 0 0; /* Adds space only to the right of the checkbox */
-            width: auto; /* Prevents the checkbox from stretching */
-            height: auto; /* Ensures default checkbox height */
+            transform: scale(1.2);  /* Make checkbox larger */
+            cursor: pointer;
         }
 
-        /* Intro Container Styling */
-        .intro-container {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-        }
-
-        .intro-container h1 {
-            font-size: 2.5rem;
-            color: #228B22;
-            margin-bottom: 10px;
-        }
-
-        .intro-container p {
-            font-size: 1rem;
-            color: #555;
-            margin-top: 0;
-        }
-    </style>
-</head>
-<body>
-    <h1 style="text-align: center;">Add Volunteer</h1>
-    <form action="/internalPages/addVolunteer" method="POST">
-        <label for="volfirst">First Name</label>
-        <input type="text" id="volfirst" name="volfirst" required>
-
-        <label for="vollast">Last Name:</label>
-            <input type="text" id="vollast" name="vollast" required>
-            
-            <label for="volphone">Phone:</label>
-            <input type="text" id="volphone" name="volphone" required>
-            
-            <label for="volemail">Email:</label>
-            <input type="email" id="volemail" name="volemail" required>
-            
-            <label for="volgender">Gender:</label>
-            <input type="text" id="volgender" name="volgender" required>
-            
-            <label for="volbirthday">Birthday:</label>
-            <input type="date" id="volbirthday" name="volbirthday" required>
-        
-            <label for="volshirtsize">Shirt Size:</label>
-            <input type="text" id="volshirtsize" name="volshirtsize" required>
-
-            <label for="volusername">Username:</label>
-            <input type="text" id="volusername" name="volusername" required>
-
-            <label for="volpassword">Password:</label>
-            <input type="text" id="volpassword" name="volpassword" required>
-
-            <label for="volstreetaddress">Street Address:</label>
-            <input type="text" id="volstreetaddress" name="volstreetaddress" required>
-
-            <label for="volcity">City:</label>
-            <input type="text" id="volcity" name="volcity" required>
-
-            <label for="volstate">State:</label>
-            <input type="text" id="volstate" name="volstate" required>
-
-            <label for="volzipcode">Zipcode:</label>
-            <input type="text" id="volzipcode" name="volzipcode" required>
-
-            <label for="lead">Willing to Lead:</label>
-            <input type="checkbox" id="lead" name="lead">
-
-
-            <label for="volnumhourspermonth">Preferred Hours per Month:</label>
-            <input type="text" id="volnumhourspermonth" name="volnumhourspermonth" required>
-
-            <label for="volstartdate">Start Date:</label>
-            <input type="date" id="volstartdate" name="volstartdate" required>
-
-            <label for="volstatus">Status:</label>
-            <select id="volstatus" name="volstatus" class="dropselect" required>
-            <option value="" disabled>Select Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            </select>
-
-
-        
-
-            <label for="volsewinglevel">Sewing Level:</label>
-            <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>
-                <option value="" disabled>Select Sewing Level</option>
-                <option value="none">None</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-            
-
-        <button type="submit">Add record</button>
-
-
-    </form>
 
     
+        /* Media Query for Small Screens */
+        @media (max-width: 600px) {
+            .form-group {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+    
+    
+    
+    
+</head>
+<body>
+
+    <div class="form-container">
+        <h1 class="pageTitle">Add Volunteer</h1>
+        <form action="/addVolunteer" method="POST">
+            <!-- Personal Information Section -->
+            <div class="section">
+                <h3>Personal Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volfirst">First Name:</label>
+                        <input type="text" id="volfirst" name="volfirst" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vollast">Last Name:</label>
+                        <input type="text" id="vollast" name="vollast" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volphone">Phone:</label>
+                        <input type="text" id="volphone" name="volphone" placeholder="Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="volemail">Email:</label>
+                        <input type="email" id="volemail" name="volemail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="newsletter">Sign up for the newsletter:</label>
+                </div>
+            <input type="checkbox" id="newsletter" name="newsletter">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volgender">Gender:</label>
+                        <select id="volgender" name="volgender" class="dropselect" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="volbirthday">Birthday:</label>
+                        <input type="date" id="volbirthday" name="volbirthday" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Section -->
+            <div class="section">
+                <h3>Address</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volstreetaddress">Street Address:</label>
+                        <input type="text" id="volstreetaddress" name="volstreetaddress" placeholder="Street Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="volcity">City:</label>
+                        <input type="text" id="volcity" name="volcity" placeholder="City" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volstate">State:</label>
+                        <select id="volstate" name="volstate" required>
+                            <option value="" disabled selected>Select your state</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="volzipcode">Zipcode:</label>
+                        <input type="text" id="volzipcode" name="volzipcode" placeholder="Zipcode" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volunteer Preferences Section -->
+            <div class="section">
+                <h3>Volunteer Preferences</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volsewinglevel">Sewing Level:</label>
+                        <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>
+                            <option value="" disabled selected>Select Sewing Level</option>
+                            <option value="none">None</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="volnumhourspermonth">Preferred Hours per Month:</label>
+                        <input type="number" id="volnumhourspermonth" name="volnumhourspermonth" placeholder="Hours per Month" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="volavailabilitynotes">Availability Notes:</label>
+                        <textarea id="volavailabilitynotes" name="volavailabilitynotes" rows="4" cols="50" placeholder="Describe your availability here..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volstatus">Status:</label>
+                        <select id="volstatus" name="volstatus" class="dropselect" required>
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lead">Willing to Lead:</label>
+                        <select id="lead" name="lead" class="dropselect" required>
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="voldiscovery">How did they hear about us?</label>
+                        <select id="voldiscovery" name="voldiscovery" class="dropselect" required>
+                            <option value="" disabled>Select Option</option>
+                            <option value="Website">Website</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Event">Event</option>
+                            <option value="Referral/Friend">Referral/Friend</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            <br>
+            <button type="submit">Add Volunteer</button>
+        </form>
+    </div>
 </body>
 </html>
-

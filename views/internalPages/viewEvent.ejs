@@ -153,9 +153,21 @@
         <div class="column">
             <div class="section">
                 <h3>Request Information</h3>
-                <div class="info"><span>Date Request Sent:</span> <%= event.daterequestsent %></div>
+                <div class="info">
+                  <span>Date Request Sent:</span>
+                  <script>
+                    const dateRequestSent = new Date('<%= event.daterequestsent %>');
+                    document.write(dateRequestSent.toISOString().split('T')[0]);
+                  </script>
+                </div>
                 <div class="info"><span>Time Request Sent:</span> <%= event.timerequestsent %></div>
-                <div class="info"><span>Event Preferred Date:</span> <%= event.eventprefdate %></div>
+                <div class="info">
+                  <span>Event Preferred Date:</span>
+                  <script>
+                    const eventPrefDate = new Date('<%= event.eventprefdate %>');
+                    document.write(eventPrefDate.toISOString().split('T')[0]);
+                  </script>
+                </div>
                 <div class="info"><span>Event Possible Date:</span> <%= event.eventpossdate %></div>
             </div>
         </div>
@@ -209,7 +221,13 @@
     <div class="section">
         <h3>Event Status</h3>
         <div class="info"><span>Status:</span> <%= event.eventstatus %></div>
-        <div class="info"><span>Actual Date:</span> <%= event.actualdate %></div>
+        <div class="info">
+          <span>Actual Date:</span>
+          <script>
+            const actualDate = new Date('<%= event.actualdate %>');
+            document.write(actualDate.toISOString().split('T')[0]);
+          </script>
+        </div>
         <div class="info"><span>Actual Duration:</span> <%= event.actualduration %></div>
         <div class="info"><span>Actual Event Time:</span> <%= event.actualeventtime %></div>
         <div class="info"><span>Actual Participants:</span> <%= event.actualparticipants %></div>
@@ -236,5 +254,6 @@
         event.preventDefault(); // Prevent form submission if user cancels
       }
     }
+
 </script>  
 </html>

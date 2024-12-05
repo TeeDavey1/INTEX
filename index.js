@@ -213,7 +213,7 @@ app.get('/viewEmployee/:id', ensureAdmin, async (req, res) => {
 });
 
 // view volunteer
-app.get('/viewVolunteer/:id', ensureAdmin, ensureAdmin, async (req, res) => {
+app.get('/viewVolunteer/:id', ensureAdmin, async (req, res) => {
     const volunteerId = req.params.id;
 
     try {
@@ -234,7 +234,7 @@ app.get('/viewVolunteer/:id', ensureAdmin, ensureAdmin, async (req, res) => {
 });
 
 // view event
-app.get('/viewEvent/:eventid', async (req, res) => {
+app.get('/viewEvent/:eventid', ensureAdmin, async (req, res) => {
     const eventid = req.params.eventid;
     try {
         // Fetch the event's details from the database
@@ -278,53 +278,54 @@ app.post('/deleteVolunteer/:id', (req, res) => {
       });
 });
 
-app.post('/internalPages/beVolunteer', (req, res) => {
-    // Extract form values from req.body
-    const {
-        volfirst, vollast, volphone, volemail, volgender, volbirthday,
-        volshirtsize, volusername, volpassword, volstreetaddress, volcity, volstate, 
-        volzipcode, lead, volnumhourspermonth, volstartdate, volstatus, 
-        volsewinglevel
-    } = req.body;
+// app.post('/internalPages/beVolunteer', (req, res) => {
+//     // Extract form values from req.body
+//     const {
+//         volfirst, vollast, volphone, volemail, volgender, volbirthday,
+//         volshirtsize, volusername, volpassword, volstreetaddress, volcity, volstate, 
+//         volzipcode, lead, volnumhourspermonth, volstartdate, volstatus, 
+//         volsewinglevel, voldiscovery
+//     } = req.body;
 
-    // Insert the new record into the database
-    knex('volunteers')
-        .insert({
-            volfirst,
-            vollast,
-            volphone,
-            volemail,
-            volgender,
-            volbirthday,
-            volshirtsize,
-            volusername,
-            volpassword,
-            volstreetaddress,
-            volcity,
-            volstate,
-            volzipcode,
-            lead: lead === 'on', // Checkbox returns "on" if checked
-            volnumhourspermonth,
-            volstartdate,
-            volstatus,
-            volsewinglevel
-        })
-        .then(() => {
-            res.redirect('/'); // Redirect after adding
-        })
-        .catch(error => {
-            console.error('Error adding record:', error);
-            res.status(500).send('Internal Server Error');
-        });
-});
+//     // Insert the new record into the database
+//     knex('volunteers')
+//         .insert({
+//             volfirst,
+//             vollast,
+//             volphone,
+//             volemail,
+//             volgender,
+//             volbirthday,
+//             volshirtsize,
+//             volusername,
+//             volpassword,
+//             volstreetaddress,
+//             volcity,
+//             volstate,
+//             volzipcode,
+//             lead: lead === 'on', // Checkbox returns "on" if checked
+//             volnumhourspermonth,
+//             volstartdate,
+//             volstatus,
+//             volsewinglevel,
+//             voldiscovery
+//         })
+//         .then(() => {
+//             res.redirect('/'); // Redirect after adding
+//         })
+//         .catch(error => {
+//             console.error('Error adding record:', error);
+//             res.status(500).send('Internal Server Error');
+//         });
+// });
 
 app.post('/pages/beVolunteer', (req, res) => {
     // Extract form values from req.body
     const {
-        volfirst, vollast, volphone, volemail, volgender, volbirthday,
-        volshirtsize, volusername, volpassword, volstreetaddress, volcity, volstate, 
+        volfirst, vollast, volphone, volemail, newsletter, volgender, volbirthday,
+        volshirtsize, volstreetaddress, volcity, volstate, 
         volzipcode, lead, volnumhourspermonth, volstartdate, volstatus, 
-        volsewinglevel
+        volsewinglevel, voldiscovery, volavailabilitynotes
     } = req.body;
 
     // Insert the new record into the database
@@ -334,11 +335,10 @@ app.post('/pages/beVolunteer', (req, res) => {
             vollast,
             volphone,
             volemail,
+            newsletter: newsletter === 'on',
             volgender,
             volbirthday,
             volshirtsize,
-            volusername,
-            volpassword,
             volstreetaddress,
             volcity,
             volstate,
@@ -347,7 +347,9 @@ app.post('/pages/beVolunteer', (req, res) => {
             volnumhourspermonth,
             volstartdate,
             volstatus,
-            volsewinglevel
+            volsewinglevel,
+            voldiscovery,
+            volavailabilitynotes
         })
         .then(() => {
             res.redirect('/'); // Redirect after adding
@@ -358,41 +360,57 @@ app.post('/pages/beVolunteer', (req, res) => {
         });
 });
 
-app.post('/internalPages/addVolunteer', ensureAdmin, async (req, res) => {
-    const { volfirst, vollast, volphone, volemail, volgender, volbirthday, volshirtsize, 
-            volusername, volpassword, volstreetaddress, volcity, volstate, volzipcode, 
-            lead, volnumhourspermonth, volstartdate, volstatus, volsewinglevel } = req.body;
 
+// Route to add a new volunteer
+app.post('/addVolunteer', ensureAdmin, async (req, res) => {
     try {
-        // Insert the new volunteer into the database
-        await knex('volunteers').insert({
-            volfirst,
-            vollast,
-            volphone,
-            volemail,
-            volgender,
-            volbirthday,
-            volshirtsize,
-            volusername,
-            volpassword,
-            volstreetaddress,
-            volcity,
-            volstate,
-            volzipcode,
-            lead: lead ? true : false, // Converts checkbox to a boolean
-            volnumhourspermonth,
-            volstartdate,
-            volstatus,
-            volsewinglevel
-        });
-
-        // Redirect to the volunteer management page after adding the new volunteer
-        res.redirect('/internalPages/maintainVolunteers');
+        // Convert all form data to lowercase
+        const formData = Object.fromEntries(
+            Object.entries(req.body).map(([key, value]) => [key, value.toLowerCase()])
+        );
+        await knex('volunteers').insert(formData); // Ensure data validation here
+        res.redirect('/maintainVolunteers');
     } catch (error) {
         console.error('Error adding volunteer:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+// app.post('/internalPages/addVolunteer', ensureAdmin, async (req, res) => {
+//     const { volfirst, vollast, volphone, volemail, volgender, volbirthday, volshirtsize, 
+//             volusername, volpassword, volstreetaddress, volcity, volstate, volzipcode, 
+//             lead, volnumhourspermonth, volstartdate, volstatus, volsewinglevel } = req.body;
+
+//     try {
+//         // Insert the new volunteer into the database
+//         await knex('volunteers').insert({
+//             volfirst,
+//             vollast,
+//             volphone,
+//             volemail,
+//             volgender,
+//             volbirthday,
+//             volshirtsize,
+//             volusername,
+//             volpassword,
+//             volstreetaddress,
+//             volcity,
+//             volstate,
+//             volzipcode,
+//             lead: lead ? true : false, // Converts checkbox to a boolean
+//             volnumhourspermonth,
+//             volstartdate,
+//             volstatus,
+//             volsewinglevel
+//         });
+
+//         // Redirect to the volunteer management page after adding the new volunteer
+//         res.redirect('internalPages/maintainVolunteers');
+//     } catch (error) {
+//         console.error('Error adding volunteer:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 
 
@@ -479,45 +497,80 @@ app.get('/editVolunteer/:id', ensureAdmin, async (req, res) => {
     }
 });
 
-app.get('/editEvent/:eventid', ensureAdmin, async (req, res) => {
-    const eventid = req.params.eventid;
-    // console.log('Event ID:', eventid); // Debugging log to check the captured event ID
-    // const parsedEventId = parseInt(eventid, 10);
-    // if (isNaN(parsedEventId)) {
-    //     return res.status(400).send('Invalid event ID');
-    // }
-    
+app.get('/editEvent/:eventId', ensureAdmin, async (req, res) => {
+    const { eventId } = req.params;
     try {
         const event = await knex('events')
             .leftJoin('eventcontact', 'events.contactid', 'eventcontact.contactid')
             .select('*')
-            .where('events.eventid', eventid)
+            .where('events.eventid', eventId)
             .first();
-        if (!event) {
-            console.log('Event not found');
-            return res.status(404).render('internalPages/error', { message: 'Event not found' });
-        }
-        res.render('internalPages/editEvent', { title: 'Edit Event', event });
+
+        const volunteers = await knex('volunteers').select('volid', 'volfirst', 'vollast').orderBy('volfirst','vollast');
+        
+        res.render('internalPages/editEvent', { title: 'Edit Event', event, volunteers });
     } catch (error) {
         console.error('Error fetching event:', error);
         res.status(500).send('Internal Server Error');
     }
 });
-// Route to update an event's information 
-app.post('/editEvent/:eventid', async (req, res) => {
+
+// Route to update an event's information
+app.post('/editEvent/:eventid', ensureAdmin, async (req, res) => {
     const { eventid } = req.params;
     const updatedData = req.body;
 
     console.log('Updated data:', updatedData); // Log the updated data for debugging
 
     try {
-        const event = await knex('events')
-            .leftJoin('eventcontact', 'events.contactid', 'eventcontact.contactid')
-            .select('*')
-            .where('events.eventid', eventid)
-            .first();
+        // Update the event data in the database
+        await knex('events').where('eventid', eventid).update(updatedData);
+
+        // Insert volunteer-event relationships into volunteerevents table
+        if (updatedData.volunteers && Array.isArray(updatedData.volunteers)) {
+            const volunteerEntries = updatedData.volunteers.map(volid => ({
+                volid: parseInt(volid),
+                eventid: parseInt(eventid)
+            }));
+            await knex('volunteerevents').insert(volunteerEntries);
+        }
+
         // Redirect to the event view or maintainEvents page
         res.redirect(`/viewEvent/${eventid}`);
+    } catch (error) {
+        console.error('Error updating event:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+// // Route to update an event's information 
+// app.post('/editEvent/:eventid', ensureAdmin, async (req, res) => {
+//     const { eventid } = req.params;
+//     const updatedData = req.body;
+
+//     console.log('Updated data:', updatedData); // Log the updated data for debugging
+
+//     try {
+//         const event = await knex('events')
+//             .leftJoin('eventcontact', 'events.contactid', 'eventcontact.contactid')
+//             .select('*')
+//             .where('events.eventid', eventid)
+//             .first();
+//         // Redirect to the event view or maintainEvents page
+//         res.redirect(`/viewEvent/${eventid}`);
+//     } catch (error) {
+//         console.error('Error updating event:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+app.post('/editEmployee/:id', ensureAdmin, async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body; // Add validation here
+    try {
+        await knex('employees').where('empid', id).update(updatedData);
+        res.redirect(`/viewEmployee/${id}`);
     } catch (error) {
         console.error('Error updating event:', error);
         res.status(500).send('Internal Server Error');
@@ -593,7 +646,10 @@ app.post('/submit-event', async (req, res) => {
         Teen,
         Adult,
         EventPreferredDate,
+        EventPreferredTime,
         EventPossibleDate,
+        EventPreferredDuration,
+        SizeOfArea,
         service_type,
         BasicSewing,
         AdvancedSewing,
@@ -638,9 +694,9 @@ app.post('/submit-event', async (req, res) => {
             city: City,
             state: State,
             zipcode: Zipcode,
-            sizeofarea: '', // Assuming this is left empty for now
-            preftime: null, // Assuming no preferred time given
-            prefduration: null, // Assuming no preferred duration given
+            sizeofarea: SizeOfArea, // Assuming this is left empty for now
+            preftime: EventPreferredTime, // Assuming no preferred time given
+            prefduration: EventPreferredDuration, // Assuming no preferred duration given
             organizationname: OrganizationName,
             story: Story,
             willingtodonate: willingToDonate === 'yes',
@@ -702,7 +758,7 @@ app.post('/login-submit', (req, res) => {
 
 
 // Handle form submission
-app.post('/addEvent', async (req, res) => {
+app.post('/addEvent', ensureAdmin, async (req, res) => {
     try {
         // Extract contact and event data from form
         const { contactfirst, contactlast, contactemail, contactphone, daterequestsent, timerequestsent, eventprefdate, eventpossdate, participants, child, teen, adult, servicetype, basicsewing, advsewing, sewingmachines, sergers, streetaddress, city, state, zipcode, sizeofarea, preftime, prefduration, organizationname, story, willingtodonate, eventstatus, actualdate, actualduration, actualeventtime, actualparticipants } = req.body;

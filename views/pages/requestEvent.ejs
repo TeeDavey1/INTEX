@@ -169,7 +169,7 @@
     </p>
 </div>
 
-    <form id="requestEventForm" action="/submit-event" method="POST">
+    <form id="event-form" action="/submit-event" method="POST">
 
         <!-- Contact Info Section -->
         <h2>Contact Info</h2>
@@ -231,10 +231,27 @@
                 <input type="date" id="date-preferred" name="EventPreferredDate" required>
             </div>
             <div class="form-group">
+                <label for="preftime">Preferred Time</label>
+                <input type="time" id="preftime" name="EventPreferredTime" required>
+            </div>
+            <div class="form-group">
                 <label for="date-possible">Possible Date(s)</label>
                 <input type="text" id="date-possible" name="EventPossibleDate" placeholder="e.g., Any weekend in March">
             </div>
         </div>
+
+        <!-- Event Details Section -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="prefduration">Preferred Duration</label>
+                <input type="float" id="prefduration" name="EventPreferredDuration" placeholder="e.g., 1 hour" required>
+            </div>
+            <div class="form-group">
+                <label for="sizeofarea">Size of Area</label>
+                <input type="string" id="sizeofarea" name="SizeOfArea" placeholder="e.g., Large Church Gym" required>
+            </div>
+        </div>
+
         <!-- Service Type Dropdown -->
         <div class="form-row">
             <div class="form-group full-width">
@@ -324,8 +341,7 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit">Submit Request</button>
+            <button type="submit">Submit</button>         
     </form>
     <%- include('../partials/footer') %>
 </body>
@@ -363,21 +379,22 @@
 
     updateTotalParticipants(); // Initial update
 
-    document.getElementById('event-form').addEventListener('submit', function(event) {
-        // If the form passes the default validation
-        if (this.checkValidity()) {
-            event.preventDefault(); // Prevents immediate submission to handle post-submit actions
 
-            // Display the thank-you message
-            thankYou();
+    document.getElementById('event-form').addEventListener('submit', function (event) {
+  if (this.checkValidity()) {
+    event.preventDefault(); // Prevent immediate form submission
 
-            // Submit the form programmatically after the thank-you alert is closed
-            this.submit();
-        }
-    });
+    // Display the thank-you alert
+    alert('Thank you!\nEvent submitted successfully.');
 
-    function thankYou() {
-        alert('Thank you!\nEvent submitted successfully.');
-    }
+    // Redirect to the desired page after the alert is closed
+    window.location.href = '/pages/how-you-can-help';
+
+    // Submit the form after the user closes the alert
+    this.submit();
+  }
+});
+
+
 </script>
 </html>

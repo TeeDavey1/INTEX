@@ -139,6 +139,13 @@
 
             <label for="empusername">Username:</label>
             <input type="text" id="empusername" name="empusername" value="<%= employee.empusername %>" required>
+
+            <label for="emppermissions">Permissions:</label>
+            <select id="emppermissions" name="emppermissions" class="dropselect" required>
+              <option value="admin" <%= employee.emppermissions === 'admin' ? 'selected' : '' %>>Admin</option>
+              <option value="user" <%= employee.emppermissions === 'user' ? 'selected' : '' %>>User</option>
+            </select>
+
             </div>
         </div>
 

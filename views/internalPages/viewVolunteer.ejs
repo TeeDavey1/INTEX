@@ -136,10 +136,10 @@
           <div class="info"><span>Volunteer ID:</span> <%= volunteer.volid %></div>
           <div class="info"><span>Phone:</span> <%= volunteer.volphone %></div>
           <div class="info"><span>Email:</span> <%= volunteer.volemail %></div>
+          <div class="info"><span>Signed up for newsletter:</span> <%= volunteer.newsletter %></div>
           <div class="info"><span>Birthday:</span> <%= new Date(volunteer.volbirthday).toLocaleDateString() %></div>
           <div class="info"><span>Gender:</span> <%= volunteer.volgender %></div>
           <div class="info"><span>Shirt Size:</span> <%= volunteer.volshirtsize %></div>
-          <div class="info"><span>Username:</span> <%= volunteer.volusername %></div>
         </div>
       </div>
       <div class="column">
@@ -161,15 +161,17 @@
       <div class="info"><span>Start Date:</span> <%= new Date(volunteer.volstartdate).toLocaleDateString() %></div>
       <div class="info"><span>Status:</span> <%= volunteer.volstatus %></div>
       <div class="info"><span>Sewing Level:</span> <%= volunteer.volsewinglevel %></div>
+      <div class="info"><span>Availability:</span> <%= volunteer.volavailabilitynotes %></div>
+      <div class="info"><span>Discovery:</span> <%= volunteer.voldiscovery %></div>
     </div>
 
     <div class="action-buttons">
         <a href="/editVolunteer/<%= volunteer.volid %>">
           <button>Edit</button>
         </a>
-        <!-- <form action="/deleteEmployee/" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+        <form action="/deleteVolunteer/<%= volunteer.volid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
           <button type="submit">Delete</button>
-        </form> -->
+        </form>
     </div>
 
     <!-- Back Button -->
