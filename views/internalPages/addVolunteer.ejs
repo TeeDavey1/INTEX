@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Volunteer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Sign-Up Form</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Heading */
+        .pageTitle {
+            font-size: 3rem;
+            color: #228B22;
+            text-align: left;
+        }
+
+        /* Form Layout */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Labels and Inputs */
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        /* Submit Button */
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e7a1e;
+        }
+
+        /* Form Row and Grouping */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Horizontally center the content */
+        }
+
+        .form-group {
+            flex: 1 1 calc(33.33% - 20px);
+        }
+
+        .form-group.full-width {
+            flex: 1 1 100%;
+        }
+
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: inline-flex; /* Ensures elements are inline and only take up necessary space */
+            align-items: center; /* Vertically aligns the checkbox and label */
+            justify-content: center; /* Horizontally centers the content */
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin: 0 8px 0 0; /* Adds space only to the right of the checkbox */
+            width: auto; /* Prevents the checkbox from stretching */
+            height: auto; /* Ensures default checkbox height */
+        }
+
+        /* Intro Container Styling */
+        .intro-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .intro-container h1 {
+            font-size: 2.5rem;
+            color: #228B22;
+            margin-bottom: 10px;
+        }
+
+        .intro-container p {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Add Volunteer</h1>
+    <form action="/internalPages/addVolunteer" method="POST">
+        <label for="volfirst">First Name</label>
+        <input type="text" id="volfirst" name="volfirst" required>
+
+        <label for="vollast">Last Name:</label>
+            <input type="text" id="vollast" name="vollast" required>
+            
+            <label for="volphone">Phone:</label>
+            <input type="text" id="volphone" name="volphone" required>
+            
+            <label for="volemail">Email:</label>
+            <input type="email" id="volemail" name="volemail" required>
+            
+            <label for="volgender">Gender:</label>
+            <input type="text" id="volgender" name="volgender" required>
+            
+            <label for="volbirthday">Birthday:</label>
+            <input type="date" id="volbirthday" name="volbirthday" required>
+        
+            <label for="volshirtsize">Shirt Size:</label>
+            <input type="text" id="volshirtsize" name="volshirtsize" required>
+
+            <label for="volusername">Username:</label>
+            <input type="text" id="volusername" name="volusername" required>
+
+            <label for="volpassword">Password:</label>
+            <input type="text" id="volpassword" name="volpassword" required>
+
+            <label for="volstreetaddress">Street Address:</label>
+            <input type="text" id="volstreetaddress" name="volstreetaddress" required>
+
+            <label for="volcity">City:</label>
+            <input type="text" id="volcity" name="volcity" required>
+
+            <label for="volstate">State:</label>
+            <input type="text" id="volstate" name="volstate" required>
+
+            <label for="volzipcode">Zipcode:</label>
+            <input type="text" id="volzipcode" name="volzipcode" required>
+
+            <label for="lead">Willing to Lead:</label>
+            <input type="checkbox" id="lead" name="lead">
+
+
+            <label for="volnumhourspermonth">Preferred Hours per Month:</label>
+            <input type="text" id="volnumhourspermonth" name="volnumhourspermonth" required>
+
+            <label for="volstartdate">Start Date:</label>
+            <input type="date" id="volstartdate" name="volstartdate" required>
+
+            <label for="volstatus">Status:</label>
+            <select id="volstatus" name="volstatus" class="dropselect" required>
+            <option value="" disabled>Select Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            </select>
+
+
+        
+
+            <label for="volsewinglevel">Sewing Level:</label>
+            <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>
+                <option value="" disabled>Select Sewing Level</option>
+                <option value="none">None</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+            
+
+        <button type="submit">Add record</button>
+
+
+    </form>
+
+    
+</body>
+</html>
+

@@ -75,12 +75,31 @@
         #actualData {
             display: none;
         }
+        .conditional-input {
+            display: none;
+        }
+        .separator {
+            border-top: 2px solid #ccc;
+            margin: 20px 0;
+        }
     </style>
     <script>
         function toggleActualData() {
             const eventStatus = document.getElementById('eventstatus').value;
             const actualDataSection = document.getElementById('actualData');
-            actualDataSection.style.display = eventStatus === 'approved' ? 'block' : 'none';
+            actualDataSection.style.display = (eventStatus === 'approved' || eventStatus === 'completed') ? 'block' : 'none';
+        }
+
+        function toggleServiceFields() {
+            const serviceType = document.getElementById('servicetype').value;
+            const conditionalInputs = document.querySelectorAll('.conditional-input');
+            conditionalInputs.forEach(input => {
+                if (serviceType === 'both' || serviceType === 'sewing') {
+                    input.style.display = 'block';
+                } else {
+                    input.style.display = 'none';
+                }
+            });
         }
     </script>
 </head>
@@ -88,39 +107,8 @@
     <div class="form-container">
         <h1 class="pageTitle">Add New Event</h1>
         <form action="/addEvent" method="POST">
+            <!-- Event Status Section -->
             <div class="form-row">
-                <div class="form-group">
-                    <label for="contactid">Contact ID:</label>
-                    <input type="number" id="contactid" name="contactid" required>
-                </div>
-                <div class="form-group">
-                    <label for="daterequestsent">Date Request Sent:</label>
-                    <input type="date" id="daterequestsent" name="daterequestsent" required>
-                </div>
-                <div class="form-group">
-                    <label for="timerequestsent">Time Request Sent:</label>
-                    <input type="time" id="timerequestsent" name="timerequestsent" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventprefdate">Preferred Date:</label>
-                    <input type="date" id="eventprefdate" name="eventprefdate" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="participants">Participants:</label>
-                    <input type="number" id="participants" name="participants" required>
-                </div>
-                <div class="form-group">
-                    <label for="servicetype">Service Type:</label>
-                    <select id="servicetype" name="servicetype" required>
-                        <option value="" disabled selected>Select Service Type</option>
-                        <option value="both">Both</option>
-                        <option value="sewing">Sewing</option>
-                        <option value="nonsewing">Non-Sewing</option>
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="eventstatus">Event Status:</label>
                     <select id="eventstatus" name="eventstatus" onchange="toggleActualData()" required>
@@ -133,6 +121,7 @@
                 </div>
             </div>
 
+            <!-- Actual Event Details Section -->
             <div id="actualData">
                 <h3>Actual Event Details</h3>
                 <div class="form-row">
@@ -148,10 +137,164 @@
                         <label for="actualparticipants">Actual Participants:</label>
                         <input type="number" id="actualparticipants" name="actualparticipants">
                     </div>
+                    <div class="form-group">
+                        <label for="actualduration">Actual Duration (hours):</label>
+                        <input type="number" step="0.1" id="actualduration" name="actualduration" placeholder="Enter duration in hours" required>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit">Submit</button>
+            <div class="separator"></div>
+
+            <!-- Contact Information Section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contactfirst">Contact First Name:</label>
+                    <input type="text" id="contactfirst" name="contactfirst" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactlast">Contact Last Name:</label>
+                    <input type="text" id="contactlast" name="contactlast" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactphone">Contact Phone:</label>
+                    <input type="text" id="contactphone" name="contactphone" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactemail">Contact Email:</label>
+                    <input type="email" id="contactemail" name="contactemail" required>
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <!-- Organization Information Section -->
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="organizationname">Organization Name:</label>
+                    <input type="text" id="organizationname" name="organizationname">
+                </div>
+            </div>
+            <div class="separator"></div>
+            
+            <!-- Event Information Section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="daterequestsent">Date Request Sent:</label>
+                    <input type="date" id="daterequestsent" name="daterequestsent" required>
+                </div>
+                <div class="form-group">
+                    <label for="timerequestsent">Time Request Sent:</label>
+                    <input type="time" id="timerequestsent" name="timerequestsent" required>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Prefrences section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="eventprefdate">Preferred Event Date:</label>
+                    <input type="date" id="eventprefdate" name="eventprefdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventpossdate">Possible Event Date:</label>
+                    <input type="text" id="eventpossdate" name="eventpossdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="preftime">Preferred Time:</label>
+                    <input type="time" id="preftime" name="preftime">
+                </div>
+                <div class="form-group">
+                    <label for="prefduration">Preferred Duration (hours):</label>
+                    <input type="number" step="0.1" id="prefduration" name="prefduration" placeholder="Enter duration in hours">
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <!-- Participant Information Section -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="participants">Participants:</label>
+                    <input type="number" id="participants" name="participants" required>
+                </div>
+                <div class="form-group">
+                    <label for="child">Child Participants:</label>
+                    <input type="number" id="child" name="child" required>
+                </div>
+                <div class="form-group">
+                    <label for="teen">Teen Participants:</label>
+                    <input type="number" id="teen" name="teen" required>
+                </div>
+                <div class="form-group">
+                    <label for="adult">Adult Participants:</label>
+                    <input type="number" id="adult" name="adult" required>
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <!-- Service Information Section -->
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="servicetype">Service Type:</label>
+                    <select id="servicetype" name="servicetype" onchange="toggleServiceFields()" required>
+                        <option value="" disabled selected>Select Service Type</option>
+                        <option value="both">Both</option>
+                        <option value="sewing">Sewing</option>
+                        <option value="nonsewing">Non-Sewing</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="conditional-input">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="basicsewing">Basic Sewing:</label>
+                        <input type="number" id="basicsewing" name="basicsewing">
+                    </div>
+                    <div class="form-group">
+                        <label for="advsewing">Advanced Sewing:</label>
+                        <input type="number" id="advsewing" name="advsewing">
+                    </div>
+                    <div class="form-group">
+                        <label for="sergers">Sergers:</label>
+                        <input type="number" id="sergers" name="sergers">
+                    </div>
+                    <div class="form-group">
+                        <label for="sewingmachines">Sewing Machines:</label>
+                        <input type="number" id="sewingmachines" name="sewingmachines">
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            
+
+
+            <!-- Other Details Section -->
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="story">Share Jen's Story:</label>
+                    <select id="story" name="story">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="willingtodonate">Willing to Donate:</label>
+                    <select id="willingtodonate" name="willingtodonate">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Submission Section -->
+            <button type="submit">Submit Event Request</button>
         </form>
     </div>
 </body>
