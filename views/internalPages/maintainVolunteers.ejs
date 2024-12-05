@@ -122,7 +122,10 @@
                   <form action="/deleteVolunteer/<%= row.volid %>" method="POST" style="display:inline;" 
                     onsubmit="confirmDelete(event)" >
                     <button type="submit">Delete</button>
-                  </form>                
+                  </form> 
+                  
+                
+                  
                 </td>
               </tr>
             <% }) %>
@@ -135,7 +138,7 @@
       </table>
 
       <div style="text-align: center;">
-        <form action="/addVolunteer" method="GET">
+        <form action="/internalPages/addVolunteer" method="GET">
           <button type="submit">Add Volunteer</button>
         </form>
       </div>

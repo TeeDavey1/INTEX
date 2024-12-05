@@ -82,6 +82,12 @@
         .action-buttons a {
         text-decoration: none;
         }
+        th.event-date, td.event-date {
+        width: 150px; /* Adjust the width as needed */
+        word-wrap: break-word; /* Ensures the content stays on one line */
+        text-align: center; /* Center-aligns the text for consistency */
+        }
+
     </style>
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -95,39 +101,46 @@
         <div class="container">
         <table>
             <thead>
-            <tr>
-                <th>Event Date</th>
-                <th>Contact First Name</th>
-                <th>Contact Last Name</th>
-                <th>Actions</th>
-            </tr>
+                <tr>
+                    <th class="event-date">Event Date</th>
+                    <th class="event-date">Actual Event Date</th>
+                    <th>Contact First Name</th>
+                    <th>Contact Last Name</th>
+                    <th>Actions</th>
+                </tr>
             </thead>
             <tbody>
-            <% if (Events && Events.length > 0) { %>
-                <% Events.forEach(row => { %>
-                <tr>
-                    <td><%= row.actualEventDate %></td>
-                    <td><%= row.contactFirst %></td>
-                    <td><%= row.contactLast %></td>
-                    <td class="action-buttons">
-                    <a href="/viewEvent/<%= row.eventId %>">
-                        <button>View</button>
-                    </a>
-                    <a href="/editEvent/<%= row.eventId %>">
-                        <button>Edit</button>
-                    </a>
-                    <form action="/deleteEvent/<%= row.eventId %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
-                        <button type="submit">Delete</button>
-                    </form>                
-                    </td>
-                </tr>
-                <% }) %>
-            <% } else { %>
-                <tr>
-                <td colspan="4" class="no-data">No events found</td>
-                </tr>
-            <% } %>
+                <% if (Events && Events.length > 0) { %>
+                    <% Events.forEach(row => { %>
+                    <tr>
+                        <td class="event-date">
+                            <%= row.eventprefdate ? new Date(row.eventprefdate).toISOString().split('T')[0] : '' %>
+                        </td>
+                        <td class="event-date">
+                            <%= row.actualdate ? new Date(row.actualdate).toISOString().split('T')[0] : '' %>
+                        </td>
+                        <td><%= row.contactfirst %></td>
+                        <td><%= row.contactlast %></td>
+                        <td class="action-buttons">
+                            <a href="/viewEvent/<%= row.eventid %>">
+                                <button>View</button>
+                            </a>
+                            <a href="/editEvent/<%= row.eventid %>">
+                                <button>Edit</button>
+                            </a>
+                            <form action="/deleteEvent/<%= row.eventid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+                                <button type="submit">Delete</button>
+                            </form>                
+                        </td>
+                    </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4" class="no-data">No events found</td>
+                    </tr>
+                <% } %>
             </tbody>
+            
         </table>
 
         <div style="text-align: center;">

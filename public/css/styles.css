@@ -449,11 +449,11 @@ footer {
   
   .stat {
     flex: 1;
-    padding: 1rem;
+    padding: 2rem;
   }
   
   .stat-number {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
     color: #228B22;
   }

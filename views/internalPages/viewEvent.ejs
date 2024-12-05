@@ -126,102 +126,109 @@
   </header>
 
   <div class="container">
-    <h2><%= events.eventId %>: <%= eventcontact.contactfirst %> <%= eventcontact.contactlast %></h2>
+    <h2>Event ID: <%= event.eventid %> - <%= event.contactfirst %> <%= event.contactlast %></h2>
 
     <!-- Contact Information and Participation Details -->
     <div class="row">
-      <div class="column">
-        <div class="section">
-          <h3>Contact Information</h3>
-          <div class="info"><span>Phone:</span> <%= eventcontact.contactphone %></div>
-          <div class="info"><span>Email:</span> <%= eventcontact.contactemail %></div>
+        <div class="column">
+            <div class="section">
+                <h3>Contact Information</h3>
+                <div class="info"><span>Phone:</span> <%= event.contactphone %></div>
+                <div class="info"><span>Email:</span> <%= event.contactemail %></div>
+            </div>
         </div>
-      </div>
-      <div class="column">
-        <div class="section">
-            <h3>Participant Details</h3>
-            <div class="info"><span>Total Participants:</span> <%= totalParticipants %></div>
-            <div class="info"><span>Child Participants:</span> <%= childParticipants %></div>
-            <div class="info"><span>Teen Participants:</span> <%= teenParticipants %></div>
-            <div class="info"><span>Adult Participants:</span> <%= adultParticipants %></div>
-          </div>
-      </div>
+        <div class="column">
+            <div class="section">
+                <h3>Participant Details</h3>
+                <div class="info"><span>Total Participants:</span> <%= event.participants %></div>
+                <div class="info"><span>Child Participants:</span> <%= event.child %></div>
+                <div class="info"><span>Teen Participants:</span> <%= event.teen %></div>
+                <div class="info"><span>Adult Participants:</span> <%= event.adult %></div>
+            </div>
+        </div>
     </div>
 
-   <!-- Request Information and Event Preferences -->
-<div class="row">
-    <div class="column">
-      <div class="section">
-        <h3>Request Information</h3>
-        <div class="info"><span>Date Request Sent:</span> <%= dateRequestSent %></div>
-        <div class="info"><span>Time Request Sent:</span> <%= timeRequestSent %></div>
-        <div class="info"><span>Event Preferred Date:</span> <%= eventPrefDate %></div>
-        <div class="info"><span>Event Possible Date:</span> <%= eventPossDate %></div>
-      </div>
+    <!-- Request Information and Event Preferences -->
+    <div class="row">
+        <div class="column">
+            <div class="section">
+                <h3>Request Information</h3>
+                <div class="info"><span>Date Request Sent:</span> <%= event.daterequestsent %></div>
+                <div class="info"><span>Time Request Sent:</span> <%= event.timerequestsent %></div>
+                <div class="info"><span>Event Preferred Date:</span> <%= event.eventprefdate %></div>
+                <div class="info"><span>Event Possible Date:</span> <%= event.eventpossdate %></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="section">
+                <h3>Event Preferences</h3>
+                <div class="info"><span>Preferred Time:</span> <%= event.preftime %></div>
+                <div class="info"><span>Preferred Duration:</span> <%= event.prefduration %></div>
+                <div class="info"><span>Service Type:</span> <%= event.servicetype %></div>
+            </div>
+        </div>
     </div>
-    <div class="column">
-      <div class="section">
-        <h3>Event Preferences</h3>
-        <div class="info"><span>Preferred Time:</span> <%= prefTime %></div>
-        <div class="info"><span>Preferred Duration:</span> <%= prefDuration %></div>
-        <div class="info"><span>Service Type:</span> <%= serviceType %></div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Sewing Requirements -->
-<div class="section">
-    <h3>Sewing Requirements</h3>
-    <div class="info"><span>Basic Sewing:</span> <%= basicSewing %></div>
-    <div class="info"><span>Advanced Sewing:</span> <%= advSewing %></div>
-    <div class="info"><span>Sewing Machines:</span> <%= sewingMachines %></div>
-    <div class="info"><span>Sergers:</span> <%= sergers %></div>
-  </div>
-  
-  <!-- Address Information -->
-  <div class="row">
-    <div class="column">
-      <div class="section">
-        <h3>Address</h3>
-        <div class="info"><span>Street Address:</span> <%= streetAddress %></div>
-        <div class="info"><span>City:</span> <%= city %></div>
-        <div class="info"><span>State:</span> <%= state %></div>
-        <div class="info"><span>Zip Code:</span> <%= zipCode %></div>
-      </div>
+    <!-- Sewing Requirements -->
+    <div class="section">
+        <h3>Sewing Requirements</h3>
+        <div class="info"><span>Basic Sewing:</span> <%= event.basicsewing %></div>
+        <div class="info"><span>Advanced Sewing:</span> <%= event.advsewing %></div>
+        <div class="info"><span>Sewing Machines:</span> <%= event.sewingmachines %></div>
+        <div class="info"><span>Sergers:</span> <%= event.sergers %></div>
     </div>
-    <div class="column">
-      <div class="section">
-        <h3>Event Location</h3>
-        <div class="info"><span>Size of Area:</span> <%= sizeOfArea %></div>
-      </div>
+
+    <!-- Address Information -->
+    <div class="row">
+        <div class="column">
+            <div class="section">
+                <h3>Address</h3>
+                <div class="info"><span>Street Address:</span> <%= event.streetaddress %></div>
+                <div class="info"><span>City:</span> <%= event.city %></div>
+                <div class="info"><span>State:</span> <%= event.state %></div>
+                <div class="info"><span>Zip Code:</span> <%= event.zipcode %></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="section">
+                <h3>Event Location</h3>
+                <div class="info"><span>Size of Area:</span> <%= event.sizeofarea %></div>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <!-- Organization and Story -->
-  <div class="section">
-    <h3>Organization Details</h3>
-    <div class="info"><span>Organization Name:</span> <%= organizationName %></div>
-    <div class="info"><span>Story:</span> <%= story %></div>
-    <div class="info"><span>Willing to Donate:</span> <%= willingToDonate %></div>
-  </div>
-  
-  <!-- Event Status -->
-  <div class="section">
-    <h3>Event Status</h3>
-    <div class="info"><span>Status:</span> <%= eventStatus %></div>
-    <div class="info"><span>Actual Date:</span> <%= actualDate %></div>
-    <div class="info"><span>Actual Duration:</span> <%= actualDuration %></div>
-    <div class="info"><span>Actual Event Time:</span> <%= actualEventTime %></div>
-    <div class="info"><span>Actual Participants:</span> <%= actualParticipants %></div>
-  </div>
+
+    <!-- Organization and Story -->
+    <div class="section">
+        <h3>Organization Details</h3>
+        <div class="info"><span>Organization Name:</span> <%= event.organizationname %></div>
+        <div class="info"><span>Story:</span> <%= event.story %></div>
+        <div class="info"><span>Willing to Donate:</span> <%= event.willingtodonate %></div>
+    </div>
+
+    <!-- Event Status -->
+    <div class="section">
+        <h3>Event Status</h3>
+        <div class="info"><span>Status:</span> <%= event.eventstatus %></div>
+        <div class="info"><span>Actual Date:</span> <%= event.actualdate %></div>
+        <div class="info"><span>Actual Duration:</span> <%= event.actualduration %></div>
+        <div class="info"><span>Actual Event Time:</span> <%= event.actualeventtime %></div>
+        <div class="info"><span>Actual Participants:</span> <%= event.actualparticipants %></div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/editEvent/<%= event.eventid %>">
+            <button>Edit</button>
+        </a>
+        <form action="/deleteEvent/<%= event.eventid %>" method="POST" style="display:inline;" onsubmit="confirmDelete(event)">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 
     <!-- Back Button -->
     <div class="back-btn">
-      <a href="/maintainEvents"><button>Back to Event List</button></a>
+        <a href="/maintainEvents"><button>Back to Event List</button></a>
     </div>
-
   </div>
-
 </body>
 <script>
     function confirmDelete(event) {

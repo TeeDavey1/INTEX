@@ -95,10 +95,10 @@
     <h1>Edit Event</h1>
   </header>
 
-  <form action="/editEvent/<%= events.eventId %>" method="POST" onsubmit="return confirmSave(event)">
+  <form action="/editEvent/<%= event.eventid %>" method="POST" onsubmit="return confirmSave(event)">
 
     <div class="container">
-        <h2>Update Event Details for <%= eventcontact.contactfirst %> <%= eventcontact.contactlast %></h2>
+        <h2>Update Event Details for <%= event.contactfirst %> <%= event.contactlast %></h2>
 
         <!-- Event Contact Details -->
         <div class="row">
@@ -106,16 +106,16 @@
             <div class="section">
               <h3>Contact Information</h3>
               <label for="contactfirst">First Name:</label>
-              <input type="text" id="contactfirst" name="contactfirst" value="<%= eventcontact.contactfirst %>" required>
+              <input type="text" id="contactfirst" name="contactfirst" value="<%= event.contactfirst %>" required>
 
               <label for="contactlast">Last Name:</label>
-              <input type="text" id="contactlast" name="contactlast" value="<%= eventcontact.contactlast %>" required>
+              <input type="text" id="contactlast" name="contactlast" value="<%= event.contactlast %>" required>
 
               <label for="contactphone">Phone:</label>
-              <input type="text" id="contactphone" name="contactphone" value="<%= eventcontact.contactphone %>" required>
+              <input type="text" id="contactphone" name="contactphone" value="<%= event.contactphone %>" required>
 
               <label for="contactemail">Email:</label>
-              <input type="email" id="contactemail" name="contactemail" value="<%= eventcontact.contactemail %>" required>
+              <input type="email" id="contactemail" name="contactemail" value="<%= event.contactemail %>" required>
             </div>
           </div>
         </div>
@@ -125,20 +125,26 @@
           <div class="column">
             <div class="section">
               <h3>Event Preferences</h3>
-              <label for="eventPrefDate">Preferred Date:</label>
-              <input type="date" id="eventPrefDate" name="eventPrefDate" value="<%= eventPrefDate %>" required>
+              <label for="eventprefdate">Preferred Date:</label>
+              <input type="date" id="eventprefdate" name="eventprefdate" value="<%= event.eventprefdate %>" required>
 
-              <label for="eventPossDate">Possible Date:</label>
-              <input type="date" id="eventPossDate" name="eventPossDate" value="<%= eventPossDate %>" required>
+              <label for="eventpossdate">Possible Date:</label>
+              <input type="date" id="eventpossdate" name="eventpossdate" value="<%= event.eventpossdate %>" required>
 
-              <label for="prefTime">Preferred Time:</label>
-              <input type="text" id="prefTime" name="prefTime" value="<%= prefTime %>" required>
+              <label for="preftime">Preferred Time:</label>
+              <input type="text" id="preftime" name="preftime" value="<%= event.preftime %>" required>
 
-              <label for="prefDuration">Preferred Duration:</label>
-              <input type="text" id="prefDuration" name="prefDuration" value="<%= prefDuration %>" required>
+              <label for="prefduration">Preferred Duration:</label>
+              <input type="text" id="prefduration" name="prefduration" value="<%= event.prefduration %>" required>
 
-              <label for="serviceType">Service Type:</label>
-              <input type="text" id="serviceType" name="serviceType" value="<%= serviceType %>" required>
+              <label for="servicetype">Service Type:</label>
+              <input type="text" id="servicetype" name="servicetype" value="<%= event.servicetype %>" required>
+
+              <label for="daterequestsent">Date Request Sent:</label>
+              <input type="date" id="daterequestsent" name="daterequestsent" value="<%= event.daterequestsent && !isNaN(new Date(event.daterequestsent)) ? new Date(event.daterequestsent).toISOString().split('T')[0] : '' %>" required>
+
+              <label for="timerequestsent">Time Request Sent:</label>
+              <input type="time" id="timerequestsent" name="timerequestsent" value="<%= event.timerequestsent %>" required>
             </div>
           </div>
         </div>
@@ -146,41 +152,93 @@
         <!-- Address -->
         <div class="section">
           <h3>Address</h3>
-          <label for="streetAddress">Street Address:</label>
-          <input type="text" id="streetAddress" name="streetAddress" value="<%= streetAddress %>" required>
+          <label for="streetaddress">Street Address:</label>
+          <input type="text" id="streetaddress" name="streetaddress" value="<%= event.streetaddress %>" required>
 
           <label for="city">City:</label>
-          <input type="text" id="city" name="city" value="<%= city %>" required>
+          <input type="text" id="city" name="city" value="<%= event.city %>" required>
 
           <label for="state">State:</label>
-          <input type="text" id="state" name="state" value="<%= state %>" required>
+          <input type="text" id="state" name="state" value="<%= event.state %>" required>
 
-          <label for="zipCode">Zip Code:</label>
-          <input type="text" id="zipCode" name="zipCode" value="<%= zipCode %>" required>
+          <label for="zipcode">Zip Code:</label>
+          <input type="text" id="zipcode" name="zipcode" value="<%= event.zipcode %>" required>
         </div>
 
         <!-- Sewing Requirements -->
         <div class="section">
           <h3>Sewing Requirements</h3>
-          <label for="basicSewing">Basic Sewing:</label>
-          <input type="text" id="basicSewing" name="basicSewing" value="<%= basicSewing %>" required>
+          <label for="basicsewing">Basic Sewing:</label>
+          <input type="text" id="basicsewing" name="basicsewing" value="<%= event.basicsewing %>" required>
 
-          <label for="advSewing">Advanced Sewing:</label>
-          <input type="text" id="advSewing" name="advSewing" value="<%= advSewing %>" required>
+          <label for="advsewing">Advanced Sewing:</label>
+          <input type="text" id="advsewing" name="advsewing" value="<%= event.advsewing %>" required>
 
-          <label for="sewingMachines">Sewing Machines:</label>
-          <input type="text" id="sewingMachines" name="sewingMachines" value="<%= sewingMachines %>" required>
+          <label for="sewingmachines">Sewing Machines:</label>
+          <input type="text" id="sewingmachines" name="sewingmachines" value="<%= event.sewingmachines %>" required>
 
           <label for="sergers">Sergers:</label>
-          <input type="text" id="sergers" name="sergers" value="<%= sergers %>" required>
+          <input type="text" id="sergers" name="sergers" value="<%= event.sergers %>" required>
+        </div>
+
+        <div class="section">
+          <h3>Participant Information</h3>
+          <label for="participants">Total Participants:</label>
+          <input type="number" id="participants" name="participants" value="<%= event.participants %>" required>
+        
+          <label for="child">Child Participants:</label>
+          <input type="number" id="child" name="child" value="<%= event.child %>" required>
+        
+          <label for="teen">Teen Participants:</label>
+          <input type="number" id="teen" name="teen" value="<%= event.teen %>" required>
+        
+          <label for="adult">Adult Participants:</label>
+          <input type="number" id="adult" name="adult" value="<%= event.adult %>" required>
+        </div>
+
+        <div class="section">
+          <h3>Event Area and Organization</h3>
+          <label for="sizeofarea">Size of Area:</label>
+          <input type="text" id="sizeofarea" name="sizeofarea" value="<%= event.sizeofarea %>" required>
+        
+          <label for="organizationname">Organization Name:</label>
+          <input type="text" id="organizationname" name="organizationname" value="<%= event.organizationname %>" required>
+        </div>
+        
+        <div class="section">
+          <h3>Story and Donation</h3>
+          <label for="story">Story:</label>
+          <textarea id="story" name="story" rows="4" required><%= event.story %></textarea>
+        
+          <label for="willingtodonate">Willing to Donate:</label>
+          <select id="willingtodonate" name="willingtodonate" required>
+            <option value="Yes" <%= event.willingtodonate === "Yes" ? "selected" : "" %>>Yes</option>
+            <option value="No" <%= event.willingtodonate === "No" ? "selected" : "" %>>No</option>
+          </select>
+        </div>
+        
+        <div class="section">
+          <h3>Event Status and Actuals</h3>
+          <label for="eventstatus">Event Status:</label>
+          <input type="text" id="eventstatus" name="eventstatus" value="<%= event.eventstatus %>" required>
+        
+          <label for="actualdate">Actual Date:</label>
+          <input type="date" id="actualdate" name="actualdate" value="<%= event.actualdate && !isNaN(new Date(event.actualdate)) ? new Date(event.actualdate).toISOString().split('T')[0] : '' %>">
+        
+          <label for="actualduration">Actual Duration:</label>
+          <input type="text" id="actualduration" name="actualduration" value="<%= event.actualduration %>">
+        
+          <label for="actualeventtime">Actual Event Time:</label>
+          <input type="time" id="actualeventtime" name="actualeventtime" value="<%= event.actualeventtime %>">
+        
+          <label for="actualparticipants">Actual Participants:</label>
+          <input type="number" id="actualparticipants" name="actualparticipants" value="<%= event.actualparticipants %>">
         </div>
 
         <!-- Action Buttons -->
         <div class="action-buttons">
           <button type="submit">Save Changes</button>
-          <a href="javascript:void(0)" onclick="goBack()">
-            <button type="button">Cancel</button>
-          </a>
+          <button type="button" onclick="goBack()">Cancel</button>
         </div>
     </div>
   </form>
@@ -188,12 +246,13 @@
 </body>
 <script>
     function confirmSave(event) {
-        if (!confirm("Are you sure you want to save changes?")) {
-          event.preventDefault();
-          return false;
-        }
-        return true;
-    }
+  if (!event.target.checkValidity()) {
+    alert("Please fill out all required fields.");
+    return false;
+  }
+  return confirm("Are you sure you want to save changes?");
+}
+
 
     function goBack() {
         window.history.back();

@@ -141,125 +141,117 @@
         in your community and beyond. Together, we can create change!</p>
 </div>
     <div class="form-container">        
-        <form action="/beVolunteer" method="POST">
+        <form action="/pages/beVolunteer" method="POST">
             <!-- Personal Information Section -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="first_name">First Name:</label>
-                    <input type="text" id="first_name" name="first_name" required>
+                    <label for="volfirst">First Name</label>
+                    <input type="text" id="volfirst" name="volfirst" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="last_name">Last Name:</label>
-                    <input type="text" id="last_name" name="last_name" required>
+                    <label for="vollast">Last Name:</label>
+                    <input type="text" id="vollast" name="vollast" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="volphone">Phone:</label>
+                    <input type="text" id="volphone" name="volphone" required>
                 </div>
+
+                
+                <div class="form-group">
+                <label for="volemail">Email:</label>
+            <input type="email" id="volemail" name="volemail" required>
+        </div>
+            
+
+            <div class="form-group"
+            <label for="volgender">Gender:</label>
+            <input type="text" id="volgender" name="volgender" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volbirthday">Birthday:</label>
+            <input type="date" id="volbirthday" name="volbirthday" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volshirtsize">Shirt Size:</label>
+            <input type="text" id="volshirtsize" name="volshirtsize" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volusername">Username:</label>
+            <input type="text" id="volusername" name="volusername" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volpassword">Password:</label>
+            <input type="text" id="volpassword" name="volpassword" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volstreetaddress">Street Address:</label>
+            <input type="text" id="volstreetaddress" name="volstreetaddress" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volcity">City:</label>
+            <input type="text" id="volcity" name="volcity" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volstate">State:</label>
+            <input type="text" id="volstate" name="volstate" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volzipcode">Zipcode:</label>
+            <input type="text" id="volzipcode" name="volzipcode" required>
+        </div>
+
+            <div class="form-group"
+            <label for="lead">Willing to Lead:</label>
+            <input type="checkbox" id="lead" name="lead">
+        </div>
+
+            <div class="form-group"
+            <label for="volnumhourspermonth">Preferred Hours per Month:</label>
+            <input type="text" id="volnumhourspermonth" name="volnumhourspermonth" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volstartdate">Start Date:</label>
+            <input type="date" id="volstartdate" name="volstartdate" required>
+        </div>
+
+            <div class="form-group"
+            <label for="volstatus">Status:</label>
+            <select id="volstatus" name="volstatus" class="dropselect" required>
+            <option value="" disabled>Select Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            </select>
+        </div>
+
+        
+
+            <div class="form-group"
+            <label for="volsewinglevel">Sewing Level:</label>
+            <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>
+                <option value="" disabled>Select Sewing Level</option>
+                <option value="none">None</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+        </div>
+          
             </div>
 
             <!-- Contact Information Section -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="birthday">Birthday:</label>
-                    <input type="date" id="birthday" name="birthday" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender" required>
-                        <option value="" disabled selected hidden></option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="other">Other</option>
-                        <option value="prefer_not_to_say">Prefer not to say</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="address"> Street Address:</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="city">City:</label>
-                    <input type="text" id="city" name="city" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="state">State:</label>
-                    <input type="text" id="state" name="state" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="zipcode">Zip Code:</label>
-                    <input type="text" id="zipcode" name="zipcode" required>
-                </div>
-            </div>
-
-            <!-- Volunteer Information Section -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="hours_per_month">Hours per month:</label>
-                    <input type="number" id="hours_per_month" name="hours_per_month" min="0" step="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="sewing_level">Sewing Level:</label>
-                    <select id="sewing_level" name="sewing_level" required>
-                        <option value="" disabled selected hidden></option>
-                        <option value="none">None</option>
-                        <option value="basic">Basic</option>
-                        <option value="advanced">Advanced</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Additional Preferences Section -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="shirt_size">Shirt Size:</label>
-                    <select id="shirt_size" name="shirt_size" required>
-                        <option value="" disabled selected hidden></option>
-                        <option value="xs">XS</option>
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
-                        <option value="2xl">2XL</option>
-                        <option value="3xl">3XL</option>
-                        <option value="4xl">4XL</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="lead_event">Willing to lead an event?</label>
-                    <select id="lead_event" name="lead_event">
-                        <option value="" disabled selected hidden></option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="newsletter" name="newsletter">
-                    <label for="newsletter">Subscribe to newsletter emails</label>
-                </div>
-            </div>
-
+            
             <!-- Form Submit -->
             <button type="submit">Submit Form</button>
         </form>
