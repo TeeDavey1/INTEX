@@ -530,12 +530,17 @@ app.post('/addEvent', async (req, res) => {
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
+}).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`Port ${port} is already in use. Please choose a different port.`);
+        process.exit(1);
+    } else {
+        console.error('Unhandled error:', err);
+        process.exit(1);
+    }
 });
 
 
 
-
-
-
-// Shows server is listening on start up
-app.listen(port, () => console.log("Listening..."));
+// // Shows server is listening on start up
+// app.listen(port, () => console.log("Listening..."));
