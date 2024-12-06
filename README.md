@@ -4,3 +4,10 @@ Secondary URL: 3-1intex.us-east-1.elasticbeanstalk.com
 Admin Login
 Username: trevor
 Password: admin
+
+Packages Used:
+express
+knex
+pg
+ejs
+express-session
