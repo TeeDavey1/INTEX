@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Volunteer</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
         /* General Page Styling */
@@ -277,6 +277,21 @@
             <div class="section">
                 <h3>Volunteer Preferences</h3>
                 <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="volshirtsize">Shirt Size:</label>
+                        <select id="volshirtsize" name="volshirtsize" class="dropselect" required>
+                        <option value="" disabled>Select Shirt Size</option>
+                        <option value="xs">xs</option>
+                        <option value="s">s</option>
+                        <option value="m">m</option>
+                        <option value="l">l</option>
+                        <option value="xl">xl</option>
+                        <option value="xxl">xxl</option>
+                        <option value="xxxl">xxxl</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="volsewinglevel">Sewing Level:</label>
                         <select id="volsewinglevel" name="volsewinglevel" class="dropselect" required>

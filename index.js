@@ -286,27 +286,31 @@ app.get('/viewEvent/:eventid', ensureAdmin, async (req, res) => {
 //         }
 //     });
     
-app.get('/pages/beVolunteer', (req, res) => {
-    res.render('pages/beVolunteer'); 
-});
 
-app.get('/internalPages/addVolunteer', ensureAdmin, (req, res) => {
+app.get('/addVolunteer', ensureAdmin, (req, res) => {
     res.render('internalPages/addVolunteer');
 });
 
 
-app.post('/deleteVolunteer/:id', (req, res) => {
+
+
+app.post('/deleteVolunteer/:id', ensureAdmin, async (req, res) => {
     const volid = req.params.id;
-    knex('volunteers')
-      .where('volid', volid)
-      .del() // Deletes the record with the specified ID
-      .then(() => {
+    try {
+        const volidDelete = await knex('volunteerevents')
+        .where('volid', volid)
+        .del();
+        const volunteerDelete = await knex('volunteers')
+        .where('volid', volid)
+        .del(); // Deletes the record with the specified ID
+        if (!volunteerDelete) {
+            return res.status(404).send('Event not found');
+        }
         res.redirect('/maintainVolunteers'); // Change this to match the GET route
-      })
-      .catch(error => {
-        console.error('Error deleting:', error);
-        res.status(500).send('Internal Server Error');
-      });
+    } catch (error) {
+            console.error('Error deleting:', error);
+            res.status(500).send('Internal Server Error');
+        }
 });
 
 // app.post('/internalPages/beVolunteer', (req, res) => {
@@ -391,21 +395,61 @@ app.post('/beVolunteer', (req, res) => {
         });
 });
 
+app.post('/addVolunteer', (req, res) => {
+    // Extract form values from req.body
+    const {
+        volfirst, vollast, volphone, volemail, newsletter, volgender, volbirthday,
+        volshirtsize, volstreetaddress, volcity, volstate, 
+        volzipcode, lead, volnumhourspermonth, volstartdate, volstatus, 
+        volsewinglevel, voldiscovery, volavailabilitynotes
+    } = req.body;
+
+    // Insert the new record into the database
+    knex('volunteers')
+        .insert({
+            volfirst: volfirst,
+            vollast: vollast,
+            volphone: volphone,
+            volemail: volemail,
+            newsletter: newsletter === 'on',
+            volgender: volgender,
+            volbirthday: volbirthday,
+            volshirtsize: volshirtsize,
+            volstreetaddress: volstreetaddress,
+            volcity: volcity,
+            volstate: volstate,
+            volzipcode: volzipcode,
+            lead: lead === 'on', // Checkbox returns "on" if checked
+            volnumhourspermonth: volnumhourspermonth,
+            volstartdate: volstartdate,
+            volstatus: volstatus,
+            volsewinglevel: volsewinglevel,
+            voldiscovery: voldiscovery,
+            volavailabilitynotes: volavailabilitynotes
+        })
+        .then(() => {
+            res.redirect('/maintainVolunteers');
+        })
+        .catch(error => {
+            console.error('Error adding record:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 
 // Route to add a new volunteer
-app.post('/addVolunteer', ensureAdmin, async (req, res) => {
-    try {
-        // Convert all form data to lowercase
-        const formData = Object.fromEntries(
-            Object.entries(req.body).map(([key, value]) => [key, value.toLowerCase()])
-        );
-        await knex('volunteers').insert(formData); // Ensure data validation here
-        res.redirect('/maintainVolunteers');
-    } catch (error) {
-        console.error('Error adding volunteer:', error);
-        res.status(500).send('Internal Server Errors');
-    }
-});
+// app.post('/addVolunteer', ensureAdmin, async (req, res) => {
+//     try {
+//         // Convert all form data to lowercase
+//         const formData = Object.fromEntries(
+//             Object.entries(req.body).map(([key, value]) => [key, value.toLowerCase()])
+//         );
+//         await knex('volunteers').insert(formData); // Ensure data validation here
+//         res.redirect('/maintainVolunteers');
+//     } catch (error) {
+//         console.error('Error adding volunteer:', error);
+//         res.status(500).send('Internal Server Errors');
+//     }
+// });
 
 // app.post('/internalPages/addVolunteer', ensureAdmin, async (req, res) => {
 //     const { volfirst, vollast, volphone, volemail, volgender, volbirthday, volshirtsize, 
@@ -687,6 +731,8 @@ app.post('/editVolunteer/:id', ensureAdmin, async (req, res) => {
 app.post('/deleteEvent/:eventid', ensureAdmin, async (req, res) => {
     const eventid = req.params.eventid;
     try {
+        const eventProductsDelete = await knex('eventproducts')
+        .where('eventid', eventid).del();
         const eventDelete = await knex('events')
         .where('eventid', eventid).del();
         if (!eventDelete) {
@@ -702,9 +748,13 @@ app.post('/deleteEvent/:eventid', ensureAdmin, async (req, res) => {
 });
 
 app.post('/deleteEmployee/:id', ensureAdmin, async (req, res) => {
-    const { id } = req.params;
+    const  id  = req.params.id;
     try {
-        await knex('employees').where('empid', id).del();
+        const employeeDelete = await knex('employees')
+        .where('empid', id).del();
+        if (!employeeDelete) {
+            return res.status(404).send('Event not found');
+        }
         res.redirect('/maintainEmployees');
     } catch (error) {
         console.error('Error deleting employee:', error);
@@ -910,6 +960,45 @@ app.post('/addEvent', ensureAdmin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+
+app.get('/testingPage', async (req, res) => {
+    try {
+        // Query the database to get the sums grouped by 'component'
+        const result = await knex('eventproducts')
+            .select('component')
+            .sum('started as started')
+            .sum('continued as continued')
+            .sum('finished as finished')
+            .groupBy('component');
+
+        // Sum totals across all components for the final row
+        let totalStarted = 0;
+        let totalContinued = 0;
+        let totalFinished = 0;
+
+        result.forEach(row => {
+            totalStarted += parseInt(row.started, 10);
+            totalContinued += parseInt(row.continued, 10);
+            totalFinished += parseInt(row.finished, 10);
+        });
+
+        // Pass the result and totals to the EJS view
+        res.render('internalPages/testingPage', {
+            eventProducts: result,
+            totalStarted: totalStarted,
+            totalContinued: totalContinued,
+            totalFinished: totalFinished
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error retrieving data from the database');
+    }
+});
+
+  
+  
 
 
 
